@@ -54,6 +54,14 @@ TCamera::OnCommand( command_data const &Command ) {
     bool iscameracommand { true };
     switch( Command.command ) {
 
+        case user_command::lookahead:
+            Angle.y = 0;
+            Angle.x = 0;
+             break;
+        case user_command::lookback:
+            Angle.y = 3;
+            Angle.x = 0;
+             break;
         case user_command::viewturn: {
 
             OnCursorMove(
@@ -201,7 +209,7 @@ void TCamera::Update()
                 m_owner->Mechanik :
                 m_owner->ctOwner ) };
         if( ( owner )
-         && ( owner->Occupied()->CabOccupied < 0 ) ) { 
+         && ( owner->Occupied()->CabOccupied < 0 ) ) {
             movement *= -1.f;
             movement.y = -movement.y;
         }

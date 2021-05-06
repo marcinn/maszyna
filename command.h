@@ -148,6 +148,8 @@ enum class user_command {
     moveback,
     moveup,
     movedown,
+    lookahead,
+    lookback,
 
     nearestcarcouplingincrease,
     nearestcarcouplingdisconnect,

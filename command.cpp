@@ -154,6 +154,8 @@ commanddescription_sequence Commands_descriptions = {
     { "moveback", command_target::entity, command_mode::oneoff },
     { "moveup", command_target::entity, command_mode::oneoff },
     { "movedown", command_target::entity, command_mode::oneoff },
+    { "lookahead", command_target::entity, command_mode::oneoff },
+    { "lookback", command_target::entity, command_mode::oneoff },
     { "nearestcarcouplingincrease", command_target::vehicle, command_mode::oneoff },
     { "nearestcarcouplingdisconnect", command_target::vehicle, command_mode::oneoff },
     { "nearestcarcoupleradapterattach", command_target::vehicle, command_mode::oneoff  },

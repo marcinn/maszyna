@@ -334,7 +334,7 @@ timetable_panel::update() {
         if( 0 == table.StationCount ) {
             // only bother if there's stations to list
             text_lines.emplace_back( STR("(no timetable)"), Global.UITextColor );
-        } 
+        }
         else {
 
             auto const loadingcolor { glm::vec4( 164.0f / 255.0f, 84.0f / 255.0f, 84.0f / 255.0f, 1.f ) };
@@ -858,7 +858,7 @@ debug_panel::update_vehicle_coupler( int const Side ) {
 	auto const *connected { m_input.vehicle->MoverParameters->Neighbours[ Side ].vehicle };
 
     if( connected == nullptr ) {
-        
+
         return controltype + " " + couplerstatus + " " + adapterstatus;
     }
 
@@ -1217,6 +1217,14 @@ debug_panel::update_section_camera( std::vector<text_line> &Output ) {
 	    + to_string( camera.Pos.x, 2 ) + ", "
 	    + to_string( camera.Pos.y, 2 ) + ", "
 	    + to_string( camera.Pos.z, 2 ) + "]";
+
+	Output.emplace_back( textline, Global.UITextColor );
+
+	textline =
+	    "Angle: ["
+	    + to_string( camera.Angle.x, 2 ) + ", "
+	    + to_string( camera.Angle.y, 2 ) + ", "
+	    + to_string( camera.Angle.z, 2 ) + "]";
 
 	Output.emplace_back( textline, Global.UITextColor );
 
