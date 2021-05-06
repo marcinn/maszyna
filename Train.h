@@ -18,6 +18,7 @@ http://mozilla.org/MPL/2.0/.
 #include "PyInt.h"
 #include "command.h"
 #include "pythonscreenviewer.h"
+#include "McZapkie/MOVER.h"
 
 #undef snprintf // pyint.h->python
 
@@ -356,6 +357,29 @@ class TTrain {
     static void OnCommand_redmarkertogglerearleft( TTrain *Train, command_data const &Command );
     static void OnCommand_redmarkertogglerearright( TTrain *Train, command_data const &Command );
     static void OnCommand_redmarkerstoggle( TTrain *Train, command_data const &Command );
+    // bezposrednie wlaczanie swiatel SM42 i podobnych jednokabinowych
+    static void OnCommand_headlightenablefrontleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightdisablefrontleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightenablefrontright( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightdisablefrontright( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightenablefrontupper( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightdisablefrontupper( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightenablerearleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightdisablerearleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightenablerearright( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightdisablerearright( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightenablerearupper( TTrain *Train, command_data const &Command );
+    static void OnCommand_headlightdisablerearupper( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerenablefrontleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerdisablefrontleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerenablefrontright( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerdisablefrontright( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerenablerearleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerdisablerearleft( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerenablerearright( TTrain *Train, command_data const &Command );
+    static void OnCommand_redmarkerdisablerearright( TTrain *Train, command_data const &Command );
+
+    // pozostale
     static void OnCommand_endsignalstoggle( TTrain *Train, command_data const &Command );
     static void OnCommand_headlightsdimtoggle( TTrain *Train, command_data const &Command );
     static void OnCommand_headlightsdimenable( TTrain *Train, command_data const &Command );
@@ -718,7 +742,7 @@ public: // reszta może by?publiczna
     sound_source rsHissE { sound_placement::internal, EU07_SOUND_CABCONTROLSCUTOFFRANGE }; // nagle
     sound_source rsHissX { sound_placement::internal, EU07_SOUND_CABCONTROLSCUTOFFRANGE }; // fala
     sound_source rsHissT { sound_placement::internal, EU07_SOUND_CABCONTROLSCUTOFFRANGE }; // czasowy
-    sound_source rsSBHiss { sound_placement::internal, EU07_SOUND_CABCONTROLSCUTOFFRANGE }; // local 
+    sound_source rsSBHiss { sound_placement::internal, EU07_SOUND_CABCONTROLSCUTOFFRANGE }; // local
     sound_source rsSBHissU { sound_placement::internal, EU07_SOUND_CABCONTROLSCUTOFFRANGE }; // local, engage brakes
     float m_lastlocalbrakepressure { -1.f }; // helper, cached level of pressure in local brake cylinder
     float m_localbrakepressurechange { 0.f }; // recent change of pressure in local brake cylinder
@@ -834,6 +858,10 @@ private:
     void set_scndctrl(int);
     void set_trainbrake(float);
     void set_localbrake(float);
+    bool hasThreeWayLightSwitch();
+    bool hasLightsControlledByPresetSelector();
+    void setLight(end cab, light requestedLight, TGauge *button, bool enabled);
+    end getActiveEnd();
 
 	uint16_t id();
 	bool pending_delete = false;

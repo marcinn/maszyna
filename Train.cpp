@@ -331,6 +331,30 @@ TTrain::commandhandler_map const TTrain::m_commandhandlers = {
     { user_command::redmarkertogglerearleft, &TTrain::OnCommand_redmarkertogglerearleft },
     { user_command::redmarkertogglerearright, &TTrain::OnCommand_redmarkertogglerearright },
     { user_command::redmarkerstoggle, &TTrain::OnCommand_redmarkerstoggle },
+
+    // bezposrednie swiatla dla SM42 i podobnych jednokabinowych
+    { user_command::headlightenablefrontleft, &TTrain::OnCommand_headlightenablefrontleft },
+    { user_command::headlightdisablefrontleft, &TTrain::OnCommand_headlightdisablefrontleft },
+    { user_command::headlightenablefrontright, &TTrain::OnCommand_headlightenablefrontright },
+    { user_command::headlightdisablefrontright, &TTrain::OnCommand_headlightdisablefrontright },
+    { user_command::headlightenablefrontupper, &TTrain::OnCommand_headlightenablefrontupper },
+    { user_command::headlightdisablefrontupper, &TTrain::OnCommand_headlightdisablefrontupper },
+    { user_command::headlightenablerearleft, &TTrain::OnCommand_headlightenablerearleft },
+    { user_command::headlightdisablerearleft, &TTrain::OnCommand_headlightdisablerearleft },
+    { user_command::headlightenablerearright, &TTrain::OnCommand_headlightenablerearright },
+    { user_command::headlightdisablerearright, &TTrain::OnCommand_headlightdisablerearright },
+    { user_command::headlightenablerearupper, &TTrain::OnCommand_headlightenablerearupper },
+    { user_command::headlightdisablerearupper, &TTrain::OnCommand_headlightdisablerearupper },
+    { user_command::redmarkerenablefrontleft, &TTrain::OnCommand_redmarkerenablefrontleft },
+    { user_command::redmarkerdisablefrontleft, &TTrain::OnCommand_redmarkerdisablefrontleft },
+    { user_command::redmarkerenablefrontright, &TTrain::OnCommand_redmarkerenablefrontright },
+    { user_command::redmarkerdisablefrontright, &TTrain::OnCommand_redmarkerdisablefrontright },
+    { user_command::redmarkerenablerearleft, &TTrain::OnCommand_redmarkerenablerearleft },
+    { user_command::redmarkerdisablerearleft, &TTrain::OnCommand_redmarkerdisablerearleft },
+    { user_command::redmarkerenablerearright, &TTrain::OnCommand_redmarkerenablerearright },
+    { user_command::redmarkerdisablerearright, &TTrain::OnCommand_redmarkerdisablerearright },
+
+    // pozostale
     { user_command::endsignalstoggle, &TTrain::OnCommand_endsignalstoggle },
     { user_command::headlightsdimtoggle, &TTrain::OnCommand_headlightsdimtoggle },
     { user_command::headlightsdimenable, &TTrain::OnCommand_headlightsdimenable },
@@ -936,7 +960,7 @@ void TTrain::OnCommand_jointcontrollerset( TTrain *Train, command_data const &Co
         // on press or hold
         // value controls brake in range 0-0.5, master controller in range 0.5-1.0
         if( Command.param1 >= 0.5 ) {
-            Train->set_master_controller( 
+            Train->set_master_controller(
                 ( Command.param1 * 2 - 1 )
                 * ( Train->mvControlled->CoupledCtrl ?
                         Train->mvControlled->MainCtrlPosNo + Train->mvControlled->ScndCtrlPosNo :
@@ -1226,7 +1250,7 @@ void TTrain::OnCommand_secondcontrollerdecreasefast( TTrain *Train, command_data
 void TTrain::OnCommand_secondcontrollerset( TTrain *Train, command_data const &Command ) {
 	if (Command.action == GLFW_RELEASE)
 		return;
-		
+
     auto const targetposition { std::min<int>( Command.param1, Train->mvControlled->ScndCtrlPosNo ) };
     while( ( targetposition < Train->mvControlled->GetVirtualScndPos() )
         && ( true == Train->mvControlled->DecScndCtrl( 1 ) ) ) {
@@ -3388,7 +3412,7 @@ void TTrain::OnCommand_compressorpresetactivateprevious(TTrain *Train, command_d
     if( Train->ggCompressorListButton.type() == TGaugeType::push ) {
         // impulse switch toggles only between positions 'default' and 'default+1'
         return;
-    } 
+    }
 
 	if ((Train->mvOccupied->CompressorListPos > 1)
 		|| (true == Train->mvOccupied->CompressorListWrap)) {
@@ -4749,7 +4773,7 @@ void TTrain::OnCommand_heatingdisable( TTrain *Train, command_data const &Comman
 
         Train->mvControlled->HeatingAllow = false;
         // visual feedback
-        Train->ggTrainHeatingButton.UpdateValue( 
+        Train->ggTrainHeatingButton.UpdateValue(
             ( Train->ggTrainHeatingButton.type() == TGaugeType::push ?
                 1.0 :
                 0.0 ),
@@ -4885,7 +4909,7 @@ void TTrain::OnCommand_springbrakeshutoffdisable(TTrain *Train, command_data con
 void TTrain::OnCommand_springbrakerelease(TTrain *Train, command_data const &Command) {
 	if (Command.action == GLFW_PRESS) {
 		// only reacting to press, so the switch doesn't flip back and forth if key is held down
-		
+
 		auto *vehicle{ Train->find_nearest_consist_vehicle(Command.freefly, Command.location) };
 		if (vehicle == nullptr) { return; }
 		Train->mvOccupied->SpringBrakeRelease();
@@ -5981,8 +6005,8 @@ void TTrain::UpdateCab() {
 
     // Ra: przesiadka, jeśli AI zmieniło kabinę (a człon?)...
     if( ( DynamicObject->Mechanik ) // może nie być?
-     && ( DynamicObject->Mechanik->AIControllFlag ) ) { 
-        
+     && ( DynamicObject->Mechanik->AIControllFlag ) ) {
+
         if( iCabn != ( // numer kabiny (-1: kabina B)
                 mvOccupied->CabOccupied == -1 ?
                     2 :
@@ -6957,7 +6981,7 @@ bool TTrain::Update( double const Deltatime )
     {
 #ifdef _WIN32
         if (DynamicObject->Mechanik ?
-                (DynamicObject->Mechanik->AIControllFlag ? false : 
+                (DynamicObject->Mechanik->AIControllFlag ? false :
 					(Global.iFeedbackMode == 4 /*|| (Global.bMWDmasterEnable && Global.bMWDBreakEnable)*/)) :
                 false && Global.fCalibrateIn[ 0 ][ 1 ] != 0.0) // nie blokujemy AI
         { // Ra: nie najlepsze miejsce, ale na początek gdzieś to dać trzeba
@@ -7134,7 +7158,7 @@ bool TTrain::Update( double const Deltatime )
         ggHelperButton.UpdateValue( DynamicObject->Mechanik->HelperState );
     }
 	ggHelperButton.Update();
- 
+
     ggSpeedControlIncreaseButton.Update( lowvoltagepower );
 	ggSpeedControlDecreaseButton.Update( lowvoltagepower );
 	ggSpeedControlPowerIncreaseButton.Update( lowvoltagepower );
@@ -7313,7 +7337,7 @@ TTrain::update_sounds( double const Deltatime ) {
         else {
             rsHissX.stop();
         }
-        // upuszczanie z czasowego 
+        // upuszczanie z czasowego
         volume = mvOccupied->Handle->GetSound( s_fv4a_t ) * rsHissT.m_amplitudefactor;
         if( volume * brakevolumescale > 0.05 ) {
             rsHissT
@@ -8145,7 +8169,7 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName)
                 sound->offset( brakeoffset );
             }
         }
-        // for whatever is left fallback on generic location, centre of the cab 
+        // for whatever is left fallback on generic location, centre of the cab
         auto const caboffset { glm::dvec3 { ( Cabine[ cabindex ].CabPos1 + Cabine[ cabindex ].CabPos2 ) * 0.5 } + glm::dvec3 { 0, 1, 0 } };
         for( auto sound : sounds ) {
             if( sound->offset() == nullvector ) {
@@ -8941,7 +8965,7 @@ void TTrain::set_cab_controls( int const Cab ) {
      }
     // radio
     ggRadioVolumeSelector.PutValue( Global.RadioVolume );
-       
+
     // we reset all indicators, as they're set during the update pass
     // TODO: when cleaning up break setting indicator state into a separate function, so we can reuse it
 }
@@ -9245,7 +9269,7 @@ bool TTrain::initialize_gauge(cParser &Parser, std::string const &Label, int con
             return true;
         }
     }
-    // TODO: move viable gauges to the state driven array 
+    // TODO: move viable gauges to the state driven array
     std::unordered_map<std::string, std::tuple<TGauge &, bool const *> > const stategauges = {
         { "tempomat_sw:", { ggScndCtrlButton, &mvOccupied->SpeedCtrlUnit.IsActive } },
         { "speedinc_bt:", { ggSpeedControlIncreaseButton, &mvOccupied->SpeedCtrlUnit.IsActive } },
@@ -9637,6 +9661,150 @@ void train_table::update(double dt)
 			purge(train->Dynamic()->name());
 		}
 	}
+}
+
+void _doSetLightCommand(TTrain *Train, command_data const &Command, end cab, light requestedLight, TGauge *button, bool state) {
+    if(Train->hasLightsControlledByPresetSelector()) {
+        // lights are controlled by preset selector
+        return;
+    }
+    if( Command.action == GLFW_PRESS ) {
+        const end currentCab = Train->getActiveEnd();
+        TGauge *targetButton = button;
+
+        /* jesli jestesmy na tyle, to buttony sa na odwrot */
+        if(currentCab == end::rear) {
+            if(button == &Train->ggLeftLightButton) {
+                targetButton = &Train->ggRearLeftLightButton;
+            } else if(button == &Train->ggRightLightButton) {
+                targetButton = &Train->ggRearRightLightButton;
+            } else if(button == &Train->ggUpperLightButton) {
+                targetButton = &Train->ggRearUpperLightButton;
+            } else if(button == &Train->ggRearLeftLightButton) {
+                targetButton = &Train->ggLeftLightButton;
+            } else if(button == &Train->ggRearRightLightButton) {
+                targetButton = &Train->ggRightLightButton;
+            } else if(button == &Train->ggRearUpperLightButton) {
+                targetButton = &Train->ggUpperLightButton;
+            }
+        }
+        Train->setLight(cab, requestedLight, targetButton, state);
+    }
+}
+
+void TTrain::OnCommand_headlightenablefrontleft(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::front, light::headlight_left, &Train->ggLeftLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_headlightenablefrontright(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::front, light::headlight_right, &Train->ggRightLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_headlightenablefrontupper(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::front, light::headlight_upper, &Train->ggUpperLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_headlightenablerearleft(TTrain *Train, command_data const &Command) {
+    // tylne reflektory w maszynie sa na odwrot?
+    _doSetLightCommand(Train, Command, end::rear, light::headlight_right, &Train->ggRearLeftLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_headlightenablerearright(TTrain *Train, command_data const &Command) {
+    // tylne reflektory w maszynie sa na odwrot?
+    _doSetLightCommand(Train, Command, end::rear, light::headlight_left, &Train->ggRearRightLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_headlightenablerearupper(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::rear, light::headlight_upper, &Train->ggRearUpperLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_headlightdisablefrontleft(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::front, light::headlight_left, &Train->ggLeftLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_headlightdisablefrontright(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::front, light::headlight_right, &Train->ggRightLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_headlightdisablefrontupper(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::front, light::headlight_upper, &Train->ggUpperLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_headlightdisablerearleft(TTrain *Train, command_data const &Command) {
+    // tylne reflektory w maszynie sa na odwrot?
+    _doSetLightCommand(Train, Command, end::rear, light::headlight_right, &Train->ggRearLeftLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_headlightdisablerearright(TTrain *Train, command_data const &Command) {
+    // tylne reflektory w maszynie sa na odwrot?
+    _doSetLightCommand(Train, Command, end::rear, light::headlight_left, &Train->ggRearRightLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_headlightdisablerearupper(TTrain *Train, command_data const &Command) {
+    _doSetLightCommand(Train, Command, end::rear, light::headlight_upper, &Train->ggRearUpperLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_redmarkerenablefrontleft( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::front, light::redmarker_left, &Train->ggLeftEndLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_redmarkerdisablefrontleft( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::front, light::redmarker_left, &Train->ggLeftEndLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_redmarkerenablefrontright( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::front, light::redmarker_right, &Train->ggRightEndLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_redmarkerdisablefrontright( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::front, light::redmarker_right, &Train->ggRightEndLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_redmarkerenablerearleft( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::rear, light::redmarker_left, &Train->ggRearLeftEndLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_redmarkerdisablerearleft( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::rear, light::redmarker_left, &Train->ggRearLeftEndLightButton, lightstate::disabled);
+}
+
+void TTrain::OnCommand_redmarkerenablerearright( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::rear, light::redmarker_right, &Train->ggRearRightEndLightButton, lightstate::enabled);
+}
+
+void TTrain::OnCommand_redmarkerdisablerearright( TTrain *Train, command_data const &Command ) {
+    _doSetLightCommand(Train, Command, end::rear, light::redmarker_right, &Train->ggRearRightEndLightButton, lightstate::disabled);
+}
+
+bool TTrain::hasThreeWayLightSwitch() {
+    return (this->ggLeftEndLightButton.SubModel == nullptr);
+}
+
+bool TTrain::hasLightsControlledByPresetSelector() {
+    return (this->mvOccupied->LightsPosNo > 0);
+}
+
+end TTrain::getActiveEnd() {
+    return this->cab_to_end();
+}
+
+void TTrain::setLight(end cab, light requestedLight, TGauge *button, bool enabled) {
+    /* turn on/off light directly */
+    /* works only for cabs with two way switches */
+
+    /* metoda uzywana do bezposredniego wlaczania swiatel w lokach
+     * jednokabinowych (typu SM42) */
+
+    if(!this->hasThreeWayLightSwitch()) {
+        if(enabled) {
+            this->mvOccupied->iLights[cab] |= requestedLight;
+        } else {
+            this->mvOccupied->iLights[cab] &= (~requestedLight);
+        }
+        if(button) {
+            button->UpdateValue(enabled ? 1.0 : 0.0, this->dsbSwitch);
+        }
+    }
 }
 
 TTrain *

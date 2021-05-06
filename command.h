@@ -214,6 +214,31 @@ enum class user_command {
     redmarkertogglerearleft,
     redmarkertogglerearright,
     redmarkerstoggle,
+
+    // bezposrednie wlaczanie reflektorow (dla SM42 i podobnych jednokabinowych)
+    headlightenablefrontleft,
+    headlightdisablefrontleft,
+    headlightenablefrontright,
+    headlightdisablefrontright,
+    headlightenablefrontupper,
+    headlightdisablefrontupper,
+    headlightenablerearleft,
+    headlightdisablerearleft,
+    headlightenablerearright,
+    headlightdisablerearright,
+    headlightenablerearupper,
+    headlightdisablerearupper,
+    // bezposrednie wlaczanie swiatel czerwonych
+    redmarkerenablefrontleft,
+    redmarkerdisablefrontleft,
+    redmarkerenablefrontright,
+    redmarkerdisablefrontright,
+    redmarkerenablerearleft,
+    redmarkerdisablerearleft,
+    redmarkerenablerearright,
+    redmarkerdisablerearright,
+
+    // pozostale
     endsignalstoggle,
     headlightsdimtoggle,
     headlightsdimenable,
