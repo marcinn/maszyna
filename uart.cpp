@@ -359,7 +359,12 @@ void uart_input::poll()
               | trainstate.motor_overload_threshold << 2),
             //byte 3
 			(uint8_t)(
-                trainstate.coupled_hv_voltage_relays << 0),
+                trainstate.coupled_hv_voltage_relays << 0
+              | t->btLampkaBocznik1.GetValue() << 1
+              | t->btLampkaBocznik2.GetValue() << 2
+              | t->btLampkaBocznik3.GetValue() << 3
+              | t->btLampkaBocznik4.GetValue() << 4
+                ),
             //byte 4
 			(uint8_t)(
                 trainstate.train_heating << 0
