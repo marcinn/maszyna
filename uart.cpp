@@ -364,6 +364,7 @@ void uart_input::poll()
               | t->btLampkaBocznik2.GetValue() << 2
               | t->btLampkaBocznik3.GetValue() << 3
               | t->btLampkaBocznik4.GetValue() << 4
+              | t->btLampkaRadio.GetValue() << 5
                 ),
             //byte 4
 			(uint8_t)(
