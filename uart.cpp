@@ -12,11 +12,9 @@ uart_input::uart_input()
 {
     conf = Global.uart_conf;
 
-    if (!setup_port())
-      throw std::runtime_error("uart: cannot open port");
-
     old_packet.fill(0);
     last_update = std::chrono::high_resolution_clock::now();
+    last_setup = std::chrono::high_resolution_clock::now();
 }
 
 bool uart_input::setup_port()
@@ -27,13 +25,21 @@ bool uart_input::setup_port()
       port = nullptr;
     }
 
+    last_setup = std::chrono::high_resolution_clock::now();
+
     if (sp_get_port_by_name(conf.port.c_str(), &port) != SP_OK) {
-        ErrorLog("uart: cannot find specified port");
+        if(!error_notified) {
+            ErrorLog("uart: cannot find specified port '"+conf.port+"'");
+        }
+        error_notified = true;
         return false;
     }
 
     if (sp_open(port, (sp_mode)(SP_MODE_READ | SP_MODE_WRITE)) != SP_OK) {
-        ErrorLog("uart: cannot open port");
+        if(!error_notified) {
+            ErrorLog("uart: cannot open port '"+conf.port+"'");
+        }
+        error_notified = true;
         port = nullptr;
         return false;
     }
@@ -47,7 +53,10 @@ bool uart_input::setup_port()
 		sp_set_config_stopbits(config, 1) != SP_OK ||
 		sp_set_config_parity(config, SP_PARITY_NONE) != SP_OK ||
 		sp_set_config(port, config) != SP_OK) {
-        ErrorLog("uart: cannot set config");
+        if(!error_notified) {
+            ErrorLog("uart: cannot set config");
+        }
+        error_notified = true;
         port = nullptr;
         return false;
     }
@@ -55,11 +64,16 @@ bool uart_input::setup_port()
 	sp_free_config(config);
 
     if (sp_flush(port, SP_BUF_BOTH) != SP_OK) {
-        ErrorLog("uart: cannot flush");
+        if(!error_notified) {
+            ErrorLog("uart: cannot flush");
+        }
+        error_notified = true;
         port = nullptr;
         return false;
     }
-    
+
+    error_notified = false;
+
     return true;
 }
 
@@ -163,6 +177,11 @@ void uart_input::poll()
         return;
     last_update = now;
 
+    /* if connection error occured, slow down reconnection tries */
+    if (!port && error_notified && std::chrono::duration<float>(now - last_setup).count() < 1.0) {
+        return;
+    }
+
     if (!port) {
       setup_port();
       return;
@@ -173,17 +192,17 @@ void uart_input::poll()
 		return;
 
     sp_return ret;
-	
+
     if ((ret = sp_input_waiting(port)) >= 20)
     {
         std::array<uint8_t, 20> tmp_buffer; // TBD, TODO: replace with vector of configurable size?
         ret = sp_blocking_read(port, (void*)tmp_buffer.data(), tmp_buffer.size(), 0);
-		
+
         if (ret < 0) {
           setup_port();
           return;
         }
-		
+
 		bool sync;
 		if (tmp_buffer[0] != 0xEF || tmp_buffer[1] != 0xEF || tmp_buffer[2] != 0xEF || tmp_buffer[3] != 0xEF) {
 			if (conf.debug)
@@ -195,7 +214,7 @@ void uart_input::poll()
 				WriteLog("uart: sync ok");
 			sync = true;
 		}
-		
+
 		if (!sync) {
 			int sync_cnt = 0;
 			int sync_fail = 0;
@@ -231,7 +250,7 @@ void uart_input::poll()
       }
 			return;
 		}
-		
+
 		std::array<uint8_t, 16> buffer;
 		memmove(&buffer[0], &tmp_buffer[4], 16);
 
