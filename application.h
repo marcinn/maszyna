@@ -12,6 +12,9 @@ http://mozilla.org/MPL/2.0/.
 #include "applicationmode.h"
 #include "PyInt.h"
 #include "network/manager.h"
+#ifdef WITH_UART
+#include "uart.h"
+#endif
 
 class eu07_application {
 	const int MAX_NETWORK_PER_FRAME = 1000;
@@ -99,6 +102,9 @@ public:
         is_server() const;
     bool
         is_client() const;
+#ifdef WITH_UART
+    UartStatus uart_status;
+#endif
 
 private:
 // types

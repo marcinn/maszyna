@@ -124,7 +124,7 @@ driver_mode::drivermode_input::command_fallback( user_command const Command ) co
     if( lookup == commandfallbacks.end() ) {
         return { user_command::none, user_command::none };
     }
-    
+
     return lookup->second;
 }
 
@@ -613,7 +613,7 @@ driver_mode::update_camera( double const Deltatime ) {
         // debug camera
         DebugCamera.Update();
     }
-                                               
+
     // reset window state, it'll be set again if applicable in a check below
     Global.CabWindowOpen = false;
 
@@ -814,8 +814,8 @@ driver_mode::OnKeyDown(int cKey) {
     switch (cKey) {
 
         case GLFW_KEY_F4: {
-            
-            if( Global.shiftState ) { ExternalView(); } // with Shift, cycle through external views 
+
+            if( Global.shiftState ) { ExternalView(); } // with Shift, cycle through external views
             else                    { InOutKey(); } // without, step out of the cab or return to it
             break;
         }
@@ -850,7 +850,7 @@ driver_mode::OnKeyDown(int cKey) {
         }
         case GLFW_KEY_F6: {
             // przyspieszenie symulacji do testowania scenerii... uwaga na FPS!
-            if( DebugModeFlag ) { 
+            if( DebugModeFlag ) {
 
                 if( Global.ctrlState ) { Global.fTimeSpeed = ( Global.shiftState ? 60.0 : 20.0 ); }
                 else                   { Global.fTimeSpeed = ( Global.shiftState ? 5.0 : 1.0 ); }
@@ -915,7 +915,7 @@ driver_mode::DistantView( bool const Near ) {
         ( simulation::Train != nullptr ) ?
             simulation::Train->Dynamic() :
             pDynamicNearest ) };
-    
+
     if( vehicle == nullptr ) { return; }
 
     auto const cab =
@@ -1081,7 +1081,7 @@ driver_mode::CabView() {
     m_externalview = false;
 
     // likwidacja obrotów - patrzy horyzontalnie na południe
-    Camera.Reset(); 
+    Camera.Reset();
 
     // bind camera with the vehicle
     Camera.m_owner = train->Dynamic();

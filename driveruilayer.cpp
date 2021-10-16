@@ -75,7 +75,6 @@ driver_ui::on_key_( int const Key, int const Scancode, int const Action, int con
     }
 
     switch (Key) {
-            
         case GLFW_KEY_F1: {
             // basic consist info
             auto state = (
@@ -83,7 +82,7 @@ driver_ui::on_key_( int const Key, int const Scancode, int const Action, int con
                 ( m_aidpanel.is_expanded == false ) ? 1 :
                 2 );
             state = clamp_circular( ++state, 3 );
-            
+
             m_aidpanel.is_open = ( state > 0 );
             m_aidpanel.is_expanded = ( state > 1 );
 
@@ -97,7 +96,7 @@ driver_ui::on_key_( int const Key, int const Scancode, int const Action, int con
                 ( m_timetablepanel.is_expanded == false ) ? 1 :
                 2 );
             state = clamp_circular( ++state, 3 );
-            
+
             m_timetablepanel.is_open = ( state > 0 );
             m_timetablepanel.is_expanded = ( state > 1 );
 
