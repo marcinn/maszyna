@@ -43,15 +43,16 @@ file(GLOB HEADERS "*.h"
 
 if (APPLE)
 	set (CMAKE_FIND_FRAMEWORK LAST)
-	set (CMAKE_EXE_LINKER_FLAGS "-pagezero_size 10000 -image_base 100000000")
 endif()
 
 option(USE_IMGUI_GL3 "Use OpenGL3+ imgui implementation" ON)
 option(WITH_OPENGL_MODERN "Compile with OpenGL modern renderer" ON)
 option(WITH_OPENGL_LEGACY "Compile with OpenGL legacy renderer" ON)
 option(WITH_UART "Compile with libserialport" ON)
+option(WITH_LUA "Compile with lua scripting support" ON)
 option(WITH_OPENVR "Compile with OpenVR" ON)
 option(WITH_ZMQ "Compile with cppzmq" OFF)
+option(WITH_CRASHPAD "Compile with crashpad" OFF)
 option(USE_LTO "Use link-time optimization" OFF)
 
 set(SOURCES
@@ -107,7 +108,6 @@ set(SOURCES
 "drivermouseinput.cpp"
 "translation.cpp"
 "material.cpp"
-"lua.cpp"
 "stdafx.cpp"
 "messaging.cpp"
 "scene.cpp"
@@ -206,6 +206,16 @@ else()
 	set_source_files_properties("imgui/imgui_impl_opengl2.cpp" PROPERTIES SKIP_PRECOMPILE_HEADERS TRUE)
 endif()
 
+if (WITH_CRASHPAD)
+	add_definitions(-DWITH_CRASHPAD)
+	set(SOURCES ${SOURCES} "crashreporter.cpp")
+	if (WIN32)
+		include_directories("ref/crashpad/include" "ref/crashpad/include/mini_chromium")
+	else()
+		include_directories("ref/crashpad/crashpad" "ref/crashpad/crashpad/third_party/mini_chromium/mini_chromium")
+	endif()
+endif()
+
 if (WITH_UART)
 	add_definitions(-DWITH_UART)
 	set(SOURCES ${SOURCES} "uart.cpp")
@@ -219,6 +229,11 @@ endif()
 if (WITH_OPENVR)
         add_definitions(-DWITH_OPENVR)
         set(SOURCES ${SOURCES} "vr/openvr_imp.cpp")
+endif()
+
+if (WITH_LUA)
+	add_definitions(-DWITH_LUA)
+	set(SOURCES ${SOURCES} "lua.cpp")
 endif()
 
 if (WITH_OPENGL_MODERN)
@@ -365,8 +380,20 @@ if (USE_LTO)
 endif()
 
 if (WITH_OPENVR)
-	    include_directories(${OPENVR_INCLUDE_DIR})
-		target_link_libraries(${PROJECT_NAME} ${OPENVR_LIBRARY})
+	include_directories(${OPENVR_INCLUDE_DIR})
+	target_link_libraries(${PROJECT_NAME} ${OPENVR_LIBRARY})
+endif()
+
+if (WITH_CRASHPAD)
+	if (WIN32)
+		target_link_libraries(${PROJECT_NAME} "${CMAKE_SOURCE_DIR}/ref/crashpad/lib_md/base.lib")
+		target_link_libraries(${PROJECT_NAME} "${CMAKE_SOURCE_DIR}/ref/crashpad/lib_md/client.lib")
+		target_link_libraries(${PROJECT_NAME} "${CMAKE_SOURCE_DIR}/ref/crashpad/lib_md/util.lib")
+	else()
+		target_link_libraries(${PROJECT_NAME} "${CMAKE_SOURCE_DIR}/ref/crashpad/crashpad/out/Default/obj/client/libclient.a")
+		target_link_libraries(${PROJECT_NAME} "${CMAKE_SOURCE_DIR}/ref/crashpad/crashpad/out/Default/obj/util/libutil.a")
+		target_link_libraries(${PROJECT_NAME} "${CMAKE_SOURCE_DIR}/ref/crashpad/crashpad/out/Default/obj/third_party/mini_chromium/mini_chromium/base/libbase.a")
+	endif()
 endif()
 
 find_package(glfw3 REQUIRED)
@@ -401,9 +428,11 @@ endif()
 find_package(SndFile REQUIRED)
 target_link_libraries(${PROJECT_NAME} SndFile::sndfile)
 
-find_package(LuaJIT REQUIRED)
-include_directories(${LUAJIT_INCLUDE_DIR})
-target_link_libraries(${PROJECT_NAME} ${LUAJIT_LIBRARIES})
+if (WITH_LUA)
+	find_package(LuaJIT REQUIRED)
+	include_directories(${LUAJIT_INCLUDE_DIR})
+	target_link_libraries(${PROJECT_NAME} ${LUAJIT_LIBRARIES})
+endif()
 
 if (WITH_UART)
 	find_package(libserialport REQUIRED)

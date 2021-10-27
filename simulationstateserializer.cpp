@@ -33,6 +33,8 @@ namespace simulation {
 std::shared_ptr<deserializer_state>
 state_serializer::deserialize_begin( std::string const &Scenariofile ) {
 
+    crashreport_add_info("scenario", Scenariofile);
+
     // TODO: move initialization to separate routine so we can reuse it
     SafeDelete( Region );
     Region = new scene::basic_region();
@@ -317,7 +319,11 @@ void state_serializer::deserialize_lua( cParser &Input, scene::scratch_data &Scr
        Input.getTokens(1, false);
        std::string file;
        Input >> file;
+#ifdef WITH_LUA
        simulation::Lua.interpret(Global.asCurrentSceneryPath + file);
+#else
+       ErrorLog(file + ": lua scripts not supported in this build.");
+#endif
 }
 
 void
