@@ -31,6 +31,11 @@ http://mozilla.org/MPL/2.0/.
 #include "utilities.h"
 #include "Logs.h"
 
+#ifdef WITH_UART
+#include "uart.h"
+#endif
+
+
 void
 drivingaid_panel::update() {
 
@@ -546,7 +551,9 @@ debug_panel::update() {
     m_powergridlines.clear();
     m_cameralines.clear();
     m_rendererlines.clear();
+#ifdef WITH_UART
     m_uartlines.clear();
+#endif
 
     update_section_vehicle( m_vehiclelines );
     update_section_engine( m_enginelines );
@@ -557,7 +564,9 @@ debug_panel::update() {
     update_section_powergrid( m_powergridlines );
     update_section_camera( m_cameralines );
     update_section_renderer( m_rendererlines );
+#ifdef WITH_UART
     update_section_uart(m_uartlines);
+#endif
 }
 
 void
@@ -641,6 +650,7 @@ debug_panel::render() {
                     avlports[i] = (char *) Application.uart_status.available_ports[i].c_str();
                 }
                 ImGui::Combo("Port", &Application.uart_status.selected_port_index, avlports, ports_num);
+                ImGui::Combo("Baud", &Application.uart_status.selected_baud_index, uart_baudrates_list, uart_baudrates_list_num);
             }
             ImGui::Checkbox("Enabled", &Application.uart_status.enabled);
         }
