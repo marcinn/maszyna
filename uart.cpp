@@ -524,6 +524,8 @@ void uart_input::poll()
                 trainstate.train_heating << 0
               | trainstate.motor_resistors << 1
               | trainstate.wheelslip << 2
+              | t->btLampkaDoorLeft.GetValue() << 3
+              | t->btLampkaDoorRight.GetValue() << 4
               | trainstate.alerter << 6
               | trainstate.shp << 7),
             //byte 5
