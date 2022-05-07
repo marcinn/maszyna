@@ -81,17 +81,17 @@
 //  ES 3.0    300       "#version 300 es"   = WebGL 2.0
 //----------------------------------------
 
-#include "Globals.h"
 #include "stdafx.h"
+#include "Globals.h"
 
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include <glad/glad.h>  // Needs to be initialized with gladLoadGL() in user's code
-
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
+
+#include <glad/glad.h>  // Needs to be initialized with gladLoadGL() in user's code
 
 // OpenGL Data
 static char g_GlslVersionString[128] = "";

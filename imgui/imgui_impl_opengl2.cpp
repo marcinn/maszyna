@@ -41,11 +41,11 @@
 //  increase compatibility with users shaders (not ideal). 2016-09-05: OpenGL:
 //  Fixed save and restore of current scissor rectangle.
 
+#include "imgui.h"
 #include "imgui_impl_opengl2.h"
 
 #include <glad/glad.h>  // Needs to be initialized with gladLoadGL() in user's code
 
-#include "imgui.h"
 
 // OpenGL Data
 static GLuint g_FontTexture = 0;
