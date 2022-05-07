@@ -21,8 +21,8 @@ extern "C" {
 
 typedef struct {
     PyObject_VAR_HEAD
-    /* Vector of pointers to list elements.  list[0] is ob_item[0], etc. */
-    PyObject **ob_item;
+        /* Vector of pointers to list elements.  list[0] is ob_item[0], etc. */
+        PyObject **ob_item;
 
     /* ob_item contains space for 'allocated' elements.  The number
      * currently in use is ob_size.
@@ -60,7 +60,7 @@ PyAPI_FUNC(PyObject *) _PyList_Extend(PyListObject *, PyObject *);
 /* Macro, trading safety for speed */
 #define PyList_GET_ITEM(op, i) (((PyListObject *)(op))->ob_item[i])
 #define PyList_SET_ITEM(op, i, v) (((PyListObject *)(op))->ob_item[i] = (v))
-#define PyList_GET_SIZE(op)    Py_SIZE(op)
+#define PyList_GET_SIZE(op) Py_SIZE(op)
 
 #ifdef __cplusplus
 }

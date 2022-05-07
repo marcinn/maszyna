@@ -5,13 +5,13 @@
  * The internal implementation behind PyString (bytes) and PyBytes (buffer)
  * methods of the given names, they operate on ASCII byte strings.
  */
-extern PyObject* _Py_bytes_isspace(const char *cptr, Py_ssize_t len);
-extern PyObject* _Py_bytes_isalpha(const char *cptr, Py_ssize_t len);
-extern PyObject* _Py_bytes_isalnum(const char *cptr, Py_ssize_t len);
-extern PyObject* _Py_bytes_isdigit(const char *cptr, Py_ssize_t len);
-extern PyObject* _Py_bytes_islower(const char *cptr, Py_ssize_t len);
-extern PyObject* _Py_bytes_isupper(const char *cptr, Py_ssize_t len);
-extern PyObject* _Py_bytes_istitle(const char *cptr, Py_ssize_t len);
+extern PyObject *_Py_bytes_isspace(const char *cptr, Py_ssize_t len);
+extern PyObject *_Py_bytes_isalpha(const char *cptr, Py_ssize_t len);
+extern PyObject *_Py_bytes_isalnum(const char *cptr, Py_ssize_t len);
+extern PyObject *_Py_bytes_isdigit(const char *cptr, Py_ssize_t len);
+extern PyObject *_Py_bytes_islower(const char *cptr, Py_ssize_t len);
+extern PyObject *_Py_bytes_isupper(const char *cptr, Py_ssize_t len);
+extern PyObject *_Py_bytes_istitle(const char *cptr, Py_ssize_t len);
 
 /* These store their len sized answer in the given preallocated *result arg. */
 extern void _Py_bytes_lower(char *result, const char *cptr, Py_ssize_t len);
@@ -36,13 +36,13 @@ extern const char _Py_swapcase__doc__[];
 
 /* These are left in for backward compatibility and will be removed
    in 2.8/3.2 */
-#define ISLOWER(c)  Py_ISLOWER(c)
-#define ISUPPER(c)  Py_ISUPPER(c)
-#define ISALPHA(c)  Py_ISALPHA(c)
-#define ISDIGIT(c)  Py_ISDIGIT(c)
+#define ISLOWER(c) Py_ISLOWER(c)
+#define ISUPPER(c) Py_ISUPPER(c)
+#define ISALPHA(c) Py_ISALPHA(c)
+#define ISDIGIT(c) Py_ISDIGIT(c)
 #define ISXDIGIT(c) Py_ISXDIGIT(c)
-#define ISALNUM(c)  Py_ISALNUM(c)
-#define ISSPACE(c)  Py_ISSPACE(c)
+#define ISALNUM(c) Py_ISALNUM(c)
+#define ISSPACE(c) Py_ISSPACE(c)
 
 #undef islower
 #define islower(c) undefined_islower(c)
@@ -70,6 +70,6 @@ extern const char _Py_swapcase__doc__[];
 #define toupper(c) undefined_toupper(c)
 
 /* this is needed because some docs are shared from the .o, not static */
-#define PyDoc_STRVAR_shared(name,str) const char name[] = PyDoc_STR(str)
+#define PyDoc_STRVAR_shared(name, str) const char name[] = PyDoc_STR(str)
 
 #endif /* !Py_BYTES_CTYPE_H */

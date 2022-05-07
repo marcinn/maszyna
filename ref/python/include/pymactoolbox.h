@@ -4,7 +4,7 @@
 #ifndef Py_PYMACTOOLBOX_H
 #define Py_PYMACTOOLBOX_H
 #ifdef __cplusplus
-	extern "C" {
+extern "C" {
 #endif
 
 #include <Carbon/Carbon.h>
@@ -19,7 +19,8 @@
 
 #if __has_include(<Availability.h>)
 #include <Availability.h>
-#define APPLE_SUPPORTS_QUICKTIME (__MAC_OS_X_VERSION_MAX_ALLOWED < 101200) && !__LP64__
+#define APPLE_SUPPORTS_QUICKTIME \
+    (__MAC_OS_X_VERSION_MAX_ALLOWED < 101200) && !__LP64__
 #else
 #define APPLE_SUPPORTS_QUICKTIME !__LP64__
 #endif
@@ -31,44 +32,45 @@
 /*
 ** Helper routines for error codes and such.
 */
-char *PyMac_StrError(int);			/* strerror with mac errors */
-extern PyObject *PyMac_OSErrException;		/* Exception for OSErr */
-PyObject *PyMac_GetOSErrException(void);	/* Initialize & return it */
-PyObject *PyErr_Mac(PyObject *, int);		/* Exception with a mac error */
-PyObject *PyMac_Error(OSErr);			/* Uses PyMac_GetOSErrException */
+char *PyMac_StrError(int);               /* strerror with mac errors */
+extern PyObject *PyMac_OSErrException;   /* Exception for OSErr */
+PyObject *PyMac_GetOSErrException(void); /* Initialize & return it */
+PyObject *PyErr_Mac(PyObject *, int);    /* Exception with a mac error */
+PyObject *PyMac_Error(OSErr);            /* Uses PyMac_GetOSErrException */
 #if APPLE_SUPPORTS_QUICKTIME
 extern OSErr PyMac_GetFullPathname(FSSpec *, char *, int); /* convert
-							      fsspec->path */
+                                                              fsspec->path */
 #endif /* APPLE_SUPPORTS_QUICKTIME */
 
 /*
 ** These conversion routines are defined in mactoolboxglue.c itself.
 */
-int PyMac_GetOSType(PyObject *, OSType *);	/* argument parser for OSType */
-PyObject *PyMac_BuildOSType(OSType);		/* Convert OSType to PyObject */
+int PyMac_GetOSType(PyObject *, OSType *); /* argument parser for OSType */
+PyObject *PyMac_BuildOSType(OSType);       /* Convert OSType to PyObject */
 
-PyObject *PyMac_BuildNumVersion(NumVersion);/* Convert NumVersion to PyObject */
+PyObject *PyMac_BuildNumVersion(
+    NumVersion); /* Convert NumVersion to PyObject */
 
-int PyMac_GetStr255(PyObject *, Str255);	/* argument parser for Str255 */
-PyObject *PyMac_BuildStr255(Str255);		/* Convert Str255 to PyObject */
-PyObject *PyMac_BuildOptStr255(Str255);		/* Convert Str255 to PyObject,
-						   NULL to None */
+int PyMac_GetStr255(PyObject *, Str255); /* argument parser for Str255 */
+PyObject *PyMac_BuildStr255(Str255);     /* Convert Str255 to PyObject */
+PyObject *PyMac_BuildOptStr255(Str255);  /* Convert Str255 to PyObject,
+                                            NULL to None */
 
-int PyMac_GetRect(PyObject *, Rect *);		/* argument parser for Rect */
-PyObject *PyMac_BuildRect(Rect *);		/* Convert Rect to PyObject */
+int PyMac_GetRect(PyObject *, Rect *); /* argument parser for Rect */
+PyObject *PyMac_BuildRect(Rect *);     /* Convert Rect to PyObject */
 
-int PyMac_GetPoint(PyObject *, Point *);	/* argument parser for Point */
-PyObject *PyMac_BuildPoint(Point);		/* Convert Point to PyObject */
+int PyMac_GetPoint(PyObject *, Point *); /* argument parser for Point */
+PyObject *PyMac_BuildPoint(Point);       /* Convert Point to PyObject */
 
 int PyMac_GetEventRecord(PyObject *, EventRecord *); /* argument parser for
-							EventRecord */
-PyObject *PyMac_BuildEventRecord(EventRecord *); /* Convert EventRecord to
-						    PyObject */
+                                                        EventRecord */
+PyObject *PyMac_BuildEventRecord(EventRecord *);     /* Convert EventRecord to
+                                                        PyObject */
 
-int PyMac_GetFixed(PyObject *, Fixed *);	/* argument parser for Fixed */
-PyObject *PyMac_BuildFixed(Fixed);		/* Convert Fixed to PyObject */
-int PyMac_Getwide(PyObject *, wide *);		/* argument parser for wide */
-PyObject *PyMac_Buildwide(wide *);		/* Convert wide to PyObject */
+int PyMac_GetFixed(PyObject *, Fixed *); /* argument parser for Fixed */
+PyObject *PyMac_BuildFixed(Fixed);       /* Convert Fixed to PyObject */
+int PyMac_Getwide(PyObject *, wide *);   /* argument parser for wide */
+PyObject *PyMac_Buildwide(wide *);       /* Convert wide to PyObject */
 
 /*
 ** The rest of the routines are implemented by extension modules. If they are
@@ -86,18 +88,22 @@ PyObject *PyMac_Buildwide(wide *);		/* Convert wide to PyObject */
 ** These macros are used in the module init code. If we use toolbox object glue
 ** it sets the function pointer to point to the real function.
 */
-#define PyMac_INIT_TOOLBOX_OBJECT_NEW(object, rtn) { \
-	extern PyObject *(*PyMacGluePtr_##rtn)(object); \
-	PyMacGluePtr_##rtn = _##rtn; \
-}
-#define PyMac_INIT_TOOLBOX_OBJECT_CONVERT(object, rtn) { \
-	extern int (*PyMacGluePtr_##rtn)(PyObject *, object *); \
-	PyMacGluePtr_##rtn = _##rtn; \
-}
+#define PyMac_INIT_TOOLBOX_OBJECT_NEW(object, rtn)      \
+    {                                                   \
+        extern PyObject *(*PyMacGluePtr_##rtn)(object); \
+        PyMacGluePtr_##rtn = _##rtn;                    \
+    }
+#define PyMac_INIT_TOOLBOX_OBJECT_CONVERT(object, rtn)          \
+    {                                                           \
+        extern int (*PyMacGluePtr_##rtn)(PyObject *, object *); \
+        PyMacGluePtr_##rtn = _##rtn;                            \
+    }
 #else
 /*
-** If we don't use toolbox object glue the init macros are empty. Moreover, we define
-** _xxx_New to be the same as xxx_New, and the code in mactoolboxglue isn't included.
+** If we don't use toolbox object glue the init macros are empty. Moreover, we
+*define
+** _xxx_New to be the same as xxx_New, and the code in mactoolboxglue isn't
+*included.
 */
 #define PyMac_INIT_TOOLBOX_OBJECT_NEW(object, rtn)
 #define PyMac_INIT_TOOLBOX_OBJECT_CONVERT(object, rtn)
@@ -105,12 +111,12 @@ PyObject *PyMac_Buildwide(wide *);		/* Convert wide to PyObject */
 
 /* macfs exports */
 #ifndef __LP64__
-int PyMac_GetFSSpec(PyObject *, FSSpec *);	/* argument parser for FSSpec */
-PyObject *PyMac_BuildFSSpec(FSSpec *);		/* Convert FSSpec to PyObject */
-#endif /* !__LP64__ */
+int PyMac_GetFSSpec(PyObject *, FSSpec *); /* argument parser for FSSpec */
+PyObject *PyMac_BuildFSSpec(FSSpec *);     /* Convert FSSpec to PyObject */
+#endif                                     /* !__LP64__ */
 
-int PyMac_GetFSRef(PyObject *, FSRef *);	/* argument parser for FSRef */
-PyObject *PyMac_BuildFSRef(FSRef *);		/* Convert FSRef to PyObject */
+int PyMac_GetFSRef(PyObject *, FSRef *); /* argument parser for FSRef */
+PyObject *PyMac_BuildFSRef(FSRef *);     /* Convert FSRef to PyObject */
 
 /* AE exports */
 extern PyObject *AEDesc_New(AppleEvent *); /* XXXX Why passed by address?? */
@@ -221,12 +227,13 @@ extern int CFMutableArrayRefObj_Convert(PyObject *, CFMutableArrayRef *);
 extern PyObject *CFDictionaryRefObj_New(CFDictionaryRef);
 extern int CFDictionaryRefObj_Convert(PyObject *, CFDictionaryRef *);
 extern PyObject *CFMutableDictionaryRefObj_New(CFMutableDictionaryRef);
-extern int CFMutableDictionaryRefObj_Convert(PyObject *, CFMutableDictionaryRef *);
+extern int CFMutableDictionaryRefObj_Convert(
+    PyObject *, CFMutableDictionaryRef *);
 extern PyObject *CFURLRefObj_New(CFURLRef);
 extern int CFURLRefObj_Convert(PyObject *, CFURLRef *);
 extern int OptionalCFURLRefObj_Convert(PyObject *, CFURLRef *);
 
 #ifdef __cplusplus
-	}
+}
 #endif
 #endif

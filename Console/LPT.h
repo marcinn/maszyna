@@ -11,12 +11,11 @@ http://mozilla.org/MPL/2.0/.
 #define LPTH
 //---------------------------------------------------------------------------
 
-class TLPT
-{
-  private:
+class TLPT {
+   private:
     int address;
 
-  public:
+   public:
     bool Connect(int port);
     void Out(int x);
 };

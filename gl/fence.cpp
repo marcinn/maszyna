@@ -1,18 +1,12 @@
-#include "stdafx.h"
 #include "fence.h"
 
-gl::fence::fence()
-{
-    sync = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0);
-}
+#include "stdafx.h"
 
-gl::fence::~fence()
-{
-    glDeleteSync(sync);
-}
+gl::fence::fence() { sync = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE, 0); }
 
-bool gl::fence::is_signalled()
-{
+gl::fence::~fence() { glDeleteSync(sync); }
+
+bool gl::fence::is_signalled() {
     GLsizei len = 0;
     GLint val;
     glGetSynciv(sync, GL_SYNC_STATUS, 1, &len, &val);

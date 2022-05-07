@@ -9,11 +9,11 @@ http://mozilla.org/MPL/2.0/.
 
 #pragma once
 
-#include "simulationstateserializer.h"
 #include "Classes.h"
 #include "Event.h"
 #include "Train.h"
 #include "particles.h"
+#include "simulationstateserializer.h"
 
 #ifdef WITH_LUA
 #include "lua.h"
@@ -22,53 +22,48 @@ http://mozilla.org/MPL/2.0/.
 namespace simulation {
 
 class state_manager {
-
-public:
-// methods
-    void
-        init_scripting_interface();
+   public:
+    // methods
+    void init_scripting_interface();
     // legacy method, calculates changes in simulation state over specified time
-    void
-        update( double Deltatime, int Iterationcount );
-    void
-        update_clocks();
-    void
-        update_scripting_interface();
+    void update(double Deltatime, int Iterationcount);
+    void update_clocks();
+    void update_scripting_interface();
     // process input commands
-    void
-        process_commands();
- 	// create model from node string
-	TAnimModel *
-	    create_model(const std::string &src, const std::string &name, const glm::dvec3 &position);
-	// create eventlauncher from node string
-	TEventLauncher *
-	    create_eventlauncher(const std::string &src, const std::string &name, const glm::dvec3 &position);
-	// delete TAnimModel instance
-	void
-	    delete_model(TAnimModel *model);
-	// delete TEventLauncher instance
-	void
-	    delete_eventlauncher(TEventLauncher *launcher);
-	// starts deserialization from specified file, returns context pointer on success, throws otherwise
-	std::shared_ptr<deserializer_state>
-	    deserialize_begin(std::string const &Scenariofile);
-	// continues deserialization for given context, amount limited by time, returns true if needs to be called again
-	bool
-	    deserialize_continue(std::shared_ptr<deserializer_state> state);
+    void process_commands();
+    // create model from node string
+    TAnimModel *create_model(
+        const std::string &src, const std::string &name,
+        const glm::dvec3 &position);
+    // create eventlauncher from node string
+    TEventLauncher *create_eventlauncher(
+        const std::string &src, const std::string &name,
+        const glm::dvec3 &position);
+    // delete TAnimModel instance
+    void delete_model(TAnimModel *model);
+    // delete TEventLauncher instance
+    void delete_eventlauncher(TEventLauncher *launcher);
+    // starts deserialization from specified file, returns context pointer on
+    // success, throws otherwise
+    std::shared_ptr<deserializer_state> deserialize_begin(
+        std::string const &Scenariofile);
+    // continues deserialization for given context, amount limited by time,
+    // returns true if needs to be called again
+    bool deserialize_continue(std::shared_ptr<deserializer_state> state);
     // stores class data in specified file, in legacy (text) format
-    void
-        export_as_text( std::string const &Scenariofile ) const;
+    void export_as_text(std::string const &Scenariofile) const;
 
-private:
-// members
+   private:
+    // members
     state_serializer m_serializer;
     struct {
         std::shared_ptr<TMemCell> weather, time, date;
     } m_scriptinginterface;
 };
 
-// passes specified sound to all vehicles within range as a radio message broadcasted on specified channel
-void radio_message( sound_source *Message, int const Channel );
+// passes specified sound to all vehicles within range as a radio message
+// broadcasted on specified channel
+void radio_message(sound_source *Message, int const Channel);
 
 extern state_manager State;
 extern event_manager Events;
@@ -94,6 +89,6 @@ extern bool is_ready;
 
 struct deserializer_state;
 
-} // simulation
+}  // namespace simulation
 
 //---------------------------------------------------------------------------

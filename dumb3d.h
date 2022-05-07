@@ -11,8 +11,7 @@ http://mozilla.org/MPL/2.0/.
 
 #include <cmath>
 
-namespace Math3D
-{
+namespace Math3D {
 
 // Define this to have Math3D.cp generate a main which tests these classes
 //#define TEST_MATH3D
@@ -24,58 +23,40 @@ namespace Math3D
 // definition of the scalar type
 typedef double scalar_t;
 // inline pass-throughs to various basic math functions
-// written in this style to allow for easy substitution with more efficient versions
-inline scalar_t SINE_FUNCTION(scalar_t x)
-{
-    return std::sin(x);
-}
-inline scalar_t COSINE_FUNCTION(scalar_t x)
-{
-    return std::cos(x);
-}
-inline scalar_t SQRT_FUNCTION(scalar_t x)
-{
-    return std::sqrt(x);
-}
+// written in this style to allow for easy substitution with more efficient
+// versions
+inline scalar_t SINE_FUNCTION(scalar_t x) { return std::sin(x); }
+inline scalar_t COSINE_FUNCTION(scalar_t x) { return std::cos(x); }
+inline scalar_t SQRT_FUNCTION(scalar_t x) { return std::sqrt(x); }
 
 // 2 element vector
-class vector2
-{
-  public:
-    vector2(void) :
-        x(0.0), y(0.0)
-    {
-    }
-    vector2(scalar_t a, scalar_t b)
-    {
+class vector2 {
+   public:
+    vector2(void) : x(0.0), y(0.0) {}
+    vector2(scalar_t a, scalar_t b) {
         x = a;
         y = b;
     }
     double x;
-    union
-    {
+    union {
         double y;
         double z;
     };
 };
 // 3 element vector
-class vector3
-{
-  public:
-    vector3(void) :
-        x(0.0), y(0.0), z(0.0)
-    {}
-    vector3( scalar_t X, scalar_t Y, scalar_t Z ) :
-                   x( X ),     y( Y ),     z( Z )
-    {}
+class vector3 {
+   public:
+    vector3(void) : x(0.0), y(0.0), z(0.0) {}
+    vector3(scalar_t X, scalar_t Y, scalar_t Z) : x(X), y(Y), z(Z) {}
     template <typename Type_, glm::precision Precision_>
-    vector3( glm::tvec3<Type_, Precision_> const &Vector ) :
-        x( Vector.x ), y( Vector.y ), z( Vector.z )
-    {}
+    vector3(glm::tvec3<Type_, Precision_> const &Vector)
+        : x(Vector.x), y(Vector.y), z(Vector.z) {}
     template <typename Type_, glm::precision Precision_>
     operator glm::tvec3<Type_, Precision_>() const {
-        return glm::tvec3<Type_, Precision_>{ x, y, z }; }
-    // The int parameter is the number of elements to copy from initArray (3 or 4)
+        return glm::tvec3<Type_, Precision_>{x, y, z};
+    }
+    // The int parameter is the number of elements to copy from initArray (3 or
+    // 4)
     //	explicit vector3(scalar_t* initArray, int arraySize = 3)
     //	{ for (int i = 0;i<arraySize;++i) e[i] = initArray[i]; }
 
@@ -87,101 +68,66 @@ class vector3
     void inline SafeNormalize();
     double inline Length() const;
     double inline LengthSquared() const;
-    void inline Zero()
-    {
-        x = y = z = 0.0;
-    };
+    void inline Zero() { x = y = z = 0.0; };
 
     // [] is to read, () is to write (const correctness)
     //	const scalar_t& operator[] (int i) const { return e[i]; }
     //	scalar_t& operator() (int i) { return e[i]; }
 
-    // Provides access to the underlying array; useful for passing this class off to C APIs
-    const scalar_t *readArray(void)
-    {
-        return &x;
-    }
-    scalar_t *getArray(void)
-    {
-        return &x;
-    }
+    // Provides access to the underlying array; useful for passing this class
+    // off to C APIs
+    const scalar_t *readArray(void) { return &x; }
+    scalar_t *getArray(void) { return &x; }
 
     double x, y, z;
 
-    bool inline Equal(vector3 *v)
-    { // sprawdzenie odległości punktów
-        if (std::fabs(x - v->x) > 0.02)
-            return false; // sześcian zamiast kuli
-        if (std::fabs(z - v->z) > 0.02)
-            return false;
-        if (std::fabs(y - v->y) > 0.02)
-            return false;
+    bool inline Equal(vector3 *v) {  // sprawdzenie odległości punktów
+        if (std::fabs(x - v->x) > 0.02) return false;  // sześcian zamiast kuli
+        if (std::fabs(z - v->z) > 0.02) return false;
+        if (std::fabs(y - v->y) > 0.02) return false;
         return true;
     };
 
-	operator glm::dvec3() const
-	{
-		return glm::dvec3(x, y, z);
-	}
-  private:
+    operator glm::dvec3() const { return glm::dvec3(x, y, z); }
+
+   private:
 };
 
 // 4 element matrix
-class matrix4x4
-{
-  public:
-    matrix4x4(void)
-    {
-        memset( e, 0, sizeof( e ) );
-    }
+class matrix4x4 {
+   public:
+    matrix4x4(void) { memset(e, 0, sizeof(e)); }
 
     // When defining matrices in C arrays, it is easiest to define them with
-    // the column increasing fastest.  However, some APIs (OpenGL in particular) do this
-    // backwards, hence the "constructor" from C matrices, or from OpenGL matrices.
-    // Note that matrices are stored internally in OpenGL format.
-    void C_Matrix(scalar_t const *initArray)
-    {
+    // the column increasing fastest.  However, some APIs (OpenGL in particular)
+    // do this backwards, hence the "constructor" from C matrices, or from
+    // OpenGL matrices. Note that matrices are stored internally in OpenGL
+    // format.
+    void C_Matrix(scalar_t const *initArray) {
         int i = 0;
         for (int y = 0; y < 4; ++y)
-            for (int x = 0; x < 4; ++x)
-                (*this)(x)[y] = initArray[i++];
+            for (int x = 0; x < 4; ++x) (*this)(x)[y] = initArray[i++];
     }
     template <typename Type_>
-    void OpenGL_Matrix(Type_ const *initArray)
-    {
+    void OpenGL_Matrix(Type_ const *initArray) {
         int i = 0;
         for (int x = 0; x < 4; ++x)
-            for (int y = 0; y < 4; ++y)
-                (*this)(x)[y] = initArray[i++];
+            for (int y = 0; y < 4; ++y) (*this)(x)[y] = initArray[i++];
     }
 
     // [] is to read, () is to write (const correctness)
     // m[x][y] or m(x)[y] is the correct form
-    const scalar_t *operator[](int i) const
-    {
-        return &e[i << 2];
-    }
-    scalar_t *operator()(int i)
-    {
-        return &e[i << 2];
-    }
+    const scalar_t *operator[](int i) const { return &e[i << 2]; }
+    scalar_t *operator()(int i) { return &e[i << 2]; }
 
     // Low-level access to the array.
-    const scalar_t *readArray(void) const 
-    {
-        return e;
-    }
-    scalar_t *getArray(void)
-    {
-        return e;
-    }
+    const scalar_t *readArray(void) const { return e; }
+    scalar_t *getArray(void) { return e; }
 
     // Construct various matrices; REPLACES CURRENT CONTENTS OF THE MATRIX!
     // Written this way to work in-place and hence be somewhat more efficient
-    void Identity(void)
-    {
-        for (int i = 0; i < 16; ++i)
-            e[i] = 0;
+    void Identity(void) {
+        for (int i = 0; i < 16; ++i) e[i] = 0;
         e[0] = 1;
         e[5] = 1;
         e[10] = 1;
@@ -191,41 +137,40 @@ class matrix4x4
     inline matrix4x4 &Translation(const vector3 &translation);
     inline matrix4x4 &Scale(scalar_t x, scalar_t y, scalar_t z);
     inline matrix4x4 &BasisChange(const vector3 &v, const vector3 &n);
-    inline matrix4x4 &BasisChange(const vector3 &u, const vector3 &v, const vector3 &n);
-    inline matrix4x4 &ProjectionMatrix(bool perspective, scalar_t l, scalar_t r, scalar_t t,
-                                       scalar_t b, scalar_t n, scalar_t f);
-    void InitialRotate()
-    { // taka specjalna rotacja, nie ma co ciągać trygonometrii
+    inline matrix4x4 &BasisChange(
+        const vector3 &u, const vector3 &v, const vector3 &n);
+    inline matrix4x4 &ProjectionMatrix(
+        bool perspective, scalar_t l, scalar_t r, scalar_t t, scalar_t b,
+        scalar_t n, scalar_t f);
+    void
+    InitialRotate() {  // taka specjalna rotacja, nie ma co ciągać trygonometrii
         double f;
-        for (int i = 0; i < 16; i += 4)
-        {
-            e[i] = -e[i]; // zmiana znaku X
+        for (int i = 0; i < 16; i += 4) {
+            e[i] = -e[i];  // zmiana znaku X
             f = e[i + 1];
             e[i + 1] = e[i + 2];
-            e[i + 2] = f; // zamiana Y i Z
+            e[i + 2] = f;  // zamiana Y i Z
         }
     };
-    inline bool IdentityIs()
-    { // sprawdzenie jednostkowości
+    inline bool IdentityIs() {  // sprawdzenie jednostkowości
         for (int i = 0; i < 16; ++i)
-            if (e[i] != ((i % 5) ? 0.0 : 1.0)) // jedynki tylko na 0, 5, 10 i 15
+            if (e[i] !=
+                ((i % 5) ? 0.0 : 1.0))  // jedynki tylko na 0, 5, 10 i 15
                 return false;
         return true;
     }
 
-	operator glm::dmat4() const
-	{
-		return glm::make_mat4(e);
-	}
+    operator glm::dmat4() const { return glm::make_mat4(e); }
 
-  private:
+   private:
     scalar_t e[16];
 };
 
 // Scalar operations
 
 // Returns false if there are 0 solutions
-inline bool SolveQuadratic(scalar_t a, scalar_t b, scalar_t c, scalar_t *x1, scalar_t *x2);
+inline bool SolveQuadratic(
+    scalar_t a, scalar_t b, scalar_t c, scalar_t *x1, scalar_t *x2);
 
 // Vector operations
 inline bool operator==(const vector3 &, const vector3 &);
@@ -269,22 +214,17 @@ matrix4x4 Adjoint(const matrix4x4 &);
 matrix4x4 Inverse(const matrix4x4 &);
 
 // Inline implementations follow
-inline bool SolveQuadratic(scalar_t a, scalar_t b, scalar_t c, scalar_t *x1, scalar_t *x2)
-{
+inline bool SolveQuadratic(
+    scalar_t a, scalar_t b, scalar_t c, scalar_t *x1, scalar_t *x2) {
     // If a == 0, solve a linear equation
-    if (a == 0)
-    {
-        if (b == 0)
-            return false;
+    if (a == 0) {
+        if (b == 0) return false;
         *x1 = c / b;
         *x2 = *x1;
         return true;
-    }
-    else
-    {
+    } else {
         scalar_t det = b * b - 4 * a * c;
-        if (det < 0)
-            return false;
+        if (det < 0) return false;
         det = SQRT_FUNCTION(det) / (2 * a);
         scalar_t prefix = -b / (2 * a);
         *x1 = prefix + det;
@@ -293,13 +233,11 @@ inline bool SolveQuadratic(scalar_t a, scalar_t b, scalar_t c, scalar_t *x1, sca
     }
 }
 
-inline bool operator==(const vector3 &v1, const vector3 &v2)
-{
+inline bool operator==(const vector3 &v1, const vector3 &v2) {
     return (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
 }
 
-inline bool operator<(const vector3 &v1, const vector3 &v2)
-{
+inline bool operator<(const vector3 &v1, const vector3 &v2) {
     //	for (int i=0;i<4;++i)
     //		if (v1[i] < v2[i]) return true;
     //	else if (v1[i] > v2[i]) return false;
@@ -307,67 +245,47 @@ inline bool operator<(const vector3 &v1, const vector3 &v2)
     return false;
 }
 
-inline vector3 operator-(const vector3 &v)
-{
-    return vector3(-v.x, -v.y, -v.z);
-}
+inline vector3 operator-(const vector3 &v) { return vector3(-v.x, -v.y, -v.z); }
 
-inline vector3 operator*(const vector3 &v, scalar_t k)
-{
+inline vector3 operator*(const vector3 &v, scalar_t k) {
     return vector3(k * v.x, k * v.y, k * v.z);
 }
 
-inline vector3 operator*(scalar_t k, const vector3 &v)
-{
-    return v * k;
-}
+inline vector3 operator*(scalar_t k, const vector3 &v) { return v * k; }
 
-inline vector3 &operator*=(vector3 &v, scalar_t k)
-{
+inline vector3 &operator*=(vector3 &v, scalar_t k) {
     v.x *= k;
     v.y *= k;
     v.z *= k;
     return v;
 };
 
-inline vector3 operator/(const vector3 &v, scalar_t k)
-{
+inline vector3 operator/(const vector3 &v, scalar_t k) {
     return vector3(v.x / k, v.y / k, v.z / k);
 }
 
-inline vector3 &operator/=(vector3 &v, scalar_t k)
-{
+inline vector3 &operator/=(vector3 &v, scalar_t k) {
     v.x /= k;
     v.y /= k;
     v.z /= k;
     return v;
 }
 
-inline scalar_t LengthSquared3(const vector3 &v)
-{
-    return DotProduct(v, v);
-}
-inline scalar_t LengthSquared4(const vector3 &v)
-{
-    return DotProduct4(v, v);
-}
+inline scalar_t LengthSquared3(const vector3 &v) { return DotProduct(v, v); }
+inline scalar_t LengthSquared4(const vector3 &v) { return DotProduct4(v, v); }
 
-inline scalar_t Length3(const vector3 &v)
-{
+inline scalar_t Length3(const vector3 &v) {
     return SQRT_FUNCTION(LengthSquared3(v));
 }
-inline scalar_t Length4(const vector3 &v)
-{
+inline scalar_t Length4(const vector3 &v) {
     return SQRT_FUNCTION(LengthSquared4(v));
 }
 
-inline vector3 Normalize(const vector3 &v)
-{
+inline vector3 Normalize(const vector3 &v) {
     vector3 retVal = v / Length3(v);
     return retVal;
 }
-inline vector3 SafeNormalize(const vector3 &v)
-{
+inline vector3 SafeNormalize(const vector3 &v) {
     double l = Length3(v);
     vector3 retVal;
     if (l == 0)
@@ -376,93 +294,77 @@ inline vector3 SafeNormalize(const vector3 &v)
         retVal = v / l;
     return retVal;
 }
-inline vector3 Normalize4(const vector3 &v)
-{
-    return v / Length4(v);
-}
+inline vector3 Normalize4(const vector3 &v) { return v / Length4(v); }
 
-inline vector3 operator+(const vector3 &v1, const vector3 &v2)
-{
+inline vector3 operator+(const vector3 &v1, const vector3 &v2) {
     return vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
 }
 
-inline vector3 &operator+=(vector3 &v1, const vector3 &v2)
-{
+inline vector3 &operator+=(vector3 &v1, const vector3 &v2) {
     v1.x += v2.x;
     v1.y += v2.y;
     v1.z += v2.z;
     return v1;
 }
 
-inline vector3 operator-(const vector3 &v1, const vector3 &v2)
-{
+inline vector3 operator-(const vector3 &v1, const vector3 &v2) {
     return vector3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
 }
 
-inline vector3 &operator-=(vector3 &v1, const vector3 &v2)
-{
+inline vector3 &operator-=(vector3 &v1, const vector3 &v2) {
     v1.x -= v2.x;
     v1.y -= v2.y;
     v1.z -= v2.z;
     return v1;
 }
 
-inline scalar_t DotProduct(const vector3 &v1, const vector3 &v2)
-{
+inline scalar_t DotProduct(const vector3 &v1, const vector3 &v2) {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
-inline scalar_t DotProduct4(const vector3 &v1, const vector3 &v2)
-{
+inline scalar_t DotProduct4(const vector3 &v1, const vector3 &v2) {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
-inline vector3 CrossProduct(const vector3 &v1, const vector3 &v2)
-{
-    return vector3(v1.y * v2.z - v1.z * v2.y, v2.x * v1.z - v2.z * v1.x, v1.x * v2.y - v1.y * v2.x);
+inline vector3 CrossProduct(const vector3 &v1, const vector3 &v2) {
+    return vector3(
+        v1.y * v2.z - v1.z * v2.y, v2.x * v1.z - v2.z * v1.x,
+        v1.x * v2.y - v1.y * v2.x);
 }
 
-inline vector3 Interpolate( vector3 const &First, vector3 const &Second, float const Factor ) {
-
-    return ( First * ( 1.0f - Factor ) ) + ( Second * Factor );
+inline vector3 Interpolate(
+    vector3 const &First, vector3 const &Second, float const Factor) {
+    return (First * (1.0f - Factor)) + (Second * Factor);
 }
 
-inline vector3 operator*(const matrix4x4 &m, const vector3 &v)
-{
-    return vector3(v.x * m[0][0] + v.y * m[1][0] + v.z * m[2][0] + m[3][0],
-                   v.x * m[0][1] + v.y * m[1][1] + v.z * m[2][1] + m[3][1],
-                   v.x * m[0][2] + v.y * m[1][2] + v.z * m[2][2] + m[3][2]);
+inline vector3 operator*(const matrix4x4 &m, const vector3 &v) {
+    return vector3(
+        v.x * m[0][0] + v.y * m[1][0] + v.z * m[2][0] + m[3][0],
+        v.x * m[0][1] + v.y * m[1][1] + v.z * m[2][1] + m[3][1],
+        v.x * m[0][2] + v.y * m[1][2] + v.z * m[2][2] + m[3][2]);
 }
 
-void inline vector3::Normalize()
-{
+void inline vector3::Normalize() {
     double il = 1 / Length();
     x *= il;
     y *= il;
     z *= il;
 }
 
-double inline vector3::Length() const
-{
+double inline vector3::Length() const {
     return SQRT_FUNCTION(x * x + y * y + z * z);
 }
 
-double inline vector3::LengthSquared() const {
+double inline vector3::LengthSquared() const { return (x * x + y * y + z * z); }
 
-    return ( x * x + y * y + z * z );
-}
-
-inline bool operator==(const matrix4x4 &m1, const matrix4x4 &m2)
-{
+inline bool operator==(const matrix4x4 &m1, const matrix4x4 &m2) {
     for (int x = 0; x < 4; ++x)
         for (int y = 0; y < 4; ++y)
-            if (m1[x][y] != m2[x][y])
-                return false;
+            if (m1[x][y] != m2[x][y]) return false;
     return true;
 }
 
-inline bool operator<(const matrix4x4 &m1, const matrix4x4 &m2)
-{
+inline bool operator<(const matrix4x4 &m1, const matrix4x4 &m2) {
     for (int x = 0; x < 4; ++x)
         for (int y = 0; y < 4; ++y)
             if (m1[x][y] < m2[x][y])
@@ -472,37 +374,30 @@ inline bool operator<(const matrix4x4 &m1, const matrix4x4 &m2)
     return false;
 }
 
-inline matrix4x4 operator*(const matrix4x4 &m1, const matrix4x4 &m2)
-{
+inline matrix4x4 operator*(const matrix4x4 &m1, const matrix4x4 &m2) {
     matrix4x4 retVal;
     for (int x = 0; x < 4; ++x)
-        for (int y = 0; y < 4; ++y)
-        {
+        for (int y = 0; y < 4; ++y) {
             retVal(x)[y] = 0;
-            for (int i = 0; i < 4; ++i)
-                retVal(x)[y] += m1[i][y] * m2[x][i];
+            for (int i = 0; i < 4; ++i) retVal(x)[y] += m1[i][y] * m2[x][i];
         }
     return retVal;
 }
 
-inline matrix4x4 Transpose(const matrix4x4 &m)
-{
+inline matrix4x4 Transpose(const matrix4x4 &m) {
     matrix4x4 retVal;
     for (int x = 0; x < 4; ++x)
-        for (int y = 0; y < 4; ++y)
-            retVal(x)[y] = m[y][x];
+        for (int y = 0; y < 4; ++y) retVal(x)[y] = m[y][x];
     return retVal;
 }
 
-inline matrix4x4 &matrix4x4::Rotation(scalar_t angle, vector3 axis)
-{
+inline matrix4x4 &matrix4x4::Rotation(scalar_t angle, vector3 axis) {
     scalar_t c = COSINE_FUNCTION(angle);
     scalar_t s = SINE_FUNCTION(angle);
     // One minus c (short name for legibility of formulai)
     scalar_t omc = (1 - c);
 
-    if (LengthSquared3(axis) != 1)
-        axis = Normalize(axis);
+    if (LengthSquared3(axis) != 1) axis = Normalize(axis);
 
     scalar_t x = axis.x;
     scalar_t y = axis.y;
@@ -537,8 +432,7 @@ inline matrix4x4 &matrix4x4::Rotation(scalar_t angle, vector3 axis)
     return *this;
 }
 
-inline matrix4x4 &matrix4x4::Translation(const vector3 &translation)
-{
+inline matrix4x4 &matrix4x4::Translation(const vector3 &translation) {
     Identity();
     e[12] = translation.x;
     e[13] = translation.y;
@@ -546,8 +440,7 @@ inline matrix4x4 &matrix4x4::Translation(const vector3 &translation)
     return *this;
 }
 
-inline matrix4x4 &matrix4x4::Scale(scalar_t x, scalar_t y, scalar_t z)
-{
+inline matrix4x4 &matrix4x4::Scale(scalar_t x, scalar_t y, scalar_t z) {
     Identity();
     e[0] = x;
     e[5] = y;
@@ -555,8 +448,8 @@ inline matrix4x4 &matrix4x4::Scale(scalar_t x, scalar_t y, scalar_t z)
     return *this;
 }
 
-inline matrix4x4 &matrix4x4::BasisChange(const vector3 &u, const vector3 &v, const vector3 &n)
-{
+inline matrix4x4 &matrix4x4::BasisChange(
+    const vector3 &u, const vector3 &v, const vector3 &n) {
     e[0] = u.x;
     e[1] = v.x;
     e[2] = n.x;
@@ -580,24 +473,21 @@ inline matrix4x4 &matrix4x4::BasisChange(const vector3 &u, const vector3 &v, con
     return *this;
 }
 
-inline matrix4x4 &matrix4x4::BasisChange(const vector3 &v, const vector3 &n)
-{
+inline matrix4x4 &matrix4x4::BasisChange(const vector3 &v, const vector3 &n) {
     vector3 u = CrossProduct(v, n);
     return BasisChange(u, v, n);
 }
 
-inline matrix4x4 &matrix4x4::ProjectionMatrix(bool perspective, scalar_t left_plane,
-                                              scalar_t right_plane, scalar_t top_plane,
-                                              scalar_t bottom_plane, scalar_t near_plane,
-                                              scalar_t far_plane)
-{
+inline matrix4x4 &matrix4x4::ProjectionMatrix(
+    bool perspective, scalar_t left_plane, scalar_t right_plane,
+    scalar_t top_plane, scalar_t bottom_plane, scalar_t near_plane,
+    scalar_t far_plane) {
     scalar_t A = (right_plane + left_plane) / (right_plane - left_plane);
     scalar_t B = (top_plane + bottom_plane) / (top_plane - bottom_plane);
     scalar_t C = (far_plane + near_plane) / (far_plane - near_plane);
 
     Identity();
-    if (perspective)
-    {
+    if (perspective) {
         e[0] = 2 * near_plane / (right_plane - left_plane);
         e[5] = 2 * near_plane / (top_plane - bottom_plane);
         e[8] = A;
@@ -605,9 +495,7 @@ inline matrix4x4 &matrix4x4::ProjectionMatrix(bool perspective, scalar_t left_pl
         e[10] = C;
         e[11] = -1;
         e[14] = 2 * far_plane * near_plane / (far_plane - near_plane);
-    }
-    else
-    {
+    } else {
         e[0] = 2 / (right_plane - left_plane);
         e[5] = 2 / (top_plane - bottom_plane);
         e[10] = -2 / (far_plane - near_plane);
@@ -618,12 +506,11 @@ inline matrix4x4 &matrix4x4::ProjectionMatrix(bool perspective, scalar_t left_pl
     return *this;
 }
 
-double inline SquareMagnitude(const vector3 &v)
-{
+double inline SquareMagnitude(const vector3 &v) {
     return v.x * v.x + v.y * v.y + v.z * v.z;
 }
 
-} // close namespace
+}  // namespace Math3D
 
 // If we're testing, then we need OSTREAM support
 #ifdef TEST_MATH3D
@@ -633,23 +520,18 @@ double inline SquareMagnitude(const vector3 &v)
 #ifdef OSTREAM_MATH3D
 #include <ostream>
 // Streaming support
-std::ostream &operator<<(std::ostream &os, const Math3D::vector3 &v)
-{
+std::ostream &operator<<(std::ostream &os, const Math3D::vector3 &v) {
     os << '[';
-    for (int i = 0; i < 4; ++i)
-        os << ' ' << v[i];
+    for (int i = 0; i < 4; ++i) os << ' ' << v[i];
     return os << ']';
 }
 
-std::ostream &operator<<(std::ostream &os, const Math3D::matrix4x4 &m)
-{
-    for (int y = 0; y < 4; ++y)
-    {
+std::ostream &operator<<(std::ostream &os, const Math3D::matrix4x4 &m) {
+    for (int y = 0; y < 4; ++y) {
         os << '[';
-        for (int x = 0; x < 4; ++x)
-            os << ' ' << m[x][y];
+        for (int x = 0; x < 4; ++x) os << ' ' << m[x][y];
         os << " ]" << std::endl;
     }
     return os;
 }
-#endif // OSTREAM_MATH3D
+#endif  // OSTREAM_MATH3D

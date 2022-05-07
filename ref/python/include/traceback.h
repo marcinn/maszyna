@@ -10,11 +10,10 @@ struct _frame;
 /* Traceback interface */
 
 typedef struct _traceback {
-	PyObject_HEAD
-	struct _traceback *tb_next;
-	struct _frame *tb_frame;
-	int tb_lasti;
-	int tb_lineno;
+    PyObject_HEAD struct _traceback *tb_next;
+    struct _frame *tb_frame;
+    int tb_lasti;
+    int tb_lineno;
 } PyTracebackObject;
 
 PyAPI_FUNC(int) PyTraceBack_Here(struct _frame *);

@@ -9,13 +9,13 @@ http://mozilla.org/MPL/2.0/.
 
 #pragma once
 
-#include <unordered_map>
 #include <queue>
+#include <unordered_map>
 #include <unordered_set>
 
 enum class user_command {
 
-	aidriverenable = 0,
+    aidriverenable = 0,
     aidriverdisable,
     jointcontrollerset,
     mastercontrollerincrease,
@@ -35,9 +35,9 @@ enum class user_command {
     independentbrakedecreasefast,
     independentbrakeset,
     independentbrakebailoff,
-	universalbrakebutton1,
-	universalbrakebutton2,
-	universalbrakebutton3,
+    universalbrakebutton1,
+    universalbrakebutton2,
+    universalbrakebutton3,
     trainbrakeincrease,
     trainbrakedecrease,
     trainbrakeset,
@@ -57,9 +57,9 @@ enum class user_command {
     alarmchaintoggle,
     wheelspinbrakeactivate,
     sandboxactivate,
-	autosandboxtoggle,
-	autosandboxactivate,
-	autosandboxdeactivate,
+    autosandboxtoggle,
+    autosandboxactivate,
+    autosandboxdeactivate,
     reverserincrease,
     reverserdecrease,
     reverserforwardhigh,
@@ -99,9 +99,9 @@ enum class user_command {
     compressorenable,
     compressordisable,
     compressortogglelocal,
-	compressorpresetactivatenext,
-	compressorpresetactivateprevious,
-	compressorpresetactivatedefault,
+    compressorpresetactivatenext,
+    compressorpresetactivateprevious,
+    compressorpresetactivatedefault,
     motoroverloadrelaythresholdtoggle,
     motoroverloadrelaythresholdsetlow,
     motoroverloadrelaythresholdsethigh,
@@ -111,8 +111,8 @@ enum class user_command {
     universalrelayreset3,
     notchingrelaytoggle,
     epbrakecontroltoggle,
-	trainbrakeoperationmodeincrease,
-	trainbrakeoperationmodedecrease,
+    trainbrakeoperationmodeincrease,
+    trainbrakeoperationmodedecrease,
     brakeactingspeedincrease,
     brakeactingspeeddecrease,
     brakeactingspeedsetcargo,
@@ -122,7 +122,7 @@ enum class user_command {
     brakeloadcompensationdecrease,
     mubrakingindicatortoggle,
     alerteracknowledge,
-	cabsignalacknowledge,
+    cabsignalacknowledge,
     hornlowactivate,
     hornhighactivate,
     whistleactivate,
@@ -132,8 +132,8 @@ enum class user_command {
     radiostopsend,
     radiostoptest,
     radiocall3send,
-	radiovolumeincrease,
-	radiovolumedecrease,
+    radiovolumeincrease,
+    radiovolumedecrease,
     cabchangeforward,
     cabchangebackward,
 
@@ -154,7 +154,7 @@ enum class user_command {
     nearestcarcoupleradapterattach,
     nearestcarcoupleradapterremove,
     occupiedcarcouplingdisconnect,
-	occupiedcarcouplingdisconnectback,
+    occupiedcarcouplingdisconnectback,
     doortoggleleft,
     doortoggleright,
     doorpermitleft,
@@ -169,7 +169,7 @@ enum class user_command {
     doorcloseall,
     doorsteptoggle,
     doormodetoggle,
-	mirrorstoggle,
+    mirrorstoggle,
     departureannounce,
     doorlocktoggle,
     pantographcompressorvalvetoggle,
@@ -250,72 +250,72 @@ enum class user_command {
     batterytoggle,
     batteryenable,
     batterydisable,
-	cabactivationtoggle,
-	cabactivationenable,
-	cabactivationdisable,
+    cabactivationtoggle,
+    cabactivationenable,
+    cabactivationdisable,
     motorblowerstogglefront,
     motorblowerstogglerear,
     motorblowersdisableall,
     coolingfanstoggle,
     tempomattoggle,
-	springbraketoggle,
-	springbrakeenable,
-	springbrakedisable,
-	springbrakeshutofftoggle,
-	springbrakeshutoffenable,
-	springbrakeshutoffdisable,
-	springbrakerelease,
+    springbraketoggle,
+    springbrakeenable,
+    springbrakedisable,
+    springbrakeshutofftoggle,
+    springbrakeshutoffenable,
+    springbrakeshutoffdisable,
+    springbrakerelease,
     distancecounteractivate,
-	speedcontrolincrease,
-	speedcontroldecrease,
-	speedcontrolpowerincrease,
-	speedcontrolpowerdecrease,
-	speedcontrolbutton0,
-	speedcontrolbutton1,
-	speedcontrolbutton2,
-	speedcontrolbutton3,
-	speedcontrolbutton4,
-	speedcontrolbutton5,
-	speedcontrolbutton6,
-	speedcontrolbutton7,
-	speedcontrolbutton8,
-	speedcontrolbutton9,
-	inverterenable1,
-	inverterenable2,
-	inverterenable3,
-	inverterenable4,
-	inverterenable5,
-	inverterenable6,
-	inverterenable7,
-	inverterenable8,
-	inverterenable9,
-	inverterenable10,
-	inverterenable11,
-	inverterenable12,
-	inverterdisable1,
-	inverterdisable2,
-	inverterdisable3,
-	inverterdisable4,
-	inverterdisable5,
-	inverterdisable6,
-	inverterdisable7,
-	inverterdisable8,
-	inverterdisable9,
-	inverterdisable10,
-	inverterdisable11,
-	inverterdisable12,
-	invertertoggle1,
-	invertertoggle2,
-	invertertoggle3,
-	invertertoggle4,
-	invertertoggle5,
-	invertertoggle6,
-	invertertoggle7,
-	invertertoggle8,
-	invertertoggle9,
-	invertertoggle10,
-	invertertoggle11,
-	invertertoggle12,
+    speedcontrolincrease,
+    speedcontroldecrease,
+    speedcontrolpowerincrease,
+    speedcontrolpowerdecrease,
+    speedcontrolbutton0,
+    speedcontrolbutton1,
+    speedcontrolbutton2,
+    speedcontrolbutton3,
+    speedcontrolbutton4,
+    speedcontrolbutton5,
+    speedcontrolbutton6,
+    speedcontrolbutton7,
+    speedcontrolbutton8,
+    speedcontrolbutton9,
+    inverterenable1,
+    inverterenable2,
+    inverterenable3,
+    inverterenable4,
+    inverterenable5,
+    inverterenable6,
+    inverterenable7,
+    inverterenable8,
+    inverterenable9,
+    inverterenable10,
+    inverterenable11,
+    inverterenable12,
+    inverterdisable1,
+    inverterdisable2,
+    inverterdisable3,
+    inverterdisable4,
+    inverterdisable5,
+    inverterdisable6,
+    inverterdisable7,
+    inverterdisable8,
+    inverterdisable9,
+    inverterdisable10,
+    inverterdisable11,
+    inverterdisable12,
+    invertertoggle1,
+    invertertoggle2,
+    invertertoggle3,
+    invertertoggle4,
+    invertertoggle5,
+    invertertoggle6,
+    invertertoggle7,
+    invertertoggle8,
+    invertertoggle9,
+    invertertoggle10,
+    invertertoggle11,
+    invertertoggle12,
     globalradiostop,
     timejump,
     timejumplarge,
@@ -351,106 +351,105 @@ enum class user_command {
 enum class command_target {
 
     userinterface,
-/*
-    // NOTE: there's no need for consist- and unit-specific commands at this point, but it's a possibility.
-    // since command targets are mutually exclusive these don't reduce ranges for individual vehicles etc
-    consist = 0x4000,
-    unit    = 0x8000,
-*/
-    // values are combined with object id. 0xffff objects of each type should be quite enough ("for everyone")
+    /*
+        // NOTE: there's no need for consist- and unit-specific commands at this
+       point, but it's a possibility.
+        // since command targets are mutually exclusive these don't reduce
+       ranges for individual vehicles etc consist = 0x4000, unit    = 0x8000,
+    */
+    // values are combined with object id. 0xffff objects of each type should be
+    // quite enough ("for everyone")
     vehicle = 0x10000,
-    signal  = 0x20000,
-    entity  = 0x40000,
+    signal = 0x20000,
+    entity = 0x40000,
     simulation = 0x80000
 };
 
-enum class command_mode {
-	oneoff,
-	continuous
-};
+enum class command_mode { oneoff, continuous };
 
 struct command_description {
     std::string name;
     command_target target;
-	command_mode mode;
+    command_mode mode;
 };
 
 struct command_data {
-
     user_command command;
-    int action; // press, repeat or release
+    int action;  // press, repeat or release
     double param1;
     double param2;
     double time_delta;
 
-	bool freefly;
-	glm::vec3 location;
+    bool freefly;
+    glm::vec3 location;
 
     std::string payload;
 };
 
-// command_queues: collects and holds commands from input sources, for processing by their intended recipients
-// NOTE: this won't scale well.
-// TODO: turn it into a dispatcher and build individual command sequences into the items, where they can be examined without lookups
+// command_queues: collects and holds commands from input sources, for
+// processing by their intended recipients NOTE: this won't scale well.
+// TODO: turn it into a dispatcher and build individual command sequences into
+// the items, where they can be examined without lookups
 
 class command_queue {
-
-public:
-// types
-	typedef std::deque<command_data> commanddata_sequence;
-	typedef std::unordered_map<uint32_t, commanddata_sequence> commands_map;
-// methods
-	// posts specified command for specified recipient into m_intercept_queue
-	void
-	    push( command_data const &Command, uint32_t const Recipient );
-    // retrieves oldest posted command for specified recipient, if any. returns: true on retrieval, false if there's nothing to retrieve
-    bool
-        pop( command_data &Command, uint32_t const Recipient );
+   public:
+    // types
+    typedef std::deque<command_data> commanddata_sequence;
+    typedef std::unordered_map<uint32_t, commanddata_sequence> commands_map;
+    // methods
+    // posts specified command for specified recipient into m_intercept_queue
+    void push(command_data const &Command, uint32_t const Recipient);
+    // retrieves oldest posted command for specified recipient, if any. returns:
+    // true on retrieval, false if there's nothing to retrieve
+    bool pop(command_data &Command, uint32_t const Recipient);
     // generates active continuous commands
-    void
-        update();
+    void update();
     // checks if given command must be scheduled on server
-	bool
-	    is_network_target(const uint32_t Recipient);
+    bool is_network_target(const uint32_t Recipient);
 
-	// pops commands from intercept queue
-	commands_map pop_intercept_queue();
+    // pops commands from intercept queue
+    commands_map pop_intercept_queue();
 
-	// pushes commands into main queue
-	void push_commands(const commands_map &commands);
+    // pushes commands into main queue
+    void push_commands(const commands_map &commands);
 
-private:
-// members
-	// contains command ready to execution
-	commands_map m_commands;
+   private:
+    // members
+    // contains command ready to execution
+    commands_map m_commands;
 
-	// contains intercepted commands to be read by application layer
-	commands_map m_intercept_queue;
+    // contains intercepted commands to be read by application layer
+    commands_map m_intercept_queue;
 
-	void push_direct( command_data const &Command, uint32_t const Recipient );
+    void push_direct(command_data const &Command, uint32_t const Recipient);
 
-	// hash operator for m_active_continuous
-	struct command_set_hash {
-		uint64_t operator() (const std::pair<user_command, uint32_t> &pair) const {
-			return ((uint64_t)pair.first << 32) | ((uint64_t) pair.second);
-		}
-	};
+    // hash operator for m_active_continuous
+    struct command_set_hash {
+        uint64_t operator()(
+            const std::pair<user_command, uint32_t> &pair) const {
+            return ((uint64_t)pair.first << 32) | ((uint64_t)pair.second);
+        }
+    };
 
-	// currently pressed continuous commands
-	std::unordered_set<std::pair<user_command, uint32_t>, command_set_hash> m_active_continuous;
+    // currently pressed continuous commands
+    std::unordered_set<std::pair<user_command, uint32_t>, command_set_hash>
+        m_active_continuous;
 };
 
-template<typename A, typename B>
-void add_to_dequemap(std::unordered_map<A, std::deque<B>> &lhs, const std::unordered_map<A, std::deque<B>> &rhs) {
-	for (auto const &kv : rhs) {
-		auto lookup = lhs.emplace(kv.first, std::deque<B>());
-		for (B const &data : kv.second)
-			lookup.first->second.emplace_back(data);
-	}
+template <typename A, typename B>
+void add_to_dequemap(
+    std::unordered_map<A, std::deque<B>> &lhs,
+    const std::unordered_map<A, std::deque<B>> &rhs) {
+    for (auto const &kv : rhs) {
+        auto lookup = lhs.emplace(kv.first, std::deque<B>());
+        for (B const &data : kv.second) lookup.first->second.emplace_back(data);
+    }
 }
 
-// NOTE: simulation should be a (light) wrapper rather than namespace so we could potentially instance it,
-//       but realistically it's not like we're going to run more than one simulation at a time
+// NOTE: simulation should be a (light) wrapper rather than namespace so we
+// could potentially instance it,
+//       but realistically it's not like we're going to run more than one
+//       simulation at a time
 namespace simulation {
 
 typedef std::vector<command_description> commanddescription_sequence;
@@ -459,21 +458,24 @@ extern command_queue Commands;
 // TODO: add name to command map, and wrap these two into helper object
 extern commanddescription_sequence Commands_descriptions;
 
-}
+}  // namespace simulation
 
-// command_relay: composite class component, passes specified command to appropriate command stack
+// command_relay: composite class component, passes specified command to
+// appropriate command stack
 
 class command_relay {
+   public:
+    // methods
+    // posts specified command for the specified recipient
+    void post(
+        user_command const Command, double const Param1, double const Param2,
+        int const Action, uint16_t Recipient,
+        glm::vec3 Position = glm::vec3(0.0f),
+        const std::string *Payload = nullptr) const;
 
-public:
-// methods
-	// posts specified command for the specified recipient
-    void
-	    post(user_command const Command, double const Param1, double const Param2,
-	        int const Action, uint16_t Recipient, glm::vec3 Position = glm::vec3(0.0f) , const std::string *Payload = nullptr) const;
-private:
-// types
-// members
+   private:
+    // types
+    // members
 };
 
 //---------------------------------------------------------------------------

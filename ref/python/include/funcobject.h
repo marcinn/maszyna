@@ -19,16 +19,15 @@ extern "C" {
  */
 
 typedef struct {
-    PyObject_HEAD
-    PyObject *func_code;	/* A code object */
-    PyObject *func_globals;	/* A dictionary (other mappings won't do) */
-    PyObject *func_defaults;	/* NULL or a tuple */
-    PyObject *func_closure;	/* NULL or a tuple of cell objects */
-    PyObject *func_doc;		/* The __doc__ attribute, can be anything */
-    PyObject *func_name;	/* The __name__ attribute, a string object */
-    PyObject *func_dict;	/* The __dict__ attribute, a dict or NULL */
-    PyObject *func_weakreflist;	/* List of weak references */
-    PyObject *func_module;	/* The __module__ attribute, can be anything */
+    PyObject_HEAD PyObject *func_code; /* A code object */
+    PyObject *func_globals;     /* A dictionary (other mappings won't do) */
+    PyObject *func_defaults;    /* NULL or a tuple */
+    PyObject *func_closure;     /* NULL or a tuple of cell objects */
+    PyObject *func_doc;         /* The __doc__ attribute, can be anything */
+    PyObject *func_name;        /* The __name__ attribute, a string object */
+    PyObject *func_dict;        /* The __dict__ attribute, a dict or NULL */
+    PyObject *func_weakreflist; /* List of weak references */
+    PyObject *func_module;      /* The __module__ attribute, can be anything */
 
     /* Invariant:
      *     func_closure contains the bindings for func_code->co_freevars, so
@@ -52,16 +51,12 @@ PyAPI_FUNC(int) PyFunction_SetClosure(PyObject *, PyObject *);
 
 /* Macros for direct access to these values. Type checks are *not*
    done, so use with care. */
-#define PyFunction_GET_CODE(func) \
-        (((PyFunctionObject *)func) -> func_code)
-#define PyFunction_GET_GLOBALS(func) \
-	(((PyFunctionObject *)func) -> func_globals)
-#define PyFunction_GET_MODULE(func) \
-	(((PyFunctionObject *)func) -> func_module)
+#define PyFunction_GET_CODE(func) (((PyFunctionObject *)func)->func_code)
+#define PyFunction_GET_GLOBALS(func) (((PyFunctionObject *)func)->func_globals)
+#define PyFunction_GET_MODULE(func) (((PyFunctionObject *)func)->func_module)
 #define PyFunction_GET_DEFAULTS(func) \
-	(((PyFunctionObject *)func) -> func_defaults)
-#define PyFunction_GET_CLOSURE(func) \
-	(((PyFunctionObject *)func) -> func_closure)
+    (((PyFunctionObject *)func)->func_defaults)
+#define PyFunction_GET_CLOSURE(func) (((PyFunctionObject *)func)->func_closure)
 
 /* The classmethod and staticmethod types lives here, too */
 PyAPI_DATA(PyTypeObject) PyClassMethod_Type;

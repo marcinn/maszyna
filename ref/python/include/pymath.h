@@ -29,10 +29,10 @@ extern double hypot(double, double);
 /* extra declarations */
 #ifndef _MSC_VER
 #ifndef __STDC__
-extern double fmod (double, double);
-extern double frexp (double, int *);
-extern double ldexp (double, int);
-extern double modf (double, double *);
+extern double fmod(double, double);
+extern double frexp(double, int *);
+extern double ldexp(double, int);
+extern double modf(double, double *);
 extern double pow(double, double);
 #endif /* __STDC__ */
 #endif /* _MSC_VER */
@@ -68,12 +68,12 @@ extern double copysign(double, double);
 
 /* we take double rounding as evidence of x87 usage */
 #ifndef Py_FORCE_DOUBLE
-#  ifdef X87_DOUBLE_ROUNDING
+#ifdef X87_DOUBLE_ROUNDING
 PyAPI_FUNC(double) _Py_force_double(double);
-#    define Py_FORCE_DOUBLE(X) (_Py_force_double(X))
-#  else
-#    define Py_FORCE_DOUBLE(X) (X)
-#  endif
+#define Py_FORCE_DOUBLE(X) (_Py_force_double(X))
+#else
+#define Py_FORCE_DOUBLE(X) (X)
+#endif
 #endif
 
 #ifdef HAVE_GCC_ASM_FOR_X87
@@ -111,12 +111,12 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);
  * Note: PC/pyconfig.h defines Py_IS_INFINITY as _isinf
  */
 #ifndef Py_IS_INFINITY
-#  if defined HAVE_DECL_ISINF && HAVE_DECL_ISINF == 1
-#    define Py_IS_INFINITY(X) isinf(X)
-#  else
-#    define Py_IS_INFINITY(X) ((X) &&                                   \
-                               (Py_FORCE_DOUBLE(X)*0.5 == Py_FORCE_DOUBLE(X)))
-#  endif
+#if defined HAVE_DECL_ISINF && HAVE_DECL_ISINF == 1
+#define Py_IS_INFINITY(X) isinf(X)
+#else
+#define Py_IS_INFINITY(X) \
+    ((X) && (Py_FORCE_DOUBLE(X) * 0.5 == Py_FORCE_DOUBLE(X)))
+#endif
 #endif
 
 /* Py_IS_FINITE(X)
@@ -153,27 +153,29 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);
  */
 #if !defined(Py_NAN) && !defined(Py_NO_NAN)
 #if !defined(__INTEL_COMPILER)
-    #define Py_NAN (Py_HUGE_VAL * 0.)
+#define Py_NAN (Py_HUGE_VAL * 0.)
 #else /* __INTEL_COMPILER */
-    #if defined(ICC_NAN_STRICT)
-        #pragma float_control(push)
-        #pragma float_control(precise, on)
-        #pragma float_control(except,  on)
-        #if defined(_MSC_VER)
-            __declspec(noinline)
-        #else /* Linux */
-            __attribute__((noinline))
-        #endif /* _MSC_VER */
-        static double __icc_nan()
-        {
-            return sqrt(-1.0);
-        }
-        #pragma float_control (pop)
-        #define Py_NAN __icc_nan()
-    #else /* ICC_NAN_RELAXED as default for Intel Compiler */
-        static union { unsigned char buf[8]; double __icc_nan; } __nan_store = {0,0,0,0,0,0,0xf8,0x7f};
-        #define Py_NAN (__nan_store.__icc_nan)
-    #endif /* ICC_NAN_STRICT */
+#if defined(ICC_NAN_STRICT)
+#pragma float_control(push)
+#pragma float_control(precise, on)
+#pragma float_control(except, on)
+#if defined(_MSC_VER)
+__declspec(noinline)
+#else  /* Linux */
+__attribute__((noinline))
+#endif /* _MSC_VER */
+    static double __icc_nan() {
+    return sqrt(-1.0);
+}
+#pragma float_control(pop)
+#define Py_NAN __icc_nan()
+#else /* ICC_NAN_RELAXED as default for Intel Compiler */
+static union {
+    unsigned char buf[8];
+    double __icc_nan;
+} __nan_store = {0, 0, 0, 0, 0, 0, 0xf8, 0x7f};
+#define Py_NAN (__nan_store.__icc_nan)
+#endif /* ICC_NAN_STRICT */
 #endif /* __INTEL_COMPILER */
 #endif
 
@@ -206,9 +208,9 @@ PyAPI_FUNC(void) _Py_set_387controlword(unsigned short);
 #if defined(__FreeBSD__) || defined(__OpenBSD__)
 #define Py_OVERFLOWED(X) isinf(X)
 #else
-#define Py_OVERFLOWED(X) ((X) != 0.0 && (errno == ERANGE ||    \
-					 (X) == Py_HUGE_VAL || \
-					 (X) == -Py_HUGE_VAL))
+#define Py_OVERFLOWED(X) \
+    ((X) != 0.0 &&       \
+     (errno == ERANGE || (X) == Py_HUGE_VAL || (X) == -Py_HUGE_VAL))
 #endif
 
 #endif /* Py_PYMATH_H */

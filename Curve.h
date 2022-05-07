@@ -13,9 +13,8 @@ http://mozilla.org/MPL/2.0/.
 #include "QueryParserComp.hpp"
 #include "usefull.h"
 
-class TCurve
-{
-  public:
+class TCurve {
+   public:
     TCurve();
     ~TCurve();
     bool Init(int n, int c);
@@ -28,7 +27,7 @@ class TCurve
     int iNumValues;
     int iNumCols;
 
-  private:
+   private:
     float **Values;
 };
 //---------------------------------------------------------------------------

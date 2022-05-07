@@ -12,33 +12,24 @@ http://mozilla.org/MPL/2.0/.
 #include "command.h"
 
 class editormouse_input {
-
-public:
-// constructors
+   public:
+    // constructors
     editormouse_input() = default;
 
-// methods
-    bool
-        init();
-    void
-        position( double const Horizontal, double const Vertical );
-    inline
-    glm::dvec2
-        position() const {
-            return m_cursorposition; }
-    void
-        button( int const Button, int const Action );
-    inline
-    int
-        button( int const Button ) const {
-            return m_buttons[ Button ]; }
+    // methods
+    bool init();
+    void position(double const Horizontal, double const Vertical);
+    inline glm::dvec2 position() const { return m_cursorposition; }
+    void button(int const Button, int const Action);
+    inline int button(int const Button) const { return m_buttons[Button]; }
 
-private:
-// members
+   private:
+    // members
     command_relay m_relay;
-    bool m_pickmodepanning { false }; // indicates mouse is in view panning mode
-    glm::dvec2 m_cursorposition { 0.0 }; // stored last cursor position, used for panning
-    std::array<int, GLFW_MOUSE_BUTTON_LAST> m_buttons { GLFW_RELEASE };
+    bool m_pickmodepanning{false};  // indicates mouse is in view panning mode
+    glm::dvec2 m_cursorposition{
+        0.0};  // stored last cursor position, used for panning
+    std::array<int, GLFW_MOUSE_BUTTON_LAST> m_buttons{GLFW_RELEASE};
 };
 
 //---------------------------------------------------------------------------

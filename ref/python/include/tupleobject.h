@@ -22,8 +22,7 @@ returned item's reference count.
 */
 
 typedef struct {
-    PyObject_VAR_HEAD
-    PyObject *ob_item[1];
+    PyObject_VAR_HEAD PyObject *ob_item[1];
 
     /* ob_item contains space for 'ob_size' elements.
      * Items must normally not be NULL, except during construction when
@@ -34,7 +33,7 @@ typedef struct {
 PyAPI_DATA(PyTypeObject) PyTuple_Type;
 
 #define PyTuple_Check(op) \
-                 PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_TUPLE_SUBCLASS)
+    PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_TUPLE_SUBCLASS)
 #define PyTuple_CheckExact(op) (Py_TYPE(op) == &PyTuple_Type)
 
 PyAPI_FUNC(PyObject *) PyTuple_New(Py_ssize_t size);
@@ -48,7 +47,7 @@ PyAPI_FUNC(void) _PyTuple_MaybeUntrack(PyObject *);
 
 /* Macro, trading safety for speed */
 #define PyTuple_GET_ITEM(op, i) (((PyTupleObject *)(op))->ob_item[i])
-#define PyTuple_GET_SIZE(op)    Py_SIZE(op)
+#define PyTuple_GET_SIZE(op) Py_SIZE(op)
 
 /* Macro, *only* to be used to fill in brand new tuples */
 #define PyTuple_SET_ITEM(op, i, v) (((PyTupleObject *)(op))->ob_item[i] = v)

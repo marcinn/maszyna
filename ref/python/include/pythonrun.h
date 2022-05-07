@@ -7,16 +7,17 @@
 extern "C" {
 #endif
 
-#define PyCF_MASK (CO_FUTURE_DIVISION | CO_FUTURE_ABSOLUTE_IMPORT | \
-                   CO_FUTURE_WITH_STATEMENT | CO_FUTURE_PRINT_FUNCTION | \
-                   CO_FUTURE_UNICODE_LITERALS)
+#define PyCF_MASK                                          \
+    (CO_FUTURE_DIVISION | CO_FUTURE_ABSOLUTE_IMPORT |      \
+     CO_FUTURE_WITH_STATEMENT | CO_FUTURE_PRINT_FUNCTION | \
+     CO_FUTURE_UNICODE_LITERALS)
 #define PyCF_MASK_OBSOLETE (CO_NESTED)
-#define PyCF_SOURCE_IS_UTF8  0x0100
+#define PyCF_SOURCE_IS_UTF8 0x0100
 #define PyCF_DONT_IMPLY_DEDENT 0x0200
 #define PyCF_ONLY_AST 0x0400
 
 typedef struct {
-    int cf_flags;  /* bitmask of CO_xxx flags relevant to future */
+    int cf_flags; /* bitmask of CO_xxx flags relevant to future */
 } PyCompilerFlags;
 
 PyAPI_FUNC(void) Py_SetProgramName(char *);
@@ -33,39 +34,41 @@ PyAPI_FUNC(PyThreadState *) Py_NewInterpreter(void);
 PyAPI_FUNC(void) Py_EndInterpreter(PyThreadState *);
 
 PyAPI_FUNC(int) PyRun_AnyFileFlags(FILE *, const char *, PyCompilerFlags *);
-PyAPI_FUNC(int) PyRun_AnyFileExFlags(FILE *, const char *, int, PyCompilerFlags *);
+PyAPI_FUNC(int)
+    PyRun_AnyFileExFlags(FILE *, const char *, int, PyCompilerFlags *);
 PyAPI_FUNC(int) PyRun_SimpleStringFlags(const char *, PyCompilerFlags *);
-PyAPI_FUNC(int) PyRun_SimpleFileExFlags(FILE *, const char *, int, PyCompilerFlags *);
-PyAPI_FUNC(int) PyRun_InteractiveOneFlags(FILE *, const char *, PyCompilerFlags *);
-PyAPI_FUNC(int) PyRun_InteractiveLoopFlags(FILE *, const char *, PyCompilerFlags *);
+PyAPI_FUNC(int)
+    PyRun_SimpleFileExFlags(FILE *, const char *, int, PyCompilerFlags *);
+PyAPI_FUNC(int)
+    PyRun_InteractiveOneFlags(FILE *, const char *, PyCompilerFlags *);
+PyAPI_FUNC(int)
+    PyRun_InteractiveLoopFlags(FILE *, const char *, PyCompilerFlags *);
 
-PyAPI_FUNC(struct _mod *) PyParser_ASTFromString(const char *, const char *,
-                                                 int, PyCompilerFlags *flags,
-                                                 PyArena *);
-PyAPI_FUNC(struct _mod *) PyParser_ASTFromFile(FILE *, const char *, int,
-                                               char *, char *,
-                                               PyCompilerFlags *, int *,
-                                               PyArena *);
+PyAPI_FUNC(struct _mod *) PyParser_ASTFromString(
+    const char *, const char *, int, PyCompilerFlags *flags, PyArena *);
+PyAPI_FUNC(struct _mod *) PyParser_ASTFromFile(
+    FILE *, const char *, int, char *, char *, PyCompilerFlags *, int *,
+    PyArena *);
 #define PyParser_SimpleParseString(S, B) \
     PyParser_SimpleParseStringFlags(S, B, 0)
 #define PyParser_SimpleParseFile(FP, S, B) \
     PyParser_SimpleParseFileFlags(FP, S, B, 0)
-PyAPI_FUNC(struct _node *) PyParser_SimpleParseStringFlags(const char *, int,
-                                                          int);
-PyAPI_FUNC(struct _node *) PyParser_SimpleParseFileFlags(FILE *, const char *,
-                                                        int, int);
+PyAPI_FUNC(struct _node *)
+    PyParser_SimpleParseStringFlags(const char *, int, int);
+PyAPI_FUNC(struct _node *)
+    PyParser_SimpleParseFileFlags(FILE *, const char *, int, int);
 
-PyAPI_FUNC(PyObject *) PyRun_StringFlags(const char *, int, PyObject *,
-                                         PyObject *, PyCompilerFlags *);
+PyAPI_FUNC(PyObject *) PyRun_StringFlags(
+    const char *, int, PyObject *, PyObject *, PyCompilerFlags *);
 
-PyAPI_FUNC(PyObject *) PyRun_FileExFlags(FILE *, const char *, int,
-                                         PyObject *, PyObject *, int,
-                                         PyCompilerFlags *);
+PyAPI_FUNC(PyObject *) PyRun_FileExFlags(
+    FILE *, const char *, int, PyObject *, PyObject *, int, PyCompilerFlags *);
 
 #define Py_CompileString(str, p, s) Py_CompileStringFlags(str, p, s, NULL)
-PyAPI_FUNC(PyObject *) Py_CompileStringFlags(const char *, const char *, int,
-                                             PyCompilerFlags *);
-PyAPI_FUNC(struct symtable *) Py_SymtableString(const char *, const char *, int);
+PyAPI_FUNC(PyObject *)
+    Py_CompileStringFlags(const char *, const char *, int, PyCompilerFlags *);
+PyAPI_FUNC(struct symtable *)
+    Py_SymtableString(const char *, const char *, int);
 
 PyAPI_FUNC(void) PyErr_Print(void);
 PyAPI_FUNC(void) PyErr_PrintEx(int);
@@ -92,8 +95,7 @@ PyAPI_FUNC(int) Py_Main(int argc, char **argv);
 #define PyRun_SimpleFileEx(f, p, c) PyRun_SimpleFileExFlags(f, p, c, NULL)
 #define PyRun_InteractiveOne(f, p) PyRun_InteractiveOneFlags(f, p, NULL)
 #define PyRun_InteractiveLoop(f, p) PyRun_InteractiveLoopFlags(f, p, NULL)
-#define PyRun_File(fp, p, s, g, l) \
-    PyRun_FileExFlags(fp, p, s, g, l, 0, NULL)
+#define PyRun_File(fp, p, s, g, l) PyRun_FileExFlags(fp, p, s, g, l, 0, NULL)
 #define PyRun_FileEx(fp, p, s, g, l, c) \
     PyRun_FileExFlags(fp, p, s, g, l, c, NULL)
 #define PyRun_FileFlags(fp, p, s, g, l, flags) \
@@ -149,15 +151,16 @@ PyAPI_FUNC(void) _PyRandom_Fini(void);
 /* Stuff with no proper home (yet) */
 PyAPI_FUNC(char *) PyOS_Readline(FILE *, FILE *, char *);
 PyAPI_DATA(int) (*PyOS_InputHook)(void);
-PyAPI_DATA(char) *(*PyOS_ReadlineFunctionPointer)(FILE *, FILE *, char *);
-PyAPI_DATA(PyThreadState*) _PyOS_ReadlineTState;
+PyAPI_DATA(char) * (*PyOS_ReadlineFunctionPointer)(FILE *, FILE *, char *);
+PyAPI_DATA(PyThreadState *) _PyOS_ReadlineTState;
 
 /* Stack size, in "pointers" (so we get extra safety margins
    on 64-bit platforms).  On a 32-bit platform, this translates
    to an 8k margin. */
 #define PYOS_STACK_MARGIN 2048
 
-#if defined(WIN32) && !defined(MS_WIN64) && defined(_MSC_VER) && _MSC_VER >= 1300
+#if defined(WIN32) && !defined(MS_WIN64) && defined(_MSC_VER) && \
+    _MSC_VER >= 1300
 /* Enable stack checking under Microsoft C */
 #define USE_STACKCHECK
 #endif
@@ -173,7 +176,7 @@ PyAPI_FUNC(PyOS_sighandler_t) PyOS_getsig(int);
 PyAPI_FUNC(PyOS_sighandler_t) PyOS_setsig(int, PyOS_sighandler_t);
 
 /* Random */
-PyAPI_FUNC(int) _PyOS_URandom (void *buffer, Py_ssize_t size);
+PyAPI_FUNC(int) _PyOS_URandom(void *buffer, Py_ssize_t size);
 
 #ifdef __cplusplus
 }

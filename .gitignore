@@ -1,3 +1,4 @@
 builds/
+build/
 CMakeLists.txt.user
 ci_shadervalidator/validateshaders

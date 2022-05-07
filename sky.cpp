@@ -7,20 +7,18 @@ obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-#include "stdafx.h"
 #include "sky.h"
+
 #include "Globals.h"
 #include "MdlMngr.h"
+#include "stdafx.h"
 
 //---------------------------------------------------------------------------
-//GLfloat lightPos[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+// GLfloat lightPos[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 
 void TSky::Init() {
-
-    if( ( Global.asSky != "1" )
-     && ( Global.asSky != "0" ) ) {
-
-        mdCloud = TModelsManager::GetModel( Global.asSky );
+    if ((Global.asSky != "1") && (Global.asSky != "0")) {
+        mdCloud = TModelsManager::GetModel(Global.asSky);
     }
 };
 

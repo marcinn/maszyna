@@ -18,6 +18,6 @@ using sound_overridemap = std::unordered_map<std::string, std::string>;
 extern sound_overridemap Sound_overrides;
 extern sound_table Sounds;
 
-} // simulation
+}  // namespace simulation
 
 //---------------------------------------------------------------------------

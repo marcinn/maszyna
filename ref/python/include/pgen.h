@@ -4,7 +4,6 @@
 extern "C" {
 #endif
 
-
 /* Parser generator interface */
 
 extern grammar *meta_grammar(void);

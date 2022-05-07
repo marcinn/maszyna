@@ -6,7 +6,6 @@
 extern "C" {
 #endif
 
-
 typedef PyIntObject PyBoolObject;
 
 PyAPI_DATA(PyTypeObject) PyBool_Type;
@@ -20,8 +19,8 @@ Don't forget to apply Py_INCREF() when returning either!!! */
 PyAPI_DATA(PyIntObject) _Py_ZeroStruct, _Py_TrueStruct;
 
 /* Use these macros */
-#define Py_False ((PyObject *) &_Py_ZeroStruct)
-#define Py_True ((PyObject *) &_Py_TrueStruct)
+#define Py_False ((PyObject *)&_Py_ZeroStruct)
+#define Py_True ((PyObject *)&_Py_TrueStruct)
 
 /* Macros for returning Py_True or Py_False, respectively */
 #define Py_RETURN_TRUE return Py_INCREF(Py_True), Py_True

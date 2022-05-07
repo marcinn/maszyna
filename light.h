@@ -13,11 +13,10 @@ http://mozilla.org/MPL/2.0/.
 
 // a simple light source, either omni- or directional
 struct basic_light {
-
-    glm::vec4 ambient { colors::none };
-    glm::vec4 diffuse { colors::white };
-    glm::vec4 specular { colors::white };
+    glm::vec4 ambient{colors::none};
+    glm::vec4 diffuse{colors::white};
+    glm::vec4 specular{colors::white};
     glm::vec3 position;
     glm::vec3 direction;
-    bool is_directional { true };
+    bool is_directional{true};
 };

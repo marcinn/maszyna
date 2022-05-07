@@ -11,19 +11,21 @@ http://mozilla.org/MPL/2.0/.
 
 #include "Classes.h"
 
-// a simple station, performs freight and passenger exchanges with visiting consists
+// a simple station, performs freight and passenger exchanges with visiting
+// consists
 class basic_station {
-
-public:
-// methods
-    // exchanges load with consist attached to specified vehicle, operating on specified schedule; returns: time needed for exchange, in seconds
-    double
-        update_load( TDynamicObject *First, Mtable::TTrainParameters &Schedule, int const Platform );
+   public:
+    // methods
+    // exchanges load with consist attached to specified vehicle, operating on
+    // specified schedule; returns: time needed for exchange, in seconds
+    double update_load(
+        TDynamicObject *First, Mtable::TTrainParameters &Schedule,
+        int const Platform);
 };
 
 namespace simulation {
 
-extern basic_station Station; // temporary object, for station functionality tests
+extern basic_station
+    Station;  // temporary object, for station functionality tests
 
-} // simulation
-
+}  // namespace simulation

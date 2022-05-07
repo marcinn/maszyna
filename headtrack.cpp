@@ -1,16 +1,13 @@
-#include "stdafx.h"
 #include "headtrack.h"
+
 #include "Globals.h"
+#include "stdafx.h"
 
-headtrack::headtrack()
-{
-
-}
+headtrack::headtrack() {}
 
 void headtrack::find_joy() {
     for (size_t i = GLFW_JOYSTICK_1; i <= GLFW_JOYSTICK_LAST; i++) {
-        if (!glfwJoystickPresent(i))
-            continue;
+        if (!glfwJoystickPresent(i)) continue;
 
         std::string name(glfwGetJoystickName(i));
         if (name == Global.headtrack_conf.joy) {
@@ -23,16 +20,13 @@ void headtrack::find_joy() {
 }
 
 float headtrack::get_axis(const float *data, int count, int axis, float mul) {
-    if (axis < 0)
-        return 0.0f;
-    if (axis >= count)
-        return 0.0f;
+    if (axis < 0) return 0.0f;
+    if (axis >= count) return 0.0f;
 
     return data[axis] * mul;
 }
 
-void headtrack::update()
-{
+void headtrack::update() {
     if (joy_id == -1 || !glfwJoystickPresent(joy_id)) {
         Global.viewport_move = glm::vec3();
         Global.viewport_rotate = glm::mat3();
@@ -41,7 +35,7 @@ void headtrack::update()
     }
 
     int count;
-    const float* axes = glfwGetJoystickAxes(joy_id, &count);
+    const float *axes = glfwGetJoystickAxes(joy_id, &count);
 
     auto const &move_axes = Global.headtrack_conf.move_axes;
     auto const &rot_axes = Global.headtrack_conf.rot_axes;

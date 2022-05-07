@@ -4,12 +4,12 @@
 extern "C" {
 #endif
 
-
 /* Operating system dependencies */
 
 /* Mod by chrish: QNX has WATCOM, but isn't DOS */
 #if !defined(__QNX__)
-#if defined(MS_WINDOWS) || defined(__BORLANDC__) || defined(__WATCOMC__) || defined(__DJGPP__) || defined(PYOS_OS2)
+#if defined(MS_WINDOWS) || defined(__BORLANDC__) || defined(__WATCOMC__) || \
+    defined(__DJGPP__) || defined(PYOS_OS2)
 #if defined(PYOS_OS2) && defined(PYCC_GCC)
 #define MAXPATHLEN 260
 #define SEP '/'
@@ -29,7 +29,6 @@ extern "C" {
 #define DELIM ','
 #endif
 
-
 /* Filename separator */
 #ifndef SEP
 #define SEP '/'
@@ -37,8 +36,8 @@ extern "C" {
 
 /* Max pathname length */
 #ifdef __hpux
-#include <sys/param.h>
 #include <limits.h>
+#include <sys/param.h>
 #ifndef PATH_MAX
 #define PATH_MAX MAXPATHLEN
 #endif

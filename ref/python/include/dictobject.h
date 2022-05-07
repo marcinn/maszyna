@@ -4,7 +4,6 @@
 extern "C" {
 #endif
 
-
 /* Dictionary object type -- mapping from hashable object to object */
 
 /* The distribution includes a separate file, Objects/dictnotes.txt,
@@ -68,9 +67,8 @@ it's two-thirds full.
 */
 typedef struct _dictobject PyDictObject;
 struct _dictobject {
-    PyObject_HEAD
-    Py_ssize_t ma_fill;  /* # Active + # Dummy */
-    Py_ssize_t ma_used;  /* # Active */
+    PyObject_HEAD Py_ssize_t ma_fill; /* # Active + # Dummy */
+    Py_ssize_t ma_used;               /* # Active */
 
     /* The table contains ma_mask + 1 slots, and that's a power of 2.
      * We store the mask instead of the size because the mask is more
@@ -97,28 +95,28 @@ PyAPI_DATA(PyTypeObject) PyDictItems_Type;
 PyAPI_DATA(PyTypeObject) PyDictValues_Type;
 
 #define PyDict_Check(op) \
-                 PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_DICT_SUBCLASS)
+    PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_DICT_SUBCLASS)
 #define PyDict_CheckExact(op) (Py_TYPE(op) == &PyDict_Type)
 #define PyDictKeys_Check(op) (Py_TYPE(op) == &PyDictKeys_Type)
 #define PyDictItems_Check(op) (Py_TYPE(op) == &PyDictItems_Type)
 #define PyDictValues_Check(op) (Py_TYPE(op) == &PyDictValues_Type)
 /* This excludes Values, since they are not sets. */
-# define PyDictViewSet_Check(op) \
-    (PyDictKeys_Check(op) || PyDictItems_Check(op))
+#define PyDictViewSet_Check(op) (PyDictKeys_Check(op) || PyDictItems_Check(op))
 
 PyAPI_FUNC(PyObject *) PyDict_New(void);
 PyAPI_FUNC(PyObject *) PyDict_GetItem(PyObject *mp, PyObject *key);
 PyAPI_FUNC(PyObject *) _PyDict_GetItemWithError(PyObject *mp, PyObject *key);
 PyAPI_FUNC(int) PyDict_SetItem(PyObject *mp, PyObject *key, PyObject *item);
 PyAPI_FUNC(int) PyDict_DelItem(PyObject *mp, PyObject *key);
-PyAPI_FUNC(int) _PyDict_DelItemIf(PyObject *mp, PyObject *key,
-                                  int (*predicate)(PyObject *value));
+PyAPI_FUNC(int) _PyDict_DelItemIf(
+    PyObject *mp, PyObject *key, int (*predicate)(PyObject *value));
 
 PyAPI_FUNC(void) PyDict_Clear(PyObject *mp);
 PyAPI_FUNC(int) PyDict_Next(
     PyObject *mp, Py_ssize_t *pos, PyObject **key, PyObject **value);
 PyAPI_FUNC(int) _PyDict_Next(
-    PyObject *mp, Py_ssize_t *pos, PyObject **key, PyObject **value, long *hash);
+    PyObject *mp, Py_ssize_t *pos, PyObject **key, PyObject **value,
+    long *hash);
 PyAPI_FUNC(PyObject *) PyDict_Keys(PyObject *mp);
 PyAPI_FUNC(PyObject *) PyDict_Values(PyObject *mp);
 PyAPI_FUNC(PyObject *) PyDict_Items(PyObject *mp);
@@ -137,21 +135,18 @@ PyAPI_FUNC(int) PyDict_Update(PyObject *mp, PyObject *other);
    the last occurrence of a key wins, else the first.  The Python
    dict.update(other) is equivalent to PyDict_Merge(dict, other, 1).
 */
-PyAPI_FUNC(int) PyDict_Merge(PyObject *mp,
-                                   PyObject *other,
-                                   int override);
+PyAPI_FUNC(int) PyDict_Merge(PyObject *mp, PyObject *other, int override);
 
 /* PyDict_MergeFromSeq2 updates/merges from an iterable object producing
    iterable objects of length 2.  If override is true, the last occurrence
    of a key wins, else the first.  The Python dict constructor dict(seq2)
    is equivalent to dict={}; PyDict_MergeFromSeq(dict, seq2, 1).
 */
-PyAPI_FUNC(int) PyDict_MergeFromSeq2(PyObject *d,
-                                           PyObject *seq2,
-                                           int override);
+PyAPI_FUNC(int) PyDict_MergeFromSeq2(PyObject *d, PyObject *seq2, int override);
 
 PyAPI_FUNC(PyObject *) PyDict_GetItemString(PyObject *dp, const char *key);
-PyAPI_FUNC(int) PyDict_SetItemString(PyObject *dp, const char *key, PyObject *item);
+PyAPI_FUNC(int)
+    PyDict_SetItemString(PyObject *dp, const char *key, PyObject *item);
 PyAPI_FUNC(int) PyDict_DelItemString(PyObject *dp, const char *key);
 
 #ifdef __cplusplus

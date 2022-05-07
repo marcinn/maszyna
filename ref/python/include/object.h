@@ -4,7 +4,6 @@
 extern "C" {
 #endif
 
-
 /* Object and type object interface */
 
 /*
@@ -63,8 +62,8 @@ whose size is determined when the object is allocated.
 
 #ifdef Py_TRACE_REFS
 /* Define pointers to support a doubly-linked list of all live heap objects. */
-#define _PyObject_HEAD_EXTRA            \
-    struct _object *_ob_next;           \
+#define _PyObject_HEAD_EXTRA  \
+    struct _object *_ob_next; \
     struct _object *_ob_prev;
 
 #define _PyObject_EXTRA_INIT 0, 0,
@@ -75,17 +74,13 @@ whose size is determined when the object is allocated.
 #endif
 
 /* PyObject_HEAD defines the initial segment of every PyObject. */
-#define PyObject_HEAD                   \
-    _PyObject_HEAD_EXTRA                \
-    Py_ssize_t ob_refcnt;               \
+#define PyObject_HEAD                          \
+    _PyObject_HEAD_EXTRA Py_ssize_t ob_refcnt; \
     struct _typeobject *ob_type;
 
-#define PyObject_HEAD_INIT(type)        \
-    _PyObject_EXTRA_INIT                \
-    1, type,
+#define PyObject_HEAD_INIT(type) _PyObject_EXTRA_INIT 1, type,
 
-#define PyVarObject_HEAD_INIT(type, size)       \
-    PyObject_HEAD_INIT(type) size,
+#define PyVarObject_HEAD_INIT(type, size) PyObject_HEAD_INIT(type) size,
 
 /* PyObject_VAR_HEAD defines the initial segment of all variable-size
  * container objects.  These end with a declaration of an array with 1
@@ -93,10 +88,9 @@ whose size is determined when the object is allocated.
  * has room for ob_size elements.  Note that ob_size is an element count,
  * not necessarily a byte count.
  */
-#define PyObject_VAR_HEAD               \
-    PyObject_HEAD                       \
-    Py_ssize_t ob_size; /* Number of items in variable part */
-#define Py_INVALID_SIZE (Py_ssize_t)-1
+#define PyObject_VAR_HEAD \
+    PyObject_HEAD Py_ssize_t ob_size; /* Number of items in variable part */
+#define Py_INVALID_SIZE (Py_ssize_t) - 1
 
 /* Nothing is actually declared to be a PyObject, but every pointer to
  * a Python object can be cast to a PyObject*.  This is inheritance built
@@ -111,9 +105,9 @@ typedef struct {
     PyObject_VAR_HEAD
 } PyVarObject;
 
-#define Py_REFCNT(ob)           (((PyObject*)(ob))->ob_refcnt)
-#define Py_TYPE(ob)             (((PyObject*)(ob))->ob_type)
-#define Py_SIZE(ob)             (((PyVarObject*)(ob))->ob_size)
+#define Py_REFCNT(ob) (((PyObject *)(ob))->ob_refcnt)
+#define Py_TYPE(ob) (((PyObject *)(ob))->ob_type)
+#define Py_SIZE(ob) (((PyVarObject *)(ob))->ob_size)
 
 /*
 Type objects contain a string containing the type name (to help somewhat
@@ -130,23 +124,22 @@ NB: the methods for certain type groups are now contained in separate
 method blocks.
 */
 
-typedef PyObject * (*unaryfunc)(PyObject *);
-typedef PyObject * (*binaryfunc)(PyObject *, PyObject *);
-typedef PyObject * (*ternaryfunc)(PyObject *, PyObject *, PyObject *);
+typedef PyObject *(*unaryfunc)(PyObject *);
+typedef PyObject *(*binaryfunc)(PyObject *, PyObject *);
+typedef PyObject *(*ternaryfunc)(PyObject *, PyObject *, PyObject *);
 typedef int (*inquiry)(PyObject *);
 typedef Py_ssize_t (*lenfunc)(PyObject *);
 typedef int (*coercion)(PyObject **, PyObject **);
-typedef PyObject *(*intargfunc)(PyObject *, int) Py_DEPRECATED(2.5);
-typedef PyObject *(*intintargfunc)(PyObject *, int, int) Py_DEPRECATED(2.5);
+typedef PyObject *(*intargfunc)(PyObject *, int)Py_DEPRECATED(2.5);
+typedef PyObject *(*intintargfunc)(PyObject *, int, int)Py_DEPRECATED(2.5);
 typedef PyObject *(*ssizeargfunc)(PyObject *, Py_ssize_t);
 typedef PyObject *(*ssizessizeargfunc)(PyObject *, Py_ssize_t, Py_ssize_t);
-typedef int(*intobjargproc)(PyObject *, int, PyObject *);
-typedef int(*intintobjargproc)(PyObject *, int, int, PyObject *);
-typedef int(*ssizeobjargproc)(PyObject *, Py_ssize_t, PyObject *);
-typedef int(*ssizessizeobjargproc)(PyObject *, Py_ssize_t, Py_ssize_t, PyObject *);
-typedef int(*objobjargproc)(PyObject *, PyObject *, PyObject *);
-
-
+typedef int (*intobjargproc)(PyObject *, int, PyObject *);
+typedef int (*intintobjargproc)(PyObject *, int, int, PyObject *);
+typedef int (*ssizeobjargproc)(PyObject *, Py_ssize_t, PyObject *);
+typedef int (*ssizessizeobjargproc)(
+    PyObject *, Py_ssize_t, Py_ssize_t, PyObject *);
+typedef int (*objobjargproc)(PyObject *, PyObject *, PyObject *);
 
 /* int-based buffer interface */
 typedef int (*getreadbufferproc)(PyObject *, int, void **);
@@ -159,29 +152,28 @@ typedef Py_ssize_t (*writebufferproc)(PyObject *, Py_ssize_t, void **);
 typedef Py_ssize_t (*segcountproc)(PyObject *, Py_ssize_t *);
 typedef Py_ssize_t (*charbufferproc)(PyObject *, Py_ssize_t, char **);
 
-
 /* Py3k buffer interface */
 typedef struct bufferinfo {
     void *buf;
-    PyObject *obj;        /* owned reference */
+    PyObject *obj; /* owned reference */
     Py_ssize_t len;
-    Py_ssize_t itemsize;  /* This is Py_ssize_t so it can be
-                             pointed to by strides in simple case.*/
+    Py_ssize_t itemsize; /* This is Py_ssize_t so it can be
+                            pointed to by strides in simple case.*/
     int readonly;
     int ndim;
     char *format;
     Py_ssize_t *shape;
     Py_ssize_t *strides;
     Py_ssize_t *suboffsets;
-    Py_ssize_t smalltable[2];  /* static store for shape and strides of
-                                  mono-dimensional buffers. */
+    Py_ssize_t smalltable[2]; /* static store for shape and strides of
+                                 mono-dimensional buffers. */
     void *internal;
 } Py_buffer;
 
 typedef int (*getbufferproc)(PyObject *, Py_buffer *, int);
 typedef void (*releasebufferproc)(PyObject *, Py_buffer *);
 
-    /* Flags for getting buffers */
+/* Flags for getting buffers */
 #define PyBUF_SIMPLE 0
 #define PyBUF_WRITABLE 0x0001
 /*  we used to include an E, backwards compatible alias  */
@@ -206,8 +198,7 @@ typedef void (*releasebufferproc)(PyObject *, Py_buffer *);
 #define PyBUF_FULL (PyBUF_INDIRECT | PyBUF_WRITABLE | PyBUF_FORMAT)
 #define PyBUF_FULL_RO (PyBUF_INDIRECT | PyBUF_FORMAT)
 
-
-#define PyBUF_READ  0x100
+#define PyBUF_READ 0x100
 #define PyBUF_WRITE 0x200
 #define PyBUF_SHADOW 0x400
 /* end Py3k buffer interface */
@@ -301,7 +292,6 @@ typedef struct {
     releasebufferproc bf_releasebuffer;
 } PyBufferProcs;
 
-
 typedef void (*freefunc)(void *);
 typedef void (*destructor)(PyObject *);
 typedef int (*printfunc)(PyObject *, FILE *, int);
@@ -312,18 +302,18 @@ typedef int (*setattrofunc)(PyObject *, PyObject *, PyObject *);
 typedef int (*cmpfunc)(PyObject *, PyObject *);
 typedef PyObject *(*reprfunc)(PyObject *);
 typedef long (*hashfunc)(PyObject *);
-typedef PyObject *(*richcmpfunc) (PyObject *, PyObject *, int);
-typedef PyObject *(*getiterfunc) (PyObject *);
-typedef PyObject *(*iternextfunc) (PyObject *);
-typedef PyObject *(*descrgetfunc) (PyObject *, PyObject *, PyObject *);
-typedef int (*descrsetfunc) (PyObject *, PyObject *, PyObject *);
+typedef PyObject *(*richcmpfunc)(PyObject *, PyObject *, int);
+typedef PyObject *(*getiterfunc)(PyObject *);
+typedef PyObject *(*iternextfunc)(PyObject *);
+typedef PyObject *(*descrgetfunc)(PyObject *, PyObject *, PyObject *);
+typedef int (*descrsetfunc)(PyObject *, PyObject *, PyObject *);
 typedef int (*initproc)(PyObject *, PyObject *, PyObject *);
 typedef PyObject *(*newfunc)(struct _typeobject *, PyObject *, PyObject *);
 typedef PyObject *(*allocfunc)(struct _typeobject *, Py_ssize_t);
 
 typedef struct _typeobject {
-    PyObject_VAR_HEAD
-    const char *tp_name; /* For printing, in format "<module>.<name>" */
+    PyObject_VAR_HEAD const char
+        *tp_name; /* For printing, in format "<module>.<name>" */
     Py_ssize_t tp_basicsize, tp_itemsize; /* For allocation */
 
     /* Methods to implement standard operations */
@@ -410,7 +400,6 @@ typedef struct _typeobject {
 #endif
 } PyTypeObject;
 
-
 /* The *real* layout of a type object when allocated on the heap */
 typedef struct _heaptypeobject {
     /* Note: there's a dependency on the order of these members
@@ -432,15 +421,14 @@ typedef struct _heaptypeobject {
 #define PyHeapType_GET_MEMBERS(etype) \
     ((PyMemberDef *)(((char *)etype) + Py_TYPE(etype)->tp_basicsize))
 
-
 /* Generic type check */
 PyAPI_FUNC(int) PyType_IsSubtype(PyTypeObject *, PyTypeObject *);
 #define PyObject_TypeCheck(ob, tp) \
     (Py_TYPE(ob) == (tp) || PyType_IsSubtype(Py_TYPE(ob), (tp)))
 
-PyAPI_DATA(PyTypeObject) PyType_Type; /* built-in 'type' */
+PyAPI_DATA(PyTypeObject) PyType_Type;       /* built-in 'type' */
 PyAPI_DATA(PyTypeObject) PyBaseObject_Type; /* built-in 'object' */
-PyAPI_DATA(PyTypeObject) PySuper_Type; /* built-in 'super' */
+PyAPI_DATA(PyTypeObject) PySuper_Type;      /* built-in 'super' */
 
 #define PyType_Check(op) \
     PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_TYPE_SUBCLASS)
@@ -448,8 +436,8 @@ PyAPI_DATA(PyTypeObject) PySuper_Type; /* built-in 'super' */
 
 PyAPI_FUNC(int) PyType_Ready(PyTypeObject *);
 PyAPI_FUNC(PyObject *) PyType_GenericAlloc(PyTypeObject *, Py_ssize_t);
-PyAPI_FUNC(PyObject *) PyType_GenericNew(PyTypeObject *,
-                                               PyObject *, PyObject *);
+PyAPI_FUNC(PyObject *)
+    PyType_GenericNew(PyTypeObject *, PyObject *, PyObject *);
 PyAPI_FUNC(PyObject *) _PyType_Lookup(PyTypeObject *, PyObject *);
 PyAPI_FUNC(PyObject *) _PyObject_LookupSpecial(PyObject *, char *, PyObject **);
 PyAPI_FUNC(unsigned int) PyType_ClearCache(void);
@@ -478,8 +466,7 @@ PyAPI_FUNC(PyObject **) _PyObject_GetDictPtr(PyObject *);
 PyAPI_FUNC(PyObject *) PyObject_SelfIter(PyObject *);
 PyAPI_FUNC(PyObject *) _PyObject_NextNotImplemented(PyObject *);
 PyAPI_FUNC(PyObject *) PyObject_GenericGetAttr(PyObject *, PyObject *);
-PyAPI_FUNC(int) PyObject_GenericSetAttr(PyObject *,
-                                              PyObject *, PyObject *);
+PyAPI_FUNC(int) PyObject_GenericSetAttr(PyObject *, PyObject *, PyObject *);
 PyAPI_FUNC(long) PyObject_Hash(PyObject *);
 PyAPI_FUNC(long) PyObject_HashNotImplemented(PyObject *);
 PyAPI_FUNC(int) PyObject_IsTrue(PyObject *);
@@ -495,11 +482,9 @@ extern int _PyObject_SlotCompare(PyObject *, PyObject *);
 /* Same as PyObject_Generic{Get,Set}Attr, but passing the attributes
    dict as the last parameter. */
 PyAPI_FUNC(PyObject *)
-_PyObject_GenericGetAttrWithDict(PyObject *, PyObject *, PyObject *);
-PyAPI_FUNC(int)
-_PyObject_GenericSetAttrWithDict(PyObject *, PyObject *,
-                                 PyObject *, PyObject *);
-
+    _PyObject_GenericGetAttrWithDict(PyObject *, PyObject *, PyObject *);
+PyAPI_FUNC(int) _PyObject_GenericSetAttrWithDict(
+    PyObject *, PyObject *, PyObject *, PyObject *);
 
 /* PyObject_Dir(obj) acts like Python __builtin__.dir(obj), returning a
    list of strings.  PyObject_Dir(NULL) is like __builtin__.dir(),
@@ -508,14 +493,13 @@ _PyObject_GenericSetAttrWithDict(PyObject *, PyObject *,
 */
 PyAPI_FUNC(PyObject *) PyObject_Dir(PyObject *);
 
-
 /* Helpers for printing recursive container types */
 PyAPI_FUNC(int) Py_ReprEnter(PyObject *);
 PyAPI_FUNC(void) Py_ReprLeave(PyObject *);
 
 /* Helpers for hash functions */
 PyAPI_FUNC(long) _Py_HashDouble(double);
-PyAPI_FUNC(long) _Py_HashPointer(void*);
+PyAPI_FUNC(long) _Py_HashPointer(void *);
 
 typedef struct {
     long prefix;
@@ -533,7 +517,7 @@ PyAPI_DATA(int) _Py_HashSecret_Initialized;
 #define PyObject_REPR(obj) PyString_AS_STRING(PyObject_Repr(obj))
 
 /* Flag bits for printing: */
-#define Py_PRINT_RAW    1       /* No string quotes etc. */
+#define Py_PRINT_RAW 1 /* No string quotes etc. */
 
 /*
 `Type flags (tp_flags)
@@ -563,92 +547,86 @@ manually remove this flag though!
 */
 
 /* PyBufferProcs contains bf_getcharbuffer */
-#define Py_TPFLAGS_HAVE_GETCHARBUFFER  (1L<<0)
+#define Py_TPFLAGS_HAVE_GETCHARBUFFER (1L << 0)
 
 /* PySequenceMethods contains sq_contains */
-#define Py_TPFLAGS_HAVE_SEQUENCE_IN (1L<<1)
+#define Py_TPFLAGS_HAVE_SEQUENCE_IN (1L << 1)
 
 /* This is here for backwards compatibility.  Extensions that use the old GC
  * API will still compile but the objects will not be tracked by the GC. */
 #define Py_TPFLAGS_GC 0 /* used to be (1L<<2) */
 
 /* PySequenceMethods and PyNumberMethods contain in-place operators */
-#define Py_TPFLAGS_HAVE_INPLACEOPS (1L<<3)
+#define Py_TPFLAGS_HAVE_INPLACEOPS (1L << 3)
 
 /* PyNumberMethods do their own coercion */
-#define Py_TPFLAGS_CHECKTYPES (1L<<4)
+#define Py_TPFLAGS_CHECKTYPES (1L << 4)
 
 /* tp_richcompare is defined */
-#define Py_TPFLAGS_HAVE_RICHCOMPARE (1L<<5)
+#define Py_TPFLAGS_HAVE_RICHCOMPARE (1L << 5)
 
 /* Objects which are weakly referencable if their tp_weaklistoffset is >0 */
-#define Py_TPFLAGS_HAVE_WEAKREFS (1L<<6)
+#define Py_TPFLAGS_HAVE_WEAKREFS (1L << 6)
 
 /* tp_iter is defined */
-#define Py_TPFLAGS_HAVE_ITER (1L<<7)
+#define Py_TPFLAGS_HAVE_ITER (1L << 7)
 
 /* New members introduced by Python 2.2 exist */
-#define Py_TPFLAGS_HAVE_CLASS (1L<<8)
+#define Py_TPFLAGS_HAVE_CLASS (1L << 8)
 
 /* Set if the type object is dynamically allocated */
-#define Py_TPFLAGS_HEAPTYPE (1L<<9)
+#define Py_TPFLAGS_HEAPTYPE (1L << 9)
 
 /* Set if the type allows subclassing */
-#define Py_TPFLAGS_BASETYPE (1L<<10)
+#define Py_TPFLAGS_BASETYPE (1L << 10)
 
 /* Set if the type is 'ready' -- fully initialized */
-#define Py_TPFLAGS_READY (1L<<12)
+#define Py_TPFLAGS_READY (1L << 12)
 
 /* Set while the type is being 'readied', to prevent recursive ready calls */
-#define Py_TPFLAGS_READYING (1L<<13)
+#define Py_TPFLAGS_READYING (1L << 13)
 
 /* Objects support garbage collection (see objimp.h) */
-#define Py_TPFLAGS_HAVE_GC (1L<<14)
+#define Py_TPFLAGS_HAVE_GC (1L << 14)
 
 /* These two bits are preserved for Stackless Python, next after this is 17 */
 #ifdef STACKLESS
-#define Py_TPFLAGS_HAVE_STACKLESS_EXTENSION (3L<<15)
+#define Py_TPFLAGS_HAVE_STACKLESS_EXTENSION (3L << 15)
 #else
 #define Py_TPFLAGS_HAVE_STACKLESS_EXTENSION 0
 #endif
 
 /* Objects support nb_index in PyNumberMethods */
-#define Py_TPFLAGS_HAVE_INDEX (1L<<17)
+#define Py_TPFLAGS_HAVE_INDEX (1L << 17)
 
 /* Objects support type attribute cache */
-#define Py_TPFLAGS_HAVE_VERSION_TAG   (1L<<18)
-#define Py_TPFLAGS_VALID_VERSION_TAG  (1L<<19)
+#define Py_TPFLAGS_HAVE_VERSION_TAG (1L << 18)
+#define Py_TPFLAGS_VALID_VERSION_TAG (1L << 19)
 
 /* Type is abstract and cannot be instantiated */
-#define Py_TPFLAGS_IS_ABSTRACT (1L<<20)
+#define Py_TPFLAGS_IS_ABSTRACT (1L << 20)
 
 /* Has the new buffer protocol */
-#define Py_TPFLAGS_HAVE_NEWBUFFER (1L<<21)
+#define Py_TPFLAGS_HAVE_NEWBUFFER (1L << 21)
 
 /* These flags are used to determine if a type is a subclass. */
-#define Py_TPFLAGS_INT_SUBCLASS         (1L<<23)
-#define Py_TPFLAGS_LONG_SUBCLASS        (1L<<24)
-#define Py_TPFLAGS_LIST_SUBCLASS        (1L<<25)
-#define Py_TPFLAGS_TUPLE_SUBCLASS       (1L<<26)
-#define Py_TPFLAGS_STRING_SUBCLASS      (1L<<27)
-#define Py_TPFLAGS_UNICODE_SUBCLASS     (1L<<28)
-#define Py_TPFLAGS_DICT_SUBCLASS        (1L<<29)
-#define Py_TPFLAGS_BASE_EXC_SUBCLASS    (1L<<30)
-#define Py_TPFLAGS_TYPE_SUBCLASS        (1L<<31)
+#define Py_TPFLAGS_INT_SUBCLASS (1L << 23)
+#define Py_TPFLAGS_LONG_SUBCLASS (1L << 24)
+#define Py_TPFLAGS_LIST_SUBCLASS (1L << 25)
+#define Py_TPFLAGS_TUPLE_SUBCLASS (1L << 26)
+#define Py_TPFLAGS_STRING_SUBCLASS (1L << 27)
+#define Py_TPFLAGS_UNICODE_SUBCLASS (1L << 28)
+#define Py_TPFLAGS_DICT_SUBCLASS (1L << 29)
+#define Py_TPFLAGS_BASE_EXC_SUBCLASS (1L << 30)
+#define Py_TPFLAGS_TYPE_SUBCLASS (1L << 31)
 
-#define Py_TPFLAGS_DEFAULT_EXTERNAL ( \
-                 Py_TPFLAGS_HAVE_GETCHARBUFFER | \
-                 Py_TPFLAGS_HAVE_SEQUENCE_IN | \
-                 Py_TPFLAGS_HAVE_INPLACEOPS | \
-                 Py_TPFLAGS_HAVE_RICHCOMPARE | \
-                 Py_TPFLAGS_HAVE_WEAKREFS | \
-                 Py_TPFLAGS_HAVE_ITER | \
-                 Py_TPFLAGS_HAVE_CLASS | \
-                 Py_TPFLAGS_HAVE_STACKLESS_EXTENSION | \
-                 Py_TPFLAGS_HAVE_INDEX | \
-                 0)
-#define Py_TPFLAGS_DEFAULT_CORE (Py_TPFLAGS_DEFAULT_EXTERNAL | \
-                 Py_TPFLAGS_HAVE_VERSION_TAG)
+#define Py_TPFLAGS_DEFAULT_EXTERNAL                                            \
+    (Py_TPFLAGS_HAVE_GETCHARBUFFER | Py_TPFLAGS_HAVE_SEQUENCE_IN |             \
+     Py_TPFLAGS_HAVE_INPLACEOPS | Py_TPFLAGS_HAVE_RICHCOMPARE |                \
+     Py_TPFLAGS_HAVE_WEAKREFS | Py_TPFLAGS_HAVE_ITER | Py_TPFLAGS_HAVE_CLASS | \
+     Py_TPFLAGS_HAVE_STACKLESS_EXTENSION | Py_TPFLAGS_HAVE_INDEX | 0)
+#define Py_TPFLAGS_DEFAULT_CORE \
+    (Py_TPFLAGS_DEFAULT_EXTERNAL | Py_TPFLAGS_HAVE_VERSION_TAG)
 
 #ifdef Py_BUILD_CORE
 #define Py_TPFLAGS_DEFAULT Py_TPFLAGS_DEFAULT_CORE
@@ -656,9 +634,8 @@ manually remove this flag though!
 #define Py_TPFLAGS_DEFAULT Py_TPFLAGS_DEFAULT_EXTERNAL
 #endif
 
-#define PyType_HasFeature(t,f)  (((t)->tp_flags & (f)) != 0)
-#define PyType_FastSubclass(t,f)  PyType_HasFeature(t,f)
-
+#define PyType_HasFeature(t, f) (((t)->tp_flags & (f)) != 0)
+#define PyType_FastSubclass(t, f) PyType_HasFeature(t, f)
 
 /*
 The macros Py_INCREF(op) and Py_DECREF(op) are used to increment or decrement
@@ -705,33 +682,33 @@ environment the global variable trick is not safe.)
  */
 #ifdef Py_REF_DEBUG
 PyAPI_DATA(Py_ssize_t) _Py_RefTotal;
-PyAPI_FUNC(void) _Py_NegativeRefcount(const char *fname,
-                                            int lineno, PyObject *op);
+PyAPI_FUNC(void)
+    _Py_NegativeRefcount(const char *fname, int lineno, PyObject *op);
 PyAPI_FUNC(PyObject *) _PyDict_Dummy(void);
 PyAPI_FUNC(PyObject *) _PySet_Dummy(void);
 PyAPI_FUNC(Py_ssize_t) _Py_GetRefTotal(void);
-#define _Py_INC_REFTOTAL        _Py_RefTotal++
-#define _Py_DEC_REFTOTAL        _Py_RefTotal--
-#define _Py_REF_DEBUG_COMMA     ,
-#define _Py_CHECK_REFCNT(OP)                                    \
-{       if (((PyObject*)OP)->ob_refcnt < 0)                             \
-                _Py_NegativeRefcount(__FILE__, __LINE__,        \
-                                     (PyObject *)(OP));         \
-}
+#define _Py_INC_REFTOTAL _Py_RefTotal++
+#define _Py_DEC_REFTOTAL _Py_RefTotal--
+#define _Py_REF_DEBUG_COMMA ,
+#define _Py_CHECK_REFCNT(OP)                                            \
+    {                                                                   \
+        if (((PyObject *)OP)->ob_refcnt < 0)                            \
+            _Py_NegativeRefcount(__FILE__, __LINE__, (PyObject *)(OP)); \
+    }
 #else
 #define _Py_INC_REFTOTAL
 #define _Py_DEC_REFTOTAL
 #define _Py_REF_DEBUG_COMMA
-#define _Py_CHECK_REFCNT(OP)    /* a semicolon */;
+#define _Py_CHECK_REFCNT(OP) /* a semicolon */ ;
 #endif /* Py_REF_DEBUG */
 
 #ifdef COUNT_ALLOCS
 PyAPI_FUNC(void) inc_count(PyTypeObject *);
 PyAPI_FUNC(void) dec_count(PyTypeObject *);
-#define _Py_INC_TPALLOCS(OP)    inc_count(Py_TYPE(OP))
-#define _Py_INC_TPFREES(OP)     dec_count(Py_TYPE(OP))
-#define _Py_DEC_TPFREES(OP)     Py_TYPE(OP)->tp_frees--
-#define _Py_COUNT_ALLOCS_COMMA  ,
+#define _Py_INC_TPALLOCS(OP) inc_count(Py_TYPE(OP))
+#define _Py_INC_TPFREES(OP) dec_count(Py_TYPE(OP))
+#define _Py_DEC_TPFREES(OP) Py_TYPE(OP)->tp_frees--
+#define _Py_COUNT_ALLOCS_COMMA ,
 #else
 #define _Py_INC_TPALLOCS(OP)
 #define _Py_INC_TPFREES(OP)
@@ -752,29 +729,25 @@ PyAPI_FUNC(void) _Py_AddToAllObjects(PyObject *, int force);
 /* Without Py_TRACE_REFS, there's little enough to do that we expand code
  * inline.
  */
-#define _Py_NewReference(op) (                          \
-    _Py_INC_TPALLOCS(op) _Py_COUNT_ALLOCS_COMMA         \
-    _Py_INC_REFTOTAL  _Py_REF_DEBUG_COMMA               \
-    Py_REFCNT(op) = 1)
+#define _Py_NewReference(op)                                      \
+    (_Py_INC_TPALLOCS(op) _Py_COUNT_ALLOCS_COMMA _Py_INC_REFTOTAL \
+         _Py_REF_DEBUG_COMMA Py_REFCNT(op) = 1)
 
 #define _Py_ForgetReference(op) _Py_INC_TPFREES(op)
 
-#define _Py_Dealloc(op) (                               \
-    _Py_INC_TPFREES(op) _Py_COUNT_ALLOCS_COMMA          \
-    (*Py_TYPE(op)->tp_dealloc)((PyObject *)(op)))
+#define _Py_Dealloc(op)  \
+    (_Py_INC_TPFREES(op) \
+         _Py_COUNT_ALLOCS_COMMA(*Py_TYPE(op)->tp_dealloc)((PyObject *)(op)))
 #endif /* !Py_TRACE_REFS */
 
-#define Py_INCREF(op) (                         \
-    _Py_INC_REFTOTAL  _Py_REF_DEBUG_COMMA       \
-    ((PyObject*)(op))->ob_refcnt++)
+#define Py_INCREF(op) \
+    (_Py_INC_REFTOTAL _Py_REF_DEBUG_COMMA((PyObject *)(op))->ob_refcnt++)
 
-#define Py_DECREF(op)                                   \
-    do {                                                \
-        if (_Py_DEC_REFTOTAL  _Py_REF_DEBUG_COMMA       \
-        --((PyObject*)(op))->ob_refcnt != 0)            \
-            _Py_CHECK_REFCNT(op)                        \
-        else                                            \
-        _Py_Dealloc((PyObject *)(op));                  \
+#define Py_DECREF(op)                                                \
+    do {                                                             \
+        if (_Py_DEC_REFTOTAL _Py_REF_DEBUG_COMMA--((PyObject *)(op)) \
+                ->ob_refcnt != 0)                                    \
+            _Py_CHECK_REFCNT(op) else _Py_Dealloc((PyObject *)(op)); \
     } while (0)
 
 /* Safely decref `op` and set `op` to NULL, especially useful in tp_clear
@@ -811,18 +784,30 @@ PyAPI_FUNC(void) _Py_AddToAllObjects(PyObject *, int force);
  * Python integers aren't currently weakly referencable.  Best practice is
  * to use Py_CLEAR() even if you can't think of a reason for why you need to.
  */
-#define Py_CLEAR(op)                            \
-    do {                                        \
-        if (op) {                               \
-            PyObject *_py_tmp = (PyObject *)(op);               \
-            (op) = NULL;                        \
-            Py_DECREF(_py_tmp);                 \
-        }                                       \
+#define Py_CLEAR(op)                              \
+    do {                                          \
+        if (op) {                                 \
+            PyObject *_py_tmp = (PyObject *)(op); \
+            (op) = NULL;                          \
+            Py_DECREF(_py_tmp);                   \
+        }                                         \
     } while (0)
 
 /* Macros to use in case the object pointer may be NULL: */
-#define Py_XINCREF(op) do { if ((op) == NULL) ; else Py_INCREF(op); } while (0)
-#define Py_XDECREF(op) do { if ((op) == NULL) ; else Py_DECREF(op); } while (0)
+#define Py_XINCREF(op)     \
+    do {                   \
+        if ((op) == NULL)  \
+            ;              \
+        else               \
+            Py_INCREF(op); \
+    } while (0)
+#define Py_XDECREF(op)     \
+    do {                   \
+        if ((op) == NULL)  \
+            ;              \
+        else               \
+            Py_DECREF(op); \
+    } while (0)
 
 /* Safely decref `op` and set `op` to `op2`.
  *
@@ -843,18 +828,18 @@ PyAPI_FUNC(void) _Py_AddToAllObjects(PyObject *, int force);
  * Py_DECREF.
  */
 
-#define Py_SETREF(op, op2)                      \
-    do {                                        \
-        PyObject *_py_tmp = (PyObject *)(op);   \
-        (op) = (op2);                           \
-        Py_DECREF(_py_tmp);                     \
+#define Py_SETREF(op, op2)                    \
+    do {                                      \
+        PyObject *_py_tmp = (PyObject *)(op); \
+        (op) = (op2);                         \
+        Py_DECREF(_py_tmp);                   \
     } while (0)
 
-#define Py_XSETREF(op, op2)                     \
-    do {                                        \
-        PyObject *_py_tmp = (PyObject *)(op);   \
-        (op) = (op2);                           \
-        Py_XDECREF(_py_tmp);                    \
+#define Py_XSETREF(op, op2)                   \
+    do {                                      \
+        PyObject *_py_tmp = (PyObject *)(op); \
+        (op) = (op2);                         \
+        Py_XDECREF(_py_tmp);                  \
     } while (0)
 
 /*
@@ -911,7 +896,6 @@ static, and we've decided to stop catering to broken C compilers.
 #define staticforward static
 #define statichere static
 
-
 /*
 More conventions
 ================
@@ -964,7 +948,6 @@ it carefully, it may save lots of calls to Py_INCREF() and Py_DECREF() at
 times.
 */
 
-
 /* Trashcan mechanism, thanks to Christian Tismer.
 
 When deallocating a container object, it's possible to trigger an unbounded
@@ -1008,37 +991,36 @@ with the call stack never exceeding a depth of PyTrash_UNWIND_LEVEL.
 
 /* This is the old private API, invoked by the macros before 2.7.4.
    Kept for binary compatibility of extensions. */
-PyAPI_FUNC(void) _PyTrash_deposit_object(PyObject*);
+PyAPI_FUNC(void) _PyTrash_deposit_object(PyObject *);
 PyAPI_FUNC(void) _PyTrash_destroy_chain(void);
 PyAPI_DATA(int) _PyTrash_delete_nesting;
 PyAPI_DATA(PyObject *) _PyTrash_delete_later;
 
 /* The new thread-safe private API, invoked by the macros below. */
-PyAPI_FUNC(void) _PyTrash_thread_deposit_object(PyObject*);
+PyAPI_FUNC(void) _PyTrash_thread_deposit_object(PyObject *);
 PyAPI_FUNC(void) _PyTrash_thread_destroy_chain(void);
 
 #define PyTrash_UNWIND_LEVEL 50
 
 /* Note the workaround for when the thread state is NULL (issue #17703) */
-#define Py_TRASHCAN_SAFE_BEGIN(op) \
-    do { \
-        PyThreadState *_tstate = PyThreadState_GET(); \
-        if (!_tstate || \
+#define Py_TRASHCAN_SAFE_BEGIN(op)                                  \
+    do {                                                            \
+        PyThreadState *_tstate = PyThreadState_GET();               \
+        if (!_tstate ||                                             \
             _tstate->trash_delete_nesting < PyTrash_UNWIND_LEVEL) { \
-            if (_tstate) \
-                ++_tstate->trash_delete_nesting;
-            /* The body of the deallocator is here. */
-#define Py_TRASHCAN_SAFE_END(op) \
-            if (_tstate) { \
-                --_tstate->trash_delete_nesting; \
-                if (_tstate->trash_delete_later \
-                    && _tstate->trash_delete_nesting <= 0) \
-                    _PyTrash_thread_destroy_chain(); \
-            } \
-        } \
-        else \
-            _PyTrash_thread_deposit_object((PyObject*)op); \
-    } while (0);
+            if (_tstate) ++_tstate->trash_delete_nesting;
+/* The body of the deallocator is here. */
+#define Py_TRASHCAN_SAFE_END(op)                                               \
+    if (_tstate) {                                                             \
+        --_tstate->trash_delete_nesting;                                       \
+        if (_tstate->trash_delete_later && _tstate->trash_delete_nesting <= 0) \
+            _PyTrash_thread_destroy_chain();                                   \
+    }                                                                          \
+    }                                                                          \
+    else _PyTrash_thread_deposit_object((PyObject *)op);                       \
+    }                                                                          \
+    while (0)                                                                  \
+        ;
 
 #ifdef __cplusplus
 }

@@ -23,9 +23,7 @@ Copyright (c) Corporation for National Research Initiatives.
 
    The search_function's refcount is incremented by this function. */
 
-PyAPI_FUNC(int) PyCodec_Register(
-       PyObject *search_function
-       );
+PyAPI_FUNC(int) PyCodec_Register(PyObject *search_function);
 
 /* Codec register lookup API.
 
@@ -45,41 +43,33 @@ PyAPI_FUNC(int) PyCodec_Register(
 
  */
 
-PyAPI_FUNC(PyObject *) _PyCodec_Lookup(
-       const char *encoding
-       );
+PyAPI_FUNC(PyObject *) _PyCodec_Lookup(const char *encoding);
 
 /* Generic codec based encoding API.
 
    object is passed through the encoder function found for the given
    encoding using the error handling method defined by errors. errors
    may be NULL to use the default method defined for the codec.
-   
+
    Raises a LookupError in case no encoder can be found.
 
  */
 
-PyAPI_FUNC(PyObject *) PyCodec_Encode(
-       PyObject *object,
-       const char *encoding,
-       const char *errors
-       );
+PyAPI_FUNC(PyObject *)
+    PyCodec_Encode(PyObject *object, const char *encoding, const char *errors);
 
 /* Generic codec based decoding API.
 
    object is passed through the decoder function found for the given
    encoding using the error handling method defined by errors. errors
    may be NULL to use the default method defined for the codec.
-   
+
    Raises a LookupError in case no encoder can be found.
 
  */
 
-PyAPI_FUNC(PyObject *) PyCodec_Decode(
-       PyObject *object,
-       const char *encoding,
-       const char *errors
-       );
+PyAPI_FUNC(PyObject *)
+    PyCodec_Decode(PyObject *object, const char *encoding, const char *errors);
 
 /* Text codec specific encoding and decoding API.
 
@@ -95,38 +85,24 @@ PyAPI_FUNC(PyObject *) PyCodec_Decode(
 
  */
 PyAPI_FUNC(PyObject *) _PyCodec_LookupTextEncoding(
-       const char *encoding,
-       const char *alternate_command
-       );
+    const char *encoding, const char *alternate_command);
 
 PyAPI_FUNC(PyObject *) _PyCodec_EncodeText(
-       PyObject *object,
-       const char *encoding,
-       const char *errors
-       );
+    PyObject *object, const char *encoding, const char *errors);
 
 PyAPI_FUNC(PyObject *) _PyCodec_DecodeText(
-       PyObject *object,
-       const char *encoding,
-       const char *errors
-       );
+    PyObject *object, const char *encoding, const char *errors);
 
 /* These two aren't actually text encoding specific, but _io.TextIOWrapper
  * is the only current API consumer.
  */
 PyAPI_FUNC(PyObject *) _PyCodecInfo_GetIncrementalDecoder(
-       PyObject *codec_info,
-       const char *errors
-       );
+    PyObject *codec_info, const char *errors);
 
 PyAPI_FUNC(PyObject *) _PyCodecInfo_GetIncrementalEncoder(
-       PyObject *codec_info,
-       const char *errors
-       );
+    PyObject *codec_info, const char *errors);
 
-
-
-/* --- Codec Lookup APIs -------------------------------------------------- 
+/* --- Codec Lookup APIs --------------------------------------------------
 
    All APIs return a codec object with incremented refcount and are
    based on _PyCodec_Lookup().  The same comments w/r to the encoding
@@ -136,45 +112,31 @@ PyAPI_FUNC(PyObject *) _PyCodecInfo_GetIncrementalEncoder(
 
 /* Get an encoder function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_Encoder(
-       const char *encoding
-       );
+PyAPI_FUNC(PyObject *) PyCodec_Encoder(const char *encoding);
 
 /* Get a decoder function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_Decoder(
-       const char *encoding
-       );
+PyAPI_FUNC(PyObject *) PyCodec_Decoder(const char *encoding);
 
 /* Get an IncrementalEncoder object for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_IncrementalEncoder(
-       const char *encoding,
-       const char *errors
-       );
+PyAPI_FUNC(PyObject *)
+    PyCodec_IncrementalEncoder(const char *encoding, const char *errors);
 
 /* Get an IncrementalDecoder object function for the given encoding. */
 
-PyAPI_FUNC(PyObject *) PyCodec_IncrementalDecoder(
-       const char *encoding,
-       const char *errors
-       );
+PyAPI_FUNC(PyObject *)
+    PyCodec_IncrementalDecoder(const char *encoding, const char *errors);
 
 /* Get a StreamReader factory function for the given encoding. */
 
 PyAPI_FUNC(PyObject *) PyCodec_StreamReader(
-       const char *encoding,
-       PyObject *stream,
-       const char *errors
-       );
+    const char *encoding, PyObject *stream, const char *errors);
 
 /* Get a StreamWriter factory function for the given encoding. */
 
 PyAPI_FUNC(PyObject *) PyCodec_StreamWriter(
-       const char *encoding,
-       PyObject *stream,
-       const char *errors
-       );
+    const char *encoding, PyObject *stream, const char *errors);
 
 /* Unicode encoding error handling callback registry API */
 

@@ -15,9 +15,9 @@ PyAPI_FUNC(void) PySys_SetArgvEx(int, char **, int);
 PyAPI_FUNC(void) PySys_SetPath(char *);
 
 PyAPI_FUNC(void) PySys_WriteStdout(const char *format, ...)
-			Py_GCC_ATTRIBUTE((format(printf, 1, 2)));
+    Py_GCC_ATTRIBUTE((format(printf, 1, 2)));
 PyAPI_FUNC(void) PySys_WriteStderr(const char *format, ...)
-			Py_GCC_ATTRIBUTE((format(printf, 1, 2)));
+    Py_GCC_ATTRIBUTE((format(printf, 1, 2)));
 
 PyAPI_FUNC(void) PySys_ResetWarnOptions(void);
 PyAPI_FUNC(void) PySys_AddWarnOption(char *);

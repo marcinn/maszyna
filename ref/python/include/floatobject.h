@@ -12,8 +12,7 @@ extern "C" {
 #endif
 
 typedef struct {
-    PyObject_HEAD
-    double ob_fval;
+    PyObject_HEAD double ob_fval;
 } PyFloatObject;
 
 PyAPI_DATA(PyTypeObject) PyFloat_Type;
@@ -31,12 +30,14 @@ PyAPI_DATA(PyTypeObject) PyFloat_Type;
 #define Py_RETURN_NAN return PyFloat_FromDouble(Py_NAN)
 #endif
 
-#define Py_RETURN_INF(sign) do					\
-	if (copysign(1., sign) == 1.) {				\
-		return PyFloat_FromDouble(Py_HUGE_VAL);	\
-	} else {						\
-		return PyFloat_FromDouble(-Py_HUGE_VAL);	\
-	} while(0)
+#define Py_RETURN_INF(sign)                          \
+    do                                               \
+        if (copysign(1., sign) == 1.) {              \
+            return PyFloat_FromDouble(Py_HUGE_VAL);  \
+        } else {                                     \
+            return PyFloat_FromDouble(-Py_HUGE_VAL); \
+        }                                            \
+    while (0)
 
 PyAPI_FUNC(double) PyFloat_GetMax(void);
 PyAPI_FUNC(double) PyFloat_GetMin(void);
@@ -45,7 +46,7 @@ PyAPI_FUNC(PyObject *) PyFloat_GetInfo(void);
 /* Return Python float from string PyObject.  Second argument ignored on
    input, and, if non-NULL, NULL is stored into *junk (this tried to serve a
    purpose once but can't be made to work as intended). */
-PyAPI_FUNC(PyObject *) PyFloat_FromString(PyObject*, char** junk);
+PyAPI_FUNC(PyObject *) PyFloat_FromString(PyObject *, char **junk);
 
 /* Return Python float from C double. */
 PyAPI_FUNC(PyObject *) PyFloat_FromDouble(double);
@@ -59,14 +60,14 @@ PyAPI_FUNC(double) PyFloat_AsDouble(PyObject *);
    buffer must be "big enough"; >= 100 is very safe.
    PyFloat_AsReprString(buf, x) strives to print enough digits so that
    PyFloat_FromString(buf) then reproduces x exactly. */
-PyAPI_FUNC(void) PyFloat_AsReprString(char*, PyFloatObject *v);
+PyAPI_FUNC(void) PyFloat_AsReprString(char *, PyFloatObject *v);
 
 /* Write str(v) into the char buffer argument, followed by null byte.  The
    buffer must be "big enough"; >= 100 is very safe.  Note that it's
    unusual to be able to get back the float you started with from
    PyFloat_AsString's result -- use PyFloat_AsReprString() if you want to
    preserve precision across conversions. */
-PyAPI_FUNC(void) PyFloat_AsString(char*, PyFloatObject *v);
+PyAPI_FUNC(void) PyFloat_AsString(char *, PyFloatObject *v);
 
 /* _PyFloat_{Pack,Unpack}{4,8}
  *
@@ -123,16 +124,13 @@ PyAPI_FUNC(int) PyFloat_ClearFreeList(void);
 
 /* Format the object based on the format_spec, as defined in PEP 3101
    (Advanced String Formatting). */
-PyAPI_FUNC(PyObject *) _PyFloat_FormatAdvanced(PyObject *obj,
-					       char *format_spec,
-					       Py_ssize_t format_spec_len);
+PyAPI_FUNC(PyObject *) _PyFloat_FormatAdvanced(
+    PyObject *obj, char *format_spec, Py_ssize_t format_spec_len);
 
 /* Round a C double x to the closest multiple of 10**-ndigits.  Returns a
    Python float on success, or NULL (with an appropriate exception set) on
    failure.  Used in builtin_round in bltinmodule.c. */
 PyAPI_FUNC(PyObject *) _Py_double_round(double x, int ndigits);
-
-
 
 #ifdef __cplusplus
 }

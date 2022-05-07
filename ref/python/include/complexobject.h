@@ -29,7 +29,6 @@ PyAPI_FUNC(Py_complex) c_quot(Py_complex, Py_complex);
 PyAPI_FUNC(Py_complex) c_pow(Py_complex, Py_complex);
 PyAPI_FUNC(double) c_abs(Py_complex);
 
-
 /* Complex object interface */
 
 /*
@@ -38,9 +37,8 @@ real and imaginary parts.
 */
 
 typedef struct {
-    PyObject_HEAD
-    Py_complex cval;
-} PyComplexObject;     
+    PyObject_HEAD Py_complex cval;
+} PyComplexObject;
 
 PyAPI_DATA(PyTypeObject) PyComplex_Type;
 
@@ -56,9 +54,8 @@ PyAPI_FUNC(Py_complex) PyComplex_AsCComplex(PyObject *op);
 
 /* Format the object based on the format_spec, as defined in PEP 3101
    (Advanced String Formatting). */
-PyAPI_FUNC(PyObject *) _PyComplex_FormatAdvanced(PyObject *obj,
-                                                 char *format_spec,
-                                                 Py_ssize_t format_spec_len);
+PyAPI_FUNC(PyObject *) _PyComplex_FormatAdvanced(
+    PyObject *obj, char *format_spec, Py_ssize_t format_spec_len);
 
 #ifdef __cplusplus
 }

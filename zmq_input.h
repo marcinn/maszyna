@@ -1,10 +1,10 @@
 #pragma once
 
 #include <zmq_addon.hpp>
+
 #include "command.h"
 
-class zmq_input
-{
+class zmq_input {
     enum class output_fields {
         shp,
         alerter,
@@ -45,18 +45,21 @@ class zmq_input
     zmq::context_t ctx;
     std::optional<zmq::socket_t> sock;
 
-    enum class input_type
-    {
+    enum class input_type {
         none,
-        toggle, // two commands, each mapped to one state; press event on state change
-        impulse, // one command; press event when set, release when cleared
-        value // one command; press event, value of specified byte passed as param1
+        toggle,  // two commands, each mapped to one state; press event on state
+                 // change
+        impulse,  // one command; press event when set, release when cleared
+        value     // one command; press event, value of specified byte passed as
+                  // param1
     };
 
     struct peer_state {
         float update_interval;
         std::vector<output_fields> sopi_list;
-        std::vector<std::tuple<input_type, user_command, user_command, bool>> sipo_list;;
+        std::vector<std::tuple<input_type, user_command, user_command, bool>>
+            sipo_list;
+        ;
         std::chrono::time_point<std::chrono::high_resolution_clock> last_update;
     };
 
@@ -71,7 +74,7 @@ class zmq_input
     static std::unordered_map<std::string, output_fields> output_fields_map;
     command_relay relay;
 
-public:
+   public:
     zmq_input();
     void poll();
 };

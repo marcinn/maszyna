@@ -13,17 +13,16 @@ http://mozilla.org/MPL/2.0/.
 #include "Classes.h"
 
 class TSky {
-
     friend opengl_renderer;
     friend opengl33_renderer;
 
-public:
+   public:
     TSky() = default;
 
     void Init();
 
-private:
-    TModel3d *mdCloud { nullptr };
+   private:
+    TModel3d *mdCloud{nullptr};
 };
 
 //---------------------------------------------------------------------------

@@ -2,19 +2,17 @@
 
 #include "object.h"
 
-namespace gl
-{
-    class fence
-    {
-        GLsync sync;
+namespace gl {
+class fence {
+    GLsync sync;
 
-    public:
-        fence();
-        ~fence();
+   public:
+    fence();
+    ~fence();
 
-        bool is_signalled();
+    bool is_signalled();
 
-        fence(const fence&) = delete;
-        fence& operator=(const fence&) = delete;
-    };
-}
+    fence(const fence&) = delete;
+    fence& operator=(const fence&) = delete;
+};
+}  // namespace gl

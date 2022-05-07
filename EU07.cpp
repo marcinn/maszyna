@@ -16,20 +16,20 @@ MarcinW, McZapkie, Shaxbee, ABu, nbmx, youBy, Ra, winger, mamut, Q424,
 Stele, firleju, szociu, hunter, ZiomalCl, OLI_EU and others
 */
 
-#include "stdafx.h"
-
-#include "application.h"
-#include "Logs.h"
 #include <cstdlib>
+
+#include "Logs.h"
+#include "application.h"
+#include "stdafx.h"
 
 #ifdef _MSC_VER
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
-void export_e3d_standalone(std::string in, std::string out, int flags, bool dynamic);
+void export_e3d_standalone(
+    std::string in, std::string out, int flags, bool dynamic);
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     // quick short-circuit for standalone e3d export
     if (argc == 6 && std::string(argv[1]) == "-e3d") {
         std::string in(argv[2]);
@@ -39,18 +39,21 @@ int main(int argc, char *argv[])
         export_e3d_standalone(in, out, flags, dynamic);
     } else {
         try {
-            auto result { Application.init( argc, argv ) };
-            if( result == 0 ) {
+            auto result{Application.init(argc, argv)};
+            if (result == 0) {
                 result = Application.run();
                 Application.exit();
             }
-        } catch( std::bad_alloc const &Error ) {
-            ErrorLog( "Critical error, memory allocation failure: " + std::string( Error.what() ) );
+        } catch (std::bad_alloc const &Error) {
+            ErrorLog(
+                "Critical error, memory allocation failure: " +
+                std::string(Error.what()));
         }
     }
 #ifndef _WIN32
     fflush(stdout);
     fflush(stderr);
 #endif
-	std::_Exit(0); // skip destructors, there are ordering errors which causes segfaults
+    std::_Exit(0);  // skip destructors, there are ordering errors which causes
+                    // segfaults
 }

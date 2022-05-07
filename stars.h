@@ -2,33 +2,32 @@
 
 #include "Classes.h"
 
-
 //////////////////////////////////////////////////////////////////////////////////////////
 // cStars -- simple starfield model, simulating appearance of starry sky
 
 class cStars {
-
     friend opengl_renderer;
     friend opengl33_renderer;
 
-public:
-// types:
+   public:
+    // types:
 
-// methods:
+    // methods:
     void init();
-// constructors:
+    // constructors:
     cStars() = default;
-// deconstructor:
+    // deconstructor:
 
-// members:
+    // members:
 
-private:
-// types:
+   private:
+    // types:
 
-// methods:
+    // methods:
 
-// members:
-    float m_longitude{ 19.0f }; // geograpic coordinates hardcoded roughly to Poland location, for the time being
-    float m_latitude{ 52.0f };
-    TModel3d *m_stars { nullptr };
+    // members:
+    float m_longitude{19.0f};  // geograpic coordinates hardcoded roughly to
+                               // Poland location, for the time being
+    float m_latitude{52.0f};
+    TModel3d *m_stars{nullptr};
 };

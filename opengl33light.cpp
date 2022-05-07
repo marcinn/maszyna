@@ -7,16 +7,12 @@ obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-#include "stdafx.h"
-
 #include "opengl33light.h"
 
-void opengl33_light::apply_intensity(float const Factor) {
+#include "stdafx.h"
 
-	factor = Factor;
-}
+void opengl33_light::apply_intensity(float const Factor) { factor = Factor; }
 
 void opengl33_light::apply_angle() {}
-
 
 //---------------------------------------------------------------------------

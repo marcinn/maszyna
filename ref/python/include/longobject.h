@@ -4,7 +4,6 @@
 extern "C" {
 #endif
 
-
 /* Long (arbitrary precision) integer object interface */
 
 typedef struct _longobject PyLongObject; /* Revealed in longintrepr.h */
@@ -12,7 +11,7 @@ typedef struct _longobject PyLongObject; /* Revealed in longintrepr.h */
 PyAPI_DATA(PyTypeObject) PyLong_Type;
 
 #define PyLong_Check(op) \
-		PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_LONG_SUBCLASS)
+    PyType_FastSubclass(Py_TYPE(op), Py_TPFLAGS_LONG_SUBCLASS)
 #define PyLong_CheckExact(op) (Py_TYPE(op) == &PyLong_Type)
 
 PyAPI_FUNC(PyObject *) PyLong_FromLong(long);
@@ -57,7 +56,7 @@ PyAPI_FUNC(PY_LONG_LONG) PyLong_AsLongLongAndOverflow(PyObject *, int *);
 
 PyAPI_FUNC(PyObject *) PyLong_FromString(char *, char **, int);
 #ifdef Py_USING_UNICODE
-PyAPI_FUNC(PyObject *) PyLong_FromUnicode(Py_UNICODE*, Py_ssize_t, int);
+PyAPI_FUNC(PyObject *) PyLong_FromUnicode(Py_UNICODE *, Py_ssize_t, int);
 #endif
 
 /* _PyLong_Sign.  Return 0 if v is 0, -1 if v < 0, +1 if v > 0.
@@ -65,7 +64,6 @@ PyAPI_FUNC(PyObject *) PyLong_FromUnicode(Py_UNICODE*, Py_ssize_t, int);
    There are no error cases.
 */
 PyAPI_FUNC(int) _PyLong_Sign(PyObject *v);
-
 
 /* _PyLong_NumBits.  Return the number of bits needed to represent the
    absolute value of a long.  For example, this returns 1 for 1 and -1, 2
@@ -90,8 +88,7 @@ PyAPI_FUNC(size_t) _PyLong_NumBits(PyObject *v);
      enough memory to create the Python long.
 */
 PyAPI_FUNC(PyObject *) _PyLong_FromByteArray(
-	const unsigned char* bytes, size_t n,
-	int little_endian, int is_signed);
+    const unsigned char *bytes, size_t n, int little_endian, int is_signed);
 
 /* _PyLong_AsByteArray: Convert the least-significant 8*n bits of long
    v to a base-256 integer, stored in array bytes.  Normally return 0,
@@ -112,22 +109,22 @@ PyAPI_FUNC(PyObject *) _PyLong_FromByteArray(
      being large enough to hold a sign bit.  OverflowError is set in this
      case, but bytes holds the least-significant n bytes of the true value.
 */
-PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
-	unsigned char* bytes, size_t n,
-	int little_endian, int is_signed);
+PyAPI_FUNC(int) _PyLong_AsByteArray(
+    PyLongObject *v, unsigned char *bytes, size_t n, int little_endian,
+    int is_signed);
 
 /* _PyLong_Format: Convert the long to a string object with given base,
    appending a base prefix of 0[box] if base is 2, 8 or 16.
    Add a trailing "L" if addL is non-zero.
    If newstyle is zero, then use the pre-2.6 behavior of octal having
    a leading "0", instead of the prefix "0o" */
-PyAPI_FUNC(PyObject *) _PyLong_Format(PyObject *aa, int base, int addL, int newstyle);
+PyAPI_FUNC(PyObject *)
+    _PyLong_Format(PyObject *aa, int base, int addL, int newstyle);
 
 /* Format the object based on the format_spec, as defined in PEP 3101
    (Advanced String Formatting). */
-PyAPI_FUNC(PyObject *) _PyLong_FormatAdvanced(PyObject *obj,
-					      char *format_spec,
-					      Py_ssize_t format_spec_len);
+PyAPI_FUNC(PyObject *) _PyLong_FormatAdvanced(
+    PyObject *obj, char *format_spec, Py_ssize_t format_spec_len);
 
 #ifdef __cplusplus
 }

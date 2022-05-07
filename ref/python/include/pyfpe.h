@@ -126,19 +126,19 @@ extern "C" {
  */
 
 #ifdef WANT_SIGFPE_HANDLER
-#include <signal.h>
-#include <setjmp.h>
 #include <math.h>
+#include <setjmp.h>
+#include <signal.h>
 extern jmp_buf PyFPE_jbuf;
 extern int PyFPE_counter;
 extern double PyFPE_dummy(void *);
 
-#define PyFPE_START_PROTECT(err_string, leave_stmt) \
-if (!PyFPE_counter++ && setjmp(PyFPE_jbuf)) { \
-	PyErr_SetString(PyExc_FloatingPointError, err_string); \
-	PyFPE_counter = 0; \
-	leave_stmt; \
-}
+#define PyFPE_START_PROTECT(err_string, leave_stmt)            \
+    if (!PyFPE_counter++ && setjmp(PyFPE_jbuf)) {              \
+        PyErr_SetString(PyExc_FloatingPointError, err_string); \
+        PyFPE_counter = 0;                                     \
+        leave_stmt;                                            \
+    }
 
 /*
  * This (following) is a heck of a way to decrement a counter. However,

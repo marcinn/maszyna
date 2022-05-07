@@ -12,16 +12,13 @@ http://mozilla.org/MPL/2.0/.
 #include "keyboardinput.h"
 
 class driverkeyboard_input : public keyboard_input {
+   public:
+    // methods
+    bool init() override;
 
-public:
-// methods
-    bool
-        init() override;
-
-protected:
-// methods
-    void
-        default_bindings();
+   protected:
+    // methods
+    void default_bindings();
 };
 
 //---------------------------------------------------------------------------

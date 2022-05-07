@@ -2,7 +2,7 @@
 #define PyBytes_Type PyString_Type
 
 #define PyBytes_Check PyString_Check
-#define PyBytes_CheckExact PyString_CheckExact 
+#define PyBytes_CheckExact PyString_CheckExact
 #define PyBytes_CHECK_INTERNED PyString_CHECK_INTERNED
 #define PyBytes_AS_STRING PyString_AS_STRING
 #define PyBytes_GET_SIZE PyString_GET_SIZE

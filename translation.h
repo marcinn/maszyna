@@ -13,20 +13,20 @@ http://mozilla.org/MPL/2.0/.
 #include <unordered_map>
 
 class locale {
-public:
-	void init();
-	std::string label_cab_control(const std::string &Label);
-	const std::string &coupling_name(int c);
+   public:
+    void init();
+    std::string label_cab_control(const std::string &Label);
+    const std::string &coupling_name(int c);
 
-	const char* lookup_c(const char *msg, bool constant = false);
-	const std::string& lookup_s(const std::string &msg, bool constant = false);
+    const char *lookup_c(const char *msg, bool constant = false);
+    const std::string &lookup_s(const std::string &msg, bool constant = false);
 
-private:
-	bool parse_translation(std::istream &stream);
-	std::string parse_c_literal(const std::string &str);
+   private:
+    bool parse_translation(std::istream &stream);
+    std::string parse_c_literal(const std::string &str);
 
-	std::unordered_map<std::string, std::string> lang_mapping;
-	std::unordered_map<const void*, const void*> pointer_cache;
+    std::unordered_map<std::string, std::string> lang_mapping;
+    std::unordered_map<const void *, const void *> pointer_cache;
 };
 
 extern locale Translations;
@@ -35,4 +35,5 @@ extern locale Translations;
 #define STR_C(x) Translations.lookup_c(x, true)
 #define STRN(x) x
 
-//find . -name "*.cpp" | xargs xgettext --from-code="UTF-8" -k --keyword=STR --keyword=STR_C --keyword=STRN
+// find . -name "*.cpp" | xargs xgettext --from-code="UTF-8" -k --keyword=STR
+// --keyword=STR_C --keyword=STRN

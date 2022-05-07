@@ -11,37 +11,36 @@ http://mozilla.org/MPL/2.0/.
 
 #include "Classes.h"
 
-class AirCoupler
-{
-private:
+class AirCoupler {
+   private:
     TSubModel *ModelOn, *ModelOff, *ModelxOn;
     bool On;
     bool xOn;
     void Update();
 
-public:
+   public:
     AirCoupler();
     ~AirCoupler();
-    ///Reset members.
+    /// Reset members.
     void Clear();
-    ///Looks for submodels.
+    /// Looks for submodels.
     void Init(std::string const &asName, TModel3d *Model);
-    ///Loads info about coupler.
+    /// Loads info about coupler.
     void Load(cParser *Parser, TModel3d *Model);
     int GetStatus();
-    inline void TurnOn() ///Turns on straight coupler.
+    inline void TurnOn()  /// Turns on straight coupler.
     {
         On = true;
         xOn = false;
         Update();
     };
-    inline void TurnOff() ///Turns on disconnected coupler.
+    inline void TurnOff()  /// Turns on disconnected coupler.
     {
         On = false;
         xOn = false;
         Update();
     };
-    inline void TurnxOn() ///Turns on slanted coupler.
+    inline void TurnxOn()  /// Turns on slanted coupler.
     {
         On = false;
         xOn = true;
@@ -49,32 +48,26 @@ public:
     };
 
     // if the xOn model is missing, activate plain On instead
-    inline void TurnxOnWithOnAsFallback()
-    {
+    inline void TurnxOnWithOnAsFallback() {
         if (ModelxOn != nullptr) {
             On = false;
             xOn = true;
             Update();
-        }
-        else {
+        } else {
             TurnOn();
         }
     };
     // if the xOn model is missing, activate plain Off instead
-    inline void TurnxOnWithOffAsFallback()
-    {
+    inline void TurnxOnWithOffAsFallback() {
         if (ModelxOn != nullptr) {
             On = false;
             xOn = true;
             Update();
-        }
-        else {
+        } else {
             TurnOff();
         }
     };
-    inline bool Active() const
-    {
-        return ( ( ModelOn != nullptr ) || ( ModelxOn != nullptr ) );
+    inline bool Active() const {
+        return ((ModelOn != nullptr) || (ModelxOn != nullptr));
     };
 };
-

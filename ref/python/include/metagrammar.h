@@ -4,7 +4,6 @@
 extern "C" {
 #endif
 
-
 #define MSTART 256
 #define RULE 257
 #define RHS 258

@@ -22,20 +22,20 @@ const double m_Csf = 0.9f; // Default Static Friction
 const double m_Ckf = 0.7f; // Default Kinetic Friction
 */
 class TSpring {
-
-public:
+   public:
     TSpring() = default;
-    //    void Init(TParticnp1, TParticle *np2, double nKs= 0.5f, double nKd= 0.002f,
-    //    double nrestLen= -1.0f);
+    //    void Init(TParticnp1, TParticle *np2, double nKs= 0.5f, double nKd=
+    //    0.002f, double nrestLen= -1.0f);
     void Init(double nKs = 0.5f, double nKd = 0.002f);
-    Math3D::vector3 ComputateForces( Math3D::vector3 const &pPosition1, Math3D::vector3 const &pPosition2);
-//private:
-// members
-    double restLen { 0.01 }; // LENGTH OF SPRING AT REST
-    double Ks { 0.0 }; // SPRING CONSTANT
-    double Kd { 0.0 }; // SPRING DAMPING
-    float ks{ 0.f };
-    float kd{ 0.f };
+    Math3D::vector3 ComputateForces(
+        Math3D::vector3 const &pPosition1, Math3D::vector3 const &pPosition2);
+    // private:
+    //  members
+    double restLen{0.01};  // LENGTH OF SPRING AT REST
+    double Ks{0.0};        // SPRING CONSTANT
+    double Kd{0.0};        // SPRING DAMPING
+    float ks{0.f};
+    float kd{0.f};
 };
 
 //---------------------------------------------------------------------------

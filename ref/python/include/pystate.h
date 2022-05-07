@@ -1,7 +1,6 @@
 
 /* Thread and interpreter state structures and their interfaces */
 
-
 #ifndef Py_PYSTATE_H
 #define Py_PYSTATE_H
 #ifdef __cplusplus
@@ -14,7 +13,6 @@ struct _ts; /* Forward */
 struct _is; /* Forward */
 
 typedef struct _is {
-
     struct _is *next;
     struct _ts *tstate_head;
 
@@ -35,7 +33,6 @@ typedef struct _is {
 #endif
 
 } PyInterpreterState;
-
 
 /* State unique per thread */
 
@@ -80,7 +77,7 @@ typedef struct _ts {
     PyObject *exc_value;
     PyObject *exc_traceback;
 
-    PyObject *dict;  /* Stores per-thread state */
+    PyObject *dict; /* Stores per-thread state */
 
     /* tick_counter is incremented whenever the check_interval ticker
      * reaches zero. The purpose is to give a useful measure of the number
@@ -93,7 +90,7 @@ typedef struct _ts {
     int gilstate_counter;
 
     PyObject *async_exc; /* Asynchronous exception to raise */
-    long thread_id; /* Thread id where this tstate was created */
+    long thread_id;      /* Thread id where this tstate was created */
 
     int trash_delete_nesting;
     PyObject *trash_delete_later;
@@ -101,7 +98,6 @@ typedef struct _ts {
     /* XXX signal handlers should also be here */
 
 } PyThreadState;
-
 
 PyAPI_FUNC(PyInterpreterState *) PyInterpreterState_New(void);
 PyAPI_FUNC(void) PyInterpreterState_Clear(PyInterpreterState *);
@@ -121,7 +117,6 @@ PyAPI_FUNC(PyThreadState *) PyThreadState_Swap(PyThreadState *);
 PyAPI_FUNC(PyObject *) PyThreadState_GetDict(void);
 PyAPI_FUNC(int) PyThreadState_SetAsyncExc(long, PyObject *);
 
-
 /* Variable and macro for in-line access to current thread state */
 
 PyAPI_DATA(PyThreadState *) _PyThreadState_Current;
@@ -132,9 +127,7 @@ PyAPI_DATA(PyThreadState *) _PyThreadState_Current;
 #define PyThreadState_GET() (_PyThreadState_Current)
 #endif
 
-typedef
-    enum {PyGILState_LOCKED, PyGILState_UNLOCKED}
-        PyGILState_STATE;
+typedef enum { PyGILState_LOCKED, PyGILState_UNLOCKED } PyGILState_STATE;
 
 /* Ensure that the current thread is ready to call the Python
    C API, regardless of the current state of Python, or of its

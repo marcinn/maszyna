@@ -1,20 +1,25 @@
-#include "stdafx.h"
 #include "glsl_common.h"
+
+#include "stdafx.h"
 
 std::string gl::glsl_common;
 
-void gl::glsl_common_setup()
-{
-    glsl_common =
-    "#define SHADOWMAP_ENABLED " + std::to_string((int)Global.gfx_shadowmap_enabled) + "\n" +
-    "#define ENVMAP_ENABLED " + std::to_string((int)Global.gfx_envmap_enabled) + "\n" +
-    "#define MOTIONBLUR_ENABLED " + std::to_string((int)Global.gfx_postfx_motionblur_enabled) + "\n" +
-    "#define POSTFX_ENABLED " + std::to_string((int)!Global.gfx_skippipeline) + "\n" +
-    "#define EXTRAEFFECTS_ENABLED " + std::to_string((int)Global.gfx_extraeffects) + "\n" +
-    "#define MAX_LIGHTS " + std::to_string(MAX_LIGHTS) + "U\n" +
-    "#define MAX_CASCADES " + std::to_string(MAX_CASCADES) + "U\n" +
-    "#define MAX_PARAMS " + std::to_string(MAX_PARAMS) + "U\n" +
-    R"STRING(
+void gl::glsl_common_setup() {
+    glsl_common = "#define SHADOWMAP_ENABLED " +
+                  std::to_string((int)Global.gfx_shadowmap_enabled) + "\n" +
+                  "#define ENVMAP_ENABLED " +
+                  std::to_string((int)Global.gfx_envmap_enabled) + "\n" +
+                  "#define MOTIONBLUR_ENABLED " +
+                  std::to_string((int)Global.gfx_postfx_motionblur_enabled) +
+                  "\n" + "#define POSTFX_ENABLED " +
+                  std::to_string((int)!Global.gfx_skippipeline) + "\n" +
+                  "#define EXTRAEFFECTS_ENABLED " +
+                  std::to_string((int)Global.gfx_extraeffects) + "\n" +
+                  "#define MAX_LIGHTS " + std::to_string(MAX_LIGHTS) + "U\n" +
+                  "#define MAX_CASCADES " + std::to_string(MAX_CASCADES) +
+                  "U\n" + "#define MAX_PARAMS " + std::to_string(MAX_PARAMS) +
+                  "U\n" +
+                  R"STRING(
     const uint LIGHT_SPOT = 0U;
     const uint LIGHT_POINT = 1U;
     const uint LIGHT_DIR = 2U;

@@ -1,21 +1,19 @@
 #pragma once
 
-#include "uilayer.h"
 #include "driverkeyboardinput.h"
+#include "uilayer.h"
 
-namespace ui
-{
-class keymapper_panel : public ui_panel
-{
-  public:
-	keymapper_panel();
+namespace ui {
+class keymapper_panel : public ui_panel {
+   public:
+    keymapper_panel();
 
-	void render() override;
-	bool key(int key);
+    void render() override;
+    bool key(int key);
 
-private:
-	driverkeyboard_input keyboard;
+   private:
+    driverkeyboard_input keyboard;
 
-	user_command bind_active = user_command::none;
+    user_command bind_active = user_command::none;
 };
-} // namespace ui
+}  // namespace ui

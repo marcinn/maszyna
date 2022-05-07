@@ -10,8 +10,8 @@ http://mozilla.org/MPL/2.0/.
 #include "stdafx.h"
 
 /*
-#include "ResourceManager.h"
 #include "Logs.h"
+#include "ResourceManager.h"
 
 ResourceManager::Resources ResourceManager::_resources;
 double ResourceManager::_expiry = 5.0f;
@@ -25,7 +25,8 @@ void ResourceManager::Register(Resource *resource)
 
 void ResourceManager::Unregister(Resource *resource)
 {
-    Resources::iterator iter = std::find(_resources.begin(), _resources.end(), resource);
+    Resources::iterator iter = std::find(_resources.begin(), _resources.end(),
+resource);
 
     if (iter != _resources.end())
         _resources.erase(iter);
@@ -52,8 +53,8 @@ void ResourceManager::Sweep(double currentTime)
     if (currentTime - _lastUpdate < _expiry)
         return;
 
-    Resources::iterator begin = std::remove_if(_resources.begin(), _resources.end(),
-                                               ResourceExpired(currentTime - _expiry));
+    Resources::iterator begin = std::remove_if(_resources.begin(),
+_resources.end(), ResourceExpired(currentTime - _expiry));
 
 #ifdef RESOURCE_REPORTING
     if (begin != _resources.end())

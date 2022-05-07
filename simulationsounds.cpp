@@ -7,9 +7,9 @@ obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-#include "stdafx.h"
 #include "simulationsounds.h"
 
+#include "stdafx.h"
 #include "utilities.h"
 
 namespace simulation {
@@ -17,6 +17,6 @@ namespace simulation {
 sound_overridemap Sound_overrides;
 sound_table Sounds;
 
-} // simulation
+}  // namespace simulation
 
 //---------------------------------------------------------------------------

@@ -262,144 +262,144 @@ extern "C" {
 
 /** Return values. */
 enum sp_return {
-	/** Operation completed successfully. */
-	SP_OK = 0,
-	/** Invalid arguments were passed to the function. */
-	SP_ERR_ARG = -1,
-	/** A system error occurred while executing the operation. */
-	SP_ERR_FAIL = -2,
-	/** A memory allocation failed while executing the operation. */
-	SP_ERR_MEM = -3,
-	/** The requested operation is not supported by this system or device. */
-	SP_ERR_SUPP = -4
+    /** Operation completed successfully. */
+    SP_OK = 0,
+    /** Invalid arguments were passed to the function. */
+    SP_ERR_ARG = -1,
+    /** A system error occurred while executing the operation. */
+    SP_ERR_FAIL = -2,
+    /** A memory allocation failed while executing the operation. */
+    SP_ERR_MEM = -3,
+    /** The requested operation is not supported by this system or device. */
+    SP_ERR_SUPP = -4
 };
 
 /** Port access modes. */
 enum sp_mode {
-	/** Open port for read access. */
-	SP_MODE_READ = 1,
-	/** Open port for write access. */
-	SP_MODE_WRITE = 2,
-	/** Open port for read and write access. @since 0.1.1 */
-	SP_MODE_READ_WRITE = 3
+    /** Open port for read access. */
+    SP_MODE_READ = 1,
+    /** Open port for write access. */
+    SP_MODE_WRITE = 2,
+    /** Open port for read and write access. @since 0.1.1 */
+    SP_MODE_READ_WRITE = 3
 };
 
 /** Port events. */
 enum sp_event {
-	/** Data received and ready to read. */
-	SP_EVENT_RX_READY = 1,
-	/** Ready to transmit new data. */
-	SP_EVENT_TX_READY = 2,
-	/** Error occurred. */
-	SP_EVENT_ERROR = 4
+    /** Data received and ready to read. */
+    SP_EVENT_RX_READY = 1,
+    /** Ready to transmit new data. */
+    SP_EVENT_TX_READY = 2,
+    /** Error occurred. */
+    SP_EVENT_ERROR = 4
 };
 
 /** Buffer selection. */
 enum sp_buffer {
-	/** Input buffer. */
-	SP_BUF_INPUT = 1,
-	/** Output buffer. */
-	SP_BUF_OUTPUT = 2,
-	/** Both buffers. */
-	SP_BUF_BOTH = 3
+    /** Input buffer. */
+    SP_BUF_INPUT = 1,
+    /** Output buffer. */
+    SP_BUF_OUTPUT = 2,
+    /** Both buffers. */
+    SP_BUF_BOTH = 3
 };
 
 /** Parity settings. */
 enum sp_parity {
-	/** Special value to indicate setting should be left alone. */
-	SP_PARITY_INVALID = -1,
-	/** No parity. */
-	SP_PARITY_NONE = 0,
-	/** Odd parity. */
-	SP_PARITY_ODD = 1,
-	/** Even parity. */
-	SP_PARITY_EVEN = 2,
-	/** Mark parity. */
-	SP_PARITY_MARK = 3,
-	/** Space parity. */
-	SP_PARITY_SPACE = 4
+    /** Special value to indicate setting should be left alone. */
+    SP_PARITY_INVALID = -1,
+    /** No parity. */
+    SP_PARITY_NONE = 0,
+    /** Odd parity. */
+    SP_PARITY_ODD = 1,
+    /** Even parity. */
+    SP_PARITY_EVEN = 2,
+    /** Mark parity. */
+    SP_PARITY_MARK = 3,
+    /** Space parity. */
+    SP_PARITY_SPACE = 4
 };
 
 /** RTS pin behaviour. */
 enum sp_rts {
-	/** Special value to indicate setting should be left alone. */
-	SP_RTS_INVALID = -1,
-	/** RTS off. */
-	SP_RTS_OFF = 0,
-	/** RTS on. */
-	SP_RTS_ON = 1,
-	/** RTS used for flow control. */
-	SP_RTS_FLOW_CONTROL = 2
+    /** Special value to indicate setting should be left alone. */
+    SP_RTS_INVALID = -1,
+    /** RTS off. */
+    SP_RTS_OFF = 0,
+    /** RTS on. */
+    SP_RTS_ON = 1,
+    /** RTS used for flow control. */
+    SP_RTS_FLOW_CONTROL = 2
 };
 
 /** CTS pin behaviour. */
 enum sp_cts {
-	/** Special value to indicate setting should be left alone. */
-	SP_CTS_INVALID = -1,
-	/** CTS ignored. */
-	SP_CTS_IGNORE = 0,
-	/** CTS used for flow control. */
-	SP_CTS_FLOW_CONTROL = 1
+    /** Special value to indicate setting should be left alone. */
+    SP_CTS_INVALID = -1,
+    /** CTS ignored. */
+    SP_CTS_IGNORE = 0,
+    /** CTS used for flow control. */
+    SP_CTS_FLOW_CONTROL = 1
 };
 
 /** DTR pin behaviour. */
 enum sp_dtr {
-	/** Special value to indicate setting should be left alone. */
-	SP_DTR_INVALID = -1,
-	/** DTR off. */
-	SP_DTR_OFF = 0,
-	/** DTR on. */
-	SP_DTR_ON = 1,
-	/** DTR used for flow control. */
-	SP_DTR_FLOW_CONTROL = 2
+    /** Special value to indicate setting should be left alone. */
+    SP_DTR_INVALID = -1,
+    /** DTR off. */
+    SP_DTR_OFF = 0,
+    /** DTR on. */
+    SP_DTR_ON = 1,
+    /** DTR used for flow control. */
+    SP_DTR_FLOW_CONTROL = 2
 };
 
 /** DSR pin behaviour. */
 enum sp_dsr {
-	/** Special value to indicate setting should be left alone. */
-	SP_DSR_INVALID = -1,
-	/** DSR ignored. */
-	SP_DSR_IGNORE = 0,
-	/** DSR used for flow control. */
-	SP_DSR_FLOW_CONTROL = 1
+    /** Special value to indicate setting should be left alone. */
+    SP_DSR_INVALID = -1,
+    /** DSR ignored. */
+    SP_DSR_IGNORE = 0,
+    /** DSR used for flow control. */
+    SP_DSR_FLOW_CONTROL = 1
 };
 
 /** XON/XOFF flow control behaviour. */
 enum sp_xonxoff {
-	/** Special value to indicate setting should be left alone. */
-	SP_XONXOFF_INVALID = -1,
-	/** XON/XOFF disabled. */
-	SP_XONXOFF_DISABLED = 0,
-	/** XON/XOFF enabled for input only. */
-	SP_XONXOFF_IN = 1,
-	/** XON/XOFF enabled for output only. */
-	SP_XONXOFF_OUT = 2,
-	/** XON/XOFF enabled for input and output. */
-	SP_XONXOFF_INOUT = 3
+    /** Special value to indicate setting should be left alone. */
+    SP_XONXOFF_INVALID = -1,
+    /** XON/XOFF disabled. */
+    SP_XONXOFF_DISABLED = 0,
+    /** XON/XOFF enabled for input only. */
+    SP_XONXOFF_IN = 1,
+    /** XON/XOFF enabled for output only. */
+    SP_XONXOFF_OUT = 2,
+    /** XON/XOFF enabled for input and output. */
+    SP_XONXOFF_INOUT = 3
 };
 
 /** Standard flow control combinations. */
 enum sp_flowcontrol {
-	/** No flow control. */
-	SP_FLOWCONTROL_NONE = 0,
-	/** Software flow control using XON/XOFF characters. */
-	SP_FLOWCONTROL_XONXOFF = 1,
-	/** Hardware flow control using RTS/CTS signals. */
-	SP_FLOWCONTROL_RTSCTS = 2,
-	/** Hardware flow control using DTR/DSR signals. */
-	SP_FLOWCONTROL_DTRDSR = 3
+    /** No flow control. */
+    SP_FLOWCONTROL_NONE = 0,
+    /** Software flow control using XON/XOFF characters. */
+    SP_FLOWCONTROL_XONXOFF = 1,
+    /** Hardware flow control using RTS/CTS signals. */
+    SP_FLOWCONTROL_RTSCTS = 2,
+    /** Hardware flow control using DTR/DSR signals. */
+    SP_FLOWCONTROL_DTRDSR = 3
 };
 
 /** Input signals. */
 enum sp_signal {
-	/** Clear to send. */
-	SP_SIG_CTS = 1,
-	/** Data set ready. */
-	SP_SIG_DSR = 2,
-	/** Data carrier detect. */
-	SP_SIG_DCD = 4,
-	/** Ring indicator. */
-	SP_SIG_RI = 8
+    /** Clear to send. */
+    SP_SIG_CTS = 1,
+    /** Data set ready. */
+    SP_SIG_DSR = 2,
+    /** Data carrier detect. */
+    SP_SIG_DCD = 4,
+    /** Ring indicator. */
+    SP_SIG_RI = 8
 };
 
 /**
@@ -408,12 +408,12 @@ enum sp_signal {
  * @since 0.1.1
  */
 enum sp_transport {
-	/** Native platform serial port. @since 0.1.1 */
-	SP_TRANSPORT_NATIVE,
-	/** USB serial port adapter. @since 0.1.1 */
-	SP_TRANSPORT_USB,
-	/** Bluetooth serial port adapter. @since 0.1.1 */
-	SP_TRANSPORT_BLUETOOTH
+    /** Native platform serial port. @since 0.1.1 */
+    SP_TRANSPORT_NATIVE,
+    /** USB serial port adapter. @since 0.1.1 */
+    SP_TRANSPORT_USB,
+    /** Bluetooth serial port adapter. @since 0.1.1 */
+    SP_TRANSPORT_BLUETOOTH
 };
 
 /**
@@ -433,12 +433,12 @@ struct sp_port_config;
  * A set of handles to wait on for events.
  */
 struct sp_event_set {
-	/** Array of OS-specific handles. */
-	void *handles;
-	/** Array of bitmasks indicating which events apply for each handle. */
-	enum sp_event *masks;
-	/** Number of handles. */
-	unsigned int count;
+    /** Array of OS-specific handles. */
+    void *handles;
+    /** Array of bitmasks indicating which events apply for each handle. */
+    enum sp_event *masks;
+    /** Number of handles. */
+    unsigned int count;
 };
 
 /**
@@ -466,7 +466,8 @@ struct sp_event_set {
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_port_by_name(const char *portname, struct sp_port **port_ptr);
+enum sp_return sp_get_port_by_name(
+    const char *portname, struct sp_port **port_ptr);
 
 /**
  * Free a port structure obtained from sp_get_port_by_name() or sp_copy_port().
@@ -515,7 +516,8 @@ enum sp_return sp_list_ports(struct sp_port ***list_ptr);
  *
  * @since 0.1.0
  */
-enum sp_return sp_copy_port(const struct sp_port *port, struct sp_port **copy_ptr);
+enum sp_return sp_copy_port(
+    const struct sp_port *port, struct sp_port **copy_ptr);
 
 /**
  * Free a port list obtained from sp_list_ports().
@@ -615,8 +617,8 @@ enum sp_transport sp_get_port_transport(const struct sp_port *port);
  *
  * @since 0.1.1
  */
-enum sp_return sp_get_port_usb_bus_address(const struct sp_port *port,
-                                           int *usb_bus, int *usb_address);
+enum sp_return sp_get_port_usb_bus_address(
+    const struct sp_port *port, int *usb_bus, int *usb_address);
 
 /**
  * Get the USB Vendor ID and Product ID of a USB serial adapter port.
@@ -631,7 +633,8 @@ enum sp_return sp_get_port_usb_bus_address(const struct sp_port *port,
  *
  * @since 0.1.1
  */
-enum sp_return sp_get_port_usb_vid_pid(const struct sp_port *port, int *usb_vid, int *usb_pid);
+enum sp_return sp_get_port_usb_vid_pid(
+    const struct sp_port *port, int *usb_vid, int *usb_pid);
 
 /**
  * Get the USB manufacturer string of a USB serial adapter port.
@@ -779,7 +782,8 @@ void sp_free_config(struct sp_port_config *config);
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config(struct sp_port *port, struct sp_port_config *config);
+enum sp_return sp_get_config(
+    struct sp_port *port, struct sp_port_config *config);
 
 /**
  * Set the configuration for the specified serial port.
@@ -798,7 +802,8 @@ enum sp_return sp_get_config(struct sp_port *port, struct sp_port_config *config
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config(struct sp_port *port, const struct sp_port_config *config);
+enum sp_return sp_set_config(
+    struct sp_port *port, const struct sp_port_config *config);
 
 /**
  * Set the baud rate for the specified serial port.
@@ -819,25 +824,29 @@ enum sp_return sp_set_baudrate(struct sp_port *port, int baudrate);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] baudrate_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] baudrate_ptr Pointer to a variable to store the result. Must not
+ * be NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_baudrate(const struct sp_port_config *config, int *baudrate_ptr);
+enum sp_return sp_get_config_baudrate(
+    const struct sp_port_config *config, int *baudrate_ptr);
 
 /**
  * Set the baud rate in a port configuration.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[in] baudrate Baud rate in bits per second, or -1 to retain the current setting.
+ * @param[in] baudrate Baud rate in bits per second, or -1 to retain the current
+ * setting.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_baudrate(struct sp_port_config *config, int baudrate);
+enum sp_return sp_set_config_baudrate(
+    struct sp_port_config *config, int baudrate);
 
 /**
  * Set the data bits for the specified serial port.
@@ -858,13 +867,15 @@ enum sp_return sp_set_bits(struct sp_port *port, int bits);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] bits_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] bits_ptr Pointer to a variable to store the result. Must not be
+ * NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_bits(const struct sp_port_config *config, int *bits_ptr);
+enum sp_return sp_get_config_bits(
+    const struct sp_port_config *config, int *bits_ptr);
 
 /**
  * Set the data bits in a port configuration.
@@ -897,13 +908,15 @@ enum sp_return sp_set_parity(struct sp_port *port, enum sp_parity parity);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] parity_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] parity_ptr Pointer to a variable to store the result. Must not be
+ * NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_parity(const struct sp_port_config *config, enum sp_parity *parity_ptr);
+enum sp_return sp_get_config_parity(
+    const struct sp_port_config *config, enum sp_parity *parity_ptr);
 
 /**
  * Set the parity setting in a port configuration.
@@ -915,7 +928,8 @@ enum sp_return sp_get_config_parity(const struct sp_port_config *config, enum sp
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_parity(struct sp_port_config *config, enum sp_parity parity);
+enum sp_return sp_set_config_parity(
+    struct sp_port_config *config, enum sp_parity parity);
 
 /**
  * Set the stop bits for the specified serial port.
@@ -936,13 +950,15 @@ enum sp_return sp_set_stopbits(struct sp_port *port, int stopbits);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] stopbits_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] stopbits_ptr Pointer to a variable to store the result. Must not
+ * be NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_stopbits(const struct sp_port_config *config, int *stopbits_ptr);
+enum sp_return sp_get_config_stopbits(
+    const struct sp_port_config *config, int *stopbits_ptr);
 
 /**
  * Set the stop bits in a port configuration.
@@ -954,7 +970,8 @@ enum sp_return sp_get_config_stopbits(const struct sp_port_config *config, int *
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_stopbits(struct sp_port_config *config, int stopbits);
+enum sp_return sp_set_config_stopbits(
+    struct sp_port_config *config, int stopbits);
 
 /**
  * Set the RTS pin behaviour for the specified serial port.
@@ -975,13 +992,15 @@ enum sp_return sp_set_rts(struct sp_port *port, enum sp_rts rts);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] rts_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] rts_ptr Pointer to a variable to store the result. Must not be
+ * NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_rts(const struct sp_port_config *config, enum sp_rts *rts_ptr);
+enum sp_return sp_get_config_rts(
+    const struct sp_port_config *config, enum sp_rts *rts_ptr);
 
 /**
  * Set the RTS pin behaviour in a port configuration.
@@ -993,7 +1012,8 @@ enum sp_return sp_get_config_rts(const struct sp_port_config *config, enum sp_rt
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_rts(struct sp_port_config *config, enum sp_rts rts);
+enum sp_return sp_set_config_rts(
+    struct sp_port_config *config, enum sp_rts rts);
 
 /**
  * Set the CTS pin behaviour for the specified serial port.
@@ -1014,13 +1034,15 @@ enum sp_return sp_set_cts(struct sp_port *port, enum sp_cts cts);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] cts_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] cts_ptr Pointer to a variable to store the result. Must not be
+ * NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_cts(const struct sp_port_config *config, enum sp_cts *cts_ptr);
+enum sp_return sp_get_config_cts(
+    const struct sp_port_config *config, enum sp_cts *cts_ptr);
 
 /**
  * Set the CTS pin behaviour in a port configuration.
@@ -1032,7 +1054,8 @@ enum sp_return sp_get_config_cts(const struct sp_port_config *config, enum sp_ct
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_cts(struct sp_port_config *config, enum sp_cts cts);
+enum sp_return sp_set_config_cts(
+    struct sp_port_config *config, enum sp_cts cts);
 
 /**
  * Set the DTR pin behaviour for the specified serial port.
@@ -1053,13 +1076,15 @@ enum sp_return sp_set_dtr(struct sp_port *port, enum sp_dtr dtr);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] dtr_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] dtr_ptr Pointer to a variable to store the result. Must not be
+ * NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_dtr(const struct sp_port_config *config, enum sp_dtr *dtr_ptr);
+enum sp_return sp_get_config_dtr(
+    const struct sp_port_config *config, enum sp_dtr *dtr_ptr);
 
 /**
  * Set the DTR pin behaviour in a port configuration.
@@ -1071,7 +1096,8 @@ enum sp_return sp_get_config_dtr(const struct sp_port_config *config, enum sp_dt
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_dtr(struct sp_port_config *config, enum sp_dtr dtr);
+enum sp_return sp_set_config_dtr(
+    struct sp_port_config *config, enum sp_dtr dtr);
 
 /**
  * Set the DSR pin behaviour for the specified serial port.
@@ -1092,13 +1118,15 @@ enum sp_return sp_set_dsr(struct sp_port *port, enum sp_dsr dsr);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] dsr_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] dsr_ptr Pointer to a variable to store the result. Must not be
+ * NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_dsr(const struct sp_port_config *config, enum sp_dsr *dsr_ptr);
+enum sp_return sp_get_config_dsr(
+    const struct sp_port_config *config, enum sp_dsr *dsr_ptr);
 
 /**
  * Set the DSR pin behaviour in a port configuration.
@@ -1110,7 +1138,8 @@ enum sp_return sp_get_config_dsr(const struct sp_port_config *config, enum sp_ds
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_dsr(struct sp_port_config *config, enum sp_dsr dsr);
+enum sp_return sp_set_config_dsr(
+    struct sp_port_config *config, enum sp_dsr dsr);
 
 /**
  * Set the XON/XOFF configuration for the specified serial port.
@@ -1131,13 +1160,15 @@ enum sp_return sp_set_xon_xoff(struct sp_port *port, enum sp_xonxoff xon_xoff);
  * pass a pointer to this to receive the result.
  *
  * @param[in] config Pointer to a configuration structure. Must not be NULL.
- * @param[out] xon_xoff_ptr Pointer to a variable to store the result. Must not be NULL.
+ * @param[out] xon_xoff_ptr Pointer to a variable to store the result. Must not
+ * be NULL.
  *
  * @return SP_OK upon success, a negative error code otherwise.
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_config_xon_xoff(const struct sp_port_config *config, enum sp_xonxoff *xon_xoff_ptr);
+enum sp_return sp_get_config_xon_xoff(
+    const struct sp_port_config *config, enum sp_xonxoff *xon_xoff_ptr);
 
 /**
  * Set the XON/XOFF configuration in a port configuration.
@@ -1149,7 +1180,8 @@ enum sp_return sp_get_config_xon_xoff(const struct sp_port_config *config, enum 
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_xon_xoff(struct sp_port_config *config, enum sp_xonxoff xon_xoff);
+enum sp_return sp_set_config_xon_xoff(
+    struct sp_port_config *config, enum sp_xonxoff xon_xoff);
 
 /**
  * Set the flow control type in a port configuration.
@@ -1166,7 +1198,8 @@ enum sp_return sp_set_config_xon_xoff(struct sp_port_config *config, enum sp_xon
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_config_flowcontrol(struct sp_port_config *config, enum sp_flowcontrol flowcontrol);
+enum sp_return sp_set_config_flowcontrol(
+    struct sp_port_config *config, enum sp_flowcontrol flowcontrol);
 
 /**
  * Set the flow control type for the specified serial port.
@@ -1183,7 +1216,8 @@ enum sp_return sp_set_config_flowcontrol(struct sp_port_config *config, enum sp_
  *
  * @since 0.1.0
  */
-enum sp_return sp_set_flowcontrol(struct sp_port *port, enum sp_flowcontrol flowcontrol);
+enum sp_return sp_set_flowcontrol(
+    struct sp_port *port, enum sp_flowcontrol flowcontrol);
 
 /**
  * @}
@@ -1221,7 +1255,8 @@ enum sp_return sp_set_flowcontrol(struct sp_port *port, enum sp_flowcontrol flow
  *
  * @since 0.1.0
  */
-enum sp_return sp_blocking_read(struct sp_port *port, void *buf, size_t count, unsigned int timeout_ms);
+enum sp_return sp_blocking_read(
+    struct sp_port *port, void *buf, size_t count, unsigned int timeout_ms);
 
 /**
  * Read bytes from the specified serial port, returning as soon as any data is
@@ -1249,7 +1284,8 @@ enum sp_return sp_blocking_read(struct sp_port *port, void *buf, size_t count, u
  *
  * @since 0.1.1
  */
-enum sp_return sp_blocking_read_next(struct sp_port *port, void *buf, size_t count, unsigned int timeout_ms);
+enum sp_return sp_blocking_read_next(
+    struct sp_port *port, void *buf, size_t count, unsigned int timeout_ms);
 
 /**
  * Read bytes from the specified serial port, without blocking.
@@ -1264,7 +1300,8 @@ enum sp_return sp_blocking_read_next(struct sp_port *port, void *buf, size_t cou
  *
  * @since 0.1.0
  */
-enum sp_return sp_nonblocking_read(struct sp_port *port, void *buf, size_t count);
+enum sp_return sp_nonblocking_read(
+    struct sp_port *port, void *buf, size_t count);
 
 /**
  * Write bytes to the specified serial port, blocking until complete.
@@ -1279,9 +1316,9 @@ enum sp_return sp_nonblocking_read(struct sp_port *port, void *buf, size_t count
  *          needs to abort blocking writes when these are called, then you
  *          should not use this function. It repeats system calls that return
  *          with EINTR. To be able to abort a write from a signal handler, you
- *          should implement your own blocking write using sp_nonblocking_write()
- *          together with a blocking method that makes sense for your program.
- *          E.g. you can obtain the file descriptor for an open port using
+ *          should implement your own blocking write using
+ * sp_nonblocking_write() together with a blocking method that makes sense for
+ * your program. E.g. you can obtain the file descriptor for an open port using
  *          sp_get_port_handle() and use this to call select() or pselect(),
  *          with appropriate arrangements to return if a signal is received.
  *
@@ -1300,7 +1337,9 @@ enum sp_return sp_nonblocking_read(struct sp_port *port, void *buf, size_t count
  *
  * @since 0.1.0
  */
-enum sp_return sp_blocking_write(struct sp_port *port, const void *buf, size_t count, unsigned int timeout_ms);
+enum sp_return sp_blocking_write(
+    struct sp_port *port, const void *buf, size_t count,
+    unsigned int timeout_ms);
 
 /**
  * Write bytes to the specified serial port, without blocking.
@@ -1321,7 +1360,8 @@ enum sp_return sp_blocking_write(struct sp_port *port, const void *buf, size_t c
  *
  * @since 0.1.0
  */
-enum sp_return sp_nonblocking_write(struct sp_port *port, const void *buf, size_t count);
+enum sp_return sp_nonblocking_write(
+    struct sp_port *port, const void *buf, size_t count);
 
 /**
  * Gets the number of bytes waiting in the input buffer.
@@ -1420,8 +1460,9 @@ enum sp_return sp_new_event_set(struct sp_event_set **result_ptr);
  *
  * @since 0.1.0
  */
-enum sp_return sp_add_port_events(struct sp_event_set *event_set,
-	const struct sp_port *port, enum sp_event mask);
+enum sp_return sp_add_port_events(
+    struct sp_event_set *event_set, const struct sp_port *port,
+    enum sp_event mask);
 
 /**
  * Wait for any of a set of events to occur.
@@ -1470,7 +1511,8 @@ void sp_free_event_set(struct sp_event_set *event_set);
  *
  * @since 0.1.0
  */
-enum sp_return sp_get_signals(struct sp_port *port, enum sp_signal *signal_mask);
+enum sp_return sp_get_signals(
+    struct sp_port *port, enum sp_signal *signal_mask);
 
 /**
  * Put the port transmit line into the break state.
@@ -1590,7 +1632,9 @@ void sp_default_debug_handler(const char *format, ...);
  *
  * The "library version" is independent of that; it is the libtool version
  * number in the "current:revision:age" format, e.g. "2:0:0".
- * See http://www.gnu.org/software/libtool/manual/libtool.html#Libtool-versioning for details.
+ * See
+ * http://www.gnu.org/software/libtool/manual/libtool.html#Libtool-versioning
+ * for details.
  *
  * Both version numbers (and/or individual components of them) can be
  * retrieved via the API calls at runtime, and/or they can be checked at
