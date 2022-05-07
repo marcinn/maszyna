@@ -9,6 +9,8 @@ http://mozilla.org/MPL/2.0/.
 
 #ifndef ClassesH
 #define ClassesH
+#include <string>
+#include <stdexcept>
 //---------------------------------------------------------------------------
 // Ra: zestaw klas do robienia wskaźników, aby uporządkować nagłówki
 //---------------------------------------------------------------------------
@@ -85,8 +87,9 @@ enum class TCommandType {  // binarne odpowiedniki komend w komórce pamięci
 using material_handle = int;
 using texture_handle = int;
 
-struct invalid_scenery_exception : std::runtime_error {
-    invalid_scenery_exception() : std::runtime_error("cannot load scenery") {}
+class invalid_scenery_exception : public std::runtime_error {
+    public:
+        invalid_scenery_exception() : std::runtime_error("cannot load scenery") {}
 };
 
 #endif
