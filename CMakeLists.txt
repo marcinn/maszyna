@@ -100,6 +100,7 @@ set(SOURCES
 "skydome.cpp"
 "sound.cpp"
 "Spring.cpp"
+"PlayerController.cpp"
 "frustum.cpp"
 "uilayer.cpp"
 "openglmatrixstack.cpp"

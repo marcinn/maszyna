@@ -9,8 +9,11 @@ http://mozilla.org/MPL/2.0/.
 
 #pragma once
 
+#include <deque>
 #include <fstream>
+#include <glm/glm.hpp>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <vector>

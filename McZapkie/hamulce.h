@@ -33,6 +33,11 @@ Knorr/West EP - żeby był
 
 #pragma once
 
+#include <string.h>
+
+#include <memory>
+#include <string>
+
 #include "friction.h"  // Pascal unit
 
 static int const LocalBrakePosNo =
@@ -176,8 +181,8 @@ typedef TReservoir *PReservoir;
 
 class TBrakeCyl : public TReservoir {
    public:
-    virtual double pa() /*override*/;
-    virtual double P() /*override*/;
+    virtual double pa() override;
+    virtual double P() override;
     TBrakeCyl() : TReservoir(){};
 };
 
@@ -227,8 +232,8 @@ class TBrake {
     virtual double GetHPFlow(
         double const HP, double const dt);  // przeplyw - 8 bar
     double GetBCP();                        // cisnienie cylindrow hamulcowych
-    virtual double GetEDBCP();  // cisnienie tylko z hamulca zasadniczego,
-                                // uzywane do hamulca ED w EP09
+    virtual double GetEDBCP();       // cisnienie tylko z hamulca zasadniczego,
+                                     // uzywane do hamulca ED w EP09
     double GetBRP();                 // cisnienie zbiornika pomocniczego
     double GetVRP();                 // cisnienie komory wstepnej rozdzielacza
     virtual double GetCRP();         // cisnienie zbiornika sterujacego
@@ -274,17 +279,18 @@ class TWest : public TBrake {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
-    void SetLBP(double const P);  // cisnienie z hamulca pomocniczego
+        int const BDF) override;
+    void SetLBP(double const P) override;  // cisnienie z hamulca pomocniczego
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
-    double GetHPFlow(double const HP, double const dt) /*override*/;
-    void PLC(double const mass);  // wspolczynnik cisnienia przystawki wazacej
-    void SetEPS(double const nEPS) /*override*/;  // stan hamulca EP
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
+    double GetHPFlow(double const HP, double const dt) override;
+    void PLC(double const mass)
+        override;  // wspolczynnik cisnienia przystawki wazacej
+    void SetEPS(double const nEPS) override;  // stan hamulca EP
     void SetLP(
         double const TM, double const LM,
-        double const TBP);  // parametry przystawki wazacej
+        double const TBP) override;  // parametry przystawki wazacej
 
     inline TWest(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -302,17 +308,17 @@ class TESt : public TBrake {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
+        int const BDF) override;
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
-    void EStParams(double i_crc);        // parametry charakterystyczne dla ESt
-    double GetCRP() /*override*/;
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
+    void EStParams(double i_crc);    // parametry charakterystyczne dla ESt
+    double GetCRP() override;
     void CheckState(double BCP, double &dV1);  // glowny przyrzad rozrzadczy
     void CheckReleaser(double dt);             // odluzniacz
     double CVs(double BP);                     // napelniacz sterujacego
     double BVs(double BCP);                    // napelniacz pomocniczego
-    void ForceEmptiness() /*override*/;        // wymuszenie bycia pustym
+    void ForceEmptiness() override;            // wymuszenie bycia pustym
 
     inline TESt(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -329,7 +335,7 @@ class TESt3 : public TESt {
    public:
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
 
     inline TESt3(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -348,14 +354,15 @@ class TESt3AL2 : public TESt3 {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
+        int const BDF) override;
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
-    void PLC(double const mass);  // wspolczynnik cisnienia przystawki wazacej
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
+    void PLC(double const mass)
+        override;  // wspolczynnik cisnienia przystawki wazacej
     void SetLP(
         double const TM, double const LM,
-        double const TBP);  // parametry przystawki wazacej
+        double const TBP) override;  // parametry przystawki wazacej
 
     inline TESt3AL2(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -376,10 +383,10 @@ class TESt4R : public TESt {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
+        int const BDF) override;
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
 
     inline TESt4R(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -401,17 +408,19 @@ class TLSt : public TESt4R {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
-    void SetLBP(double const P);   // cisnienie z hamulca pomocniczego
-    void SetRM(double const RMR);  // ustalenie przelozenia rapida
+        int const BDF) override;
+    void SetLBP(double const P) override;   // cisnienie z hamulca pomocniczego
+    void SetRM(double const RMR) override;  // ustalenie przelozenia rapida
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
     double GetHPFlow(
-        double const HP, double const dt) /*override*/;  // przeplyw - 8 bar
-    virtual double GetEDBCP();  // cisnienie tylko z hamulca zasadniczego,
-                                // uzywane do hamulca ED w EP09
-    virtual void SetED(double const EDstate);  // stan hamulca ED do luzowania
+        double const HP, double const dt) override;  // przeplyw - 8 bar
+    virtual double GetEDBCP()
+        override;  // cisnienie tylko z hamulca zasadniczego,
+                   // uzywane do hamulca ED w EP09
+    virtual void SetED(
+        double const EDstate) override;  // stan hamulca ED do luzowania
 
     inline TLSt(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -437,16 +446,17 @@ class TEStED : public TLSt {  // zawor z EP09 - Est4 z oddzielnym
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
+        int const BDF) override;
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
-    double GetEDBCP() /*override*/;  // cisnienie tylko z hamulca zasadniczego,
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
+    double GetEDBCP() override;      // cisnienie tylko z hamulca zasadniczego,
                                      // uzywane do hamulca ED
-    void PLC(double const mass);  // wspolczynnik cisnienia przystawki wazacej
+    void PLC(double const mass)
+        override;  // wspolczynnik cisnienia przystawki wazacej
     void SetLP(
         double const TM, double const LM,
-        double const TBP);  // parametry przystawki wazacej
+        double const TBP) override;  // parametry przystawki wazacej
 
     inline TEStED(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -467,15 +477,16 @@ class TEStEP2 : public TLSt {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;  // inicjalizacja
+        int const BDF) override;  // inicjalizacja
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
-    void PLC(double const mass);  // wspolczynnik cisnienia przystawki wazacej
-    void SetEPS(double const nEPS) /*override*/;  // stan hamulca EP
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
+    void PLC(double const mass)
+        override;  // wspolczynnik cisnienia przystawki wazacej
+    void SetEPS(double const nEPS) override;  // stan hamulca EP
     void SetLP(
         double const TM, double const LM,
-        double const TBP);  // parametry przystawki wazacej
+        double const TBP) override;  // parametry przystawki wazacej
     void virtual EPCalc(double dt);
 
     inline TEStEP2(
@@ -486,7 +497,7 @@ class TEStEP2 : public TLSt {
 
 class TEStEP1 : public TEStEP2 {
    public:
-    void EPCalc(double dt);
+    void EPCalc(double dt) override;
     void SetEPS(double const nEPS) override;  // stan hamulca EP
 
     inline TEStEP1(
@@ -506,15 +517,15 @@ class TCV1 : public TBrake {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
+        int const BDF) override;
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
-    double GetCRP() /*override*/;
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
+    double GetCRP() override;
     void CheckState(double const BCP, double &dV1);
     double CVs(double const BP);
     double BVs(double const BCP);
-    void ForceEmptiness() /*override*/;  // wymuszenie bycia pustym
+    void ForceEmptiness() override;  // wymuszenie bycia pustym
 
     inline TCV1(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -533,13 +544,13 @@ class TCV1 : public TBrake {
 
 // public:
 //	//        function GetPF(PP, dt, Vel: real): real; override; //przeplyw
-//miedzy komora wstepna i PG
+// miedzy komora wstepna i PG
 //	//        procedure Init(PP, HPP, LPP, BP: real; BDF: int); override;
 
 //	inline TCV1R(double i_mbp, double i_bcr, double i_bcd, double i_brc,
 //		int i_bcn, int i_BD, int i_mat, int i_ba, int i_nbpa,
 //		double PP, double HPP, double LPP, double BP, int BDF) :
-//TCV1(i_mbp, i_bcr, i_bcd, i_brc, i_bcn
+// TCV1(i_mbp, i_bcr, i_bcd, i_brc, i_bcn
 //			, i_BD, i_mat, i_ba, i_nbpa, PP, HPP, LPP, BP, BDF) { }
 //};
 
@@ -551,13 +562,13 @@ class TCV1L_TR : public TCV1 {
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
+        int const BDF) override;
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
-    void SetLBP(double const P);         // cisnienie z hamulca pomocniczego
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
+    void SetLBP(double const P) override;  // cisnienie z hamulca pomocniczego
     double GetHPFlow(
-        double const HP, double const dt) /*override*/;  // przeplyw - 8 bar
+        double const HP, double const dt) override;  // przeplyw - 8 bar
 
     inline TCV1L_TR(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -585,24 +596,25 @@ class TKE : public TBrake {  // Knorr Einheitsbauart — jeden do wszystkiego
    public:
     void Init(
         double const PP, double const HPP, double const LPP, double const BP,
-        int const BDF) /*override*/;
-    void SetRM(double const RMR);  // ustalenie przelozenia rapida
+        int const BDF) override;
+    void SetRM(double const RMR) override;  // ustalenie przelozenia rapida
     double GetPF(
         double const PP, double const dt,
-        double const Vel) /*override*/;  // przeplyw miedzy komora wstepna i PG
+        double const Vel) override;  // przeplyw miedzy komora wstepna i PG
     double GetHPFlow(
-        double const HP, double const dt) /*override*/;  // przeplyw - 8 bar
-    double GetCRP() /*override*/;
+        double const HP, double const dt) override;  // przeplyw - 8 bar
+    double GetCRP() override;
     void CheckState(double const BCP, double &dV1);
     void CheckReleaser(double const dt);  // odluzniacz
     double CVs(double const BP);          // napelniacz sterujacego
     double BVs(double const BCP);         // napelniacz pomocniczego
-    void PLC(double const mass);  // wspolczynnik cisnienia przystawki wazacej
+    void PLC(double const mass)
+        override;  // wspolczynnik cisnienia przystawki wazacej
     void SetLP(
         double const TM, double const LM,
-        double const TBP);               // parametry przystawki wazacej
-    void SetLBP(double const P);         // cisnienie z hamulca pomocniczego
-    void ForceEmptiness() /*override*/;  // wymuszenie bycia pustym
+        double const TBP) override;        // parametry przystawki wazacej
+    void SetLBP(double const P) override;  // cisnienie z hamulca pomocniczego
+    void ForceEmptiness() override;        // wymuszenie bycia pustym
 
     inline TKE(
         double i_mbp, double i_bcr, double i_bcd, double i_brc, int i_bcn,
@@ -658,8 +670,8 @@ class TFV4a : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
 
     inline TFV4a() : TDriverHandle() {}
 };
@@ -684,13 +696,13 @@ class TFV4aM : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    void SetReductor(double nAdj) /*override*/;
-    double GetSound(int i) /*override*/;
-    double GetPos(int i) /*override*/;
-    double GetCP();
-    double GetRP();
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    void SetReductor(double nAdj) override;
+    double GetSound(int i) override;
+    double GetPos(int i) override;
+    double GetCP() override;
+    double GetRP() override;
     inline TFV4aM() : TDriverHandle() {}
 };
 
@@ -715,16 +727,17 @@ class TMHZ_EN57 : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    void SetReductor(double nAdj) /*override*/;
-    double GetSound(int i) /*override*/;
-    double GetPos(int i) /*override*/;
-    double GetCP() /*override*/;
-    double GetRP() /*override*/;
-    double GetEP(double pos);
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    void SetReductor(double nAdj) override;
+    double GetSound(int i) override;
+    double GetPos(int i) override;
+    double GetCP() override;
+    double GetRP() override;
+    double GetEP(double pos) override;
     void SetParams(
-        bool AO, bool MO, double OverP, double, double OMP, double OPD);
+        bool AO, bool MO, double OverP, double, double OMP,
+        double OPD) override;
     inline TMHZ_EN57(void) : TDriverHandle() {}
 };
 
@@ -750,15 +763,15 @@ class TMHZ_K5P : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    void SetReductor(double nAdj) /*override*/;
-    double GetSound(int i) /*override*/;
-    double GetPos(int i) /*override*/;
-    double GetCP() /*override*/;
-    double GetRP() /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    void SetReductor(double nAdj) override;
+    double GetSound(int i) override;
+    double GetPos(int i) override;
+    double GetCP() override;
+    double GetRP() override;
     void SetParams(
-        bool AO, bool MO, double, double, double OMP, double OPD); /*ovveride*/
+        bool AO, bool MO, double, double, double OMP, double OPD) override;
 
     inline TMHZ_K5P(void) : TDriverHandle() {}
 };
@@ -785,15 +798,15 @@ class TMHZ_6P : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    void SetReductor(double nAdj) /*override*/;
-    double GetSound(int i) /*override*/;
-    double GetPos(int i) /*override*/;
-    double GetCP() /*override*/;
-    double GetRP() /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    void SetReductor(double nAdj) override;
+    double GetSound(int i) override;
+    double GetPos(int i) override;
+    double GetCP() override;
+    double GetRP() override;
     void SetParams(
-        bool AO, bool MO, double, double, double OMP, double OPD); /*ovveride*/
+        bool AO, bool MO, double, double, double OMP, double OPD) override;
 
     inline TMHZ_6P(void) : TDriverHandle() {}
 };
@@ -836,12 +849,12 @@ class TM394 : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    void SetReductor(double nAdj) /*override*/;
-    double GetCP() /*override*/;
-    double GetRP() /*override*/;
-    double GetPos(int i) /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    void SetReductor(double nAdj) override;
+    double GetCP() override;
+    double GetRP() override;
+    double GetPos(int i) override;
 
     inline TM394(void) : TDriverHandle() { i_bcpno = 5; }
 };
@@ -859,12 +872,12 @@ class TH14K1 : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    void SetReductor(double nAdj) /*override*/;
-    double GetCP() /*override*/;
-    double GetRP() /*override*/;
-    double GetPos(int i) /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    void SetReductor(double nAdj) override;
+    double GetCP() override;
+    double GetRP() override;
+    double GetPos(int i) override;
 
     inline TH14K1(void) : TDriverHandle() { i_bcpno = 4; }
 };
@@ -876,18 +889,17 @@ class TSt113 : public TH14K1 {
     static double const BEP_K[/*?*/ /*-1..5*/ (5) - (-1) + 1];
     static double const
         pos_table[11];  // = {-1, 5, -1, 0, 2, 3, 4, 5, 0, 0, 1};
-    double CP = 0;
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    double GetCP() /*override*/;
-    double GetRP() /*override*/;
-    double GetEP() /*override*/;
-    double GetPos(int i) /*override*/;
-    void Init(double Press) /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    double GetCP() override;
+    double GetRP() override;
+    double GetEP() override;
+    double GetPos(int i) override;
+    void Init(double Press) override;
 
-    inline TSt113(void) : TH14K1() {}
+    inline TSt113(void) : TH14K1() { CP = 0; }
 };
 
 class Ttest : public TDriverHandle {
@@ -896,8 +908,8 @@ class Ttest : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
 
     inline Ttest(void) : TDriverHandle() {}
 };
@@ -911,9 +923,9 @@ class TFD1 : public TDriverHandle {
     double Speed = 0.0;  // szybkosc dzialania
 
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    double GetCP() /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    double GetCP() override;
     void SetSpeed(double nSpeed);
     //        procedure Init(press: real; MaxBP: real); overload;
 
@@ -927,9 +939,9 @@ class TH1405 : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    void Init(double Press) /*override*/;
-    double GetCP() /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    void Init(double Press) override;
+    double GetCP() override;
     //        procedure Init(press: real; MaxBP: real); overload;
 
     inline TH1405(void) : TDriverHandle() {}
@@ -944,13 +956,13 @@ class TFVel6 : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    double GetCP() /*override*/;
-    double GetRP() /*override*/;
-    double GetEP() /*override*/;
-    double GetPos(int i) /*override*/;
-    double GetSound(int i) /*override*/;
-    void Init(double Press) /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    double GetCP() override;
+    double GetRP() override;
+    double GetEP() override;
+    double GetPos(int i) override;
+    double GetSound(int i) override;
+    void Init(double Press) override;
 
     inline TFVel6(void) : TDriverHandle() {}
 };
@@ -964,13 +976,13 @@ class TFVE408 : public TDriverHandle {
 
    public:
     double GetPF(
-        double i_bcp, double PP, double HP, double dt, double ep) /*override*/;
-    double GetCP() /*override*/;
-    double GetEP() /*override*/;
-    double GetRP() /*override*/;
-    double GetPos(int i) /*override*/;
-    double GetSound(int i) /*override*/;
-    void Init(double Press) /*override*/;
+        double i_bcp, double PP, double HP, double dt, double ep) override;
+    double GetCP() override;
+    double GetEP() override;
+    double GetRP() override;
+    double GetPos(int i) override;
+    double GetSound(int i) override;
+    void Init(double Press) override;
 
     inline TFVE408(void) : TDriverHandle() {}
 };

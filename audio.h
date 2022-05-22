@@ -17,6 +17,10 @@ http://mozilla.org/MPL/2.0/.
 #include <AL/alc.h>
 #endif
 
+#include <string>
+#include <unordered_map>
+#include <vector>
+
 namespace audio {
 
 ALuint const null_resource{~(ALuint{0})};

@@ -8,6 +8,8 @@ http://mozilla.org/MPL/2.0/.
 */
 
 #pragma once
+#include <chrono>
+#include <string>
 
 enum class resource_state { none, loading, good, failed };
 

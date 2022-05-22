@@ -65,6 +65,8 @@ class state_manager {
 // broadcasted on specified channel
 void radio_message(sound_source *Message, int const Channel);
 
+TTrain* get_train_controlled_by_player();  // returns train controlled by player
+
 extern state_manager State;
 extern event_manager Events;
 extern memory_table Memory;

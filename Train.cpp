@@ -23,6 +23,7 @@ http://mozilla.org/MPL/2.0/.
 #include "Logs.h"
 #include "MdlMngr.h"
 #include "Model3d.h"
+#include "PlayerController.h"
 #include "Timer.h"
 #include "application.h"
 #include "dumb3d.h"
@@ -31,6 +32,7 @@ http://mozilla.org/MPL/2.0/.
 #include "simulation.h"
 #include "simulationtime.h"
 #include "stdafx.h"
+
 /*
 namespace input {
 
@@ -615,6 +617,9 @@ std::vector<std::string> const TTrain::fPress_labels = {
     "ch6:  ", "ch7:  ", "ch8:  ", "ch9:  ", "ch0:  "};
 
 TTrain::TTrain() {
+    simulation = new SimulationState(this);
+    playerCtrl = new PlayerController(this);
+
     ShowNextCurrent = false;
     // McZapkie-240302 - przyda sie do tachometru
     fTachoVelocity = 0;
@@ -658,7 +663,10 @@ TTrain::TTrain() {
     }
 }
 
-TTrain::~TTrain() {}
+TTrain::~TTrain() {
+    delete playerCtrl;
+    delete simulation;
+}
 
 bool TTrain::Init(
     TDynamicObject *NewDynamicObject,
@@ -6547,35 +6555,7 @@ void TTrain::OnCommand_hornlowactivate(
         }
         return;
     }
-
-    if (Command.action == GLFW_PRESS) {
-        // only need to react to press, sound will continue until stopped
-        if (false == TestFlag(Train->mvOccupied->WarningSignal, 1)) {
-            // turn on
-            Train->mvOccupied->WarningSignal |= 1;
-            /*
-                        if( true == TestFlag( Train->mvOccupied->WarningSignal,
-               2 ) ) {
-                            // low and high horn are treated as mutually
-               exclusive Train->mvControlled->WarningSignal &= ~2;
-                        }
-            */
-            // visual feedback
-            Train->ggHornButton.UpdateValue(-1.0);
-            Train->ggHornLowButton.UpdateValue(1.0);
-        }
-    } else if (Command.action == GLFW_RELEASE) {
-        // turn off
-        /*
-                // NOTE: we turn off both low and high horn, due to
-           unreliability of release event when shift key is involved
-                Train->mvOccupied->WarningSignal &= ~( 1 | 2 );
-        */
-        Train->mvOccupied->WarningSignal &= ~1;
-        // visual feedback
-        Train->ggHornButton.UpdateValue(0.0);
-        Train->ggHornLowButton.UpdateValue(0.0);
-    }
+    Train->playerCtrl->setHornLow(Command.action != GLFW_RELEASE);
 }
 
 void TTrain::OnCommand_hornhighactivate(
@@ -6588,34 +6568,7 @@ void TTrain::OnCommand_hornhighactivate(
         return;
     }
 
-    if (Command.action == GLFW_PRESS) {
-        // only need to react to press, sound will continue until stopped
-        if (false == TestFlag(Train->mvOccupied->WarningSignal, 2)) {
-            // turn on
-            Train->mvOccupied->WarningSignal |= 2;
-            /*
-                        if( true == TestFlag( Train->mvOccupied->WarningSignal,
-               1 ) ) {
-                            // low and high horn are treated as mutually
-               exclusive Train->mvControlled->WarningSignal &= ~1;
-                        }
-            */
-            // visual feedback
-            Train->ggHornButton.UpdateValue(1.0);
-            Train->ggHornHighButton.UpdateValue(1.0);
-        }
-    } else if (Command.action == GLFW_RELEASE) {
-        // turn off
-        /*
-                // NOTE: we turn off both low and high horn, due to
-           unreliability of release event when shift key is involved
-                Train->mvOccupied->WarningSignal &= ~( 1 | 2 );
-        */
-        Train->mvOccupied->WarningSignal &= ~2;
-        // visual feedback
-        Train->ggHornButton.UpdateValue(0.0);
-        Train->ggHornHighButton.UpdateValue(0.0);
-    }
+    Train->playerCtrl->setHornHigh(Command.action != GLFW_RELEASE);
 }
 
 void TTrain::OnCommand_whistleactivate(
@@ -6794,8 +6747,8 @@ void TTrain::OnCommand_cabchangeforward(
                 Train->MoveToVehicle(targetvehicle);
             }
         }
-        // HACK: match consist door permit state with the preset in the active
-        // cab
+        // HACK: match consist door permit state with the preset in the
+        // active cab
         if (Train->ggDoorPermitPresetButton.SubModel != nullptr) {
             Train->mvOccupied->ChangeDoorPermitPreset(0);
         }
@@ -6834,8 +6787,8 @@ void TTrain::OnCommand_cabchangebackward(
                 Train->MoveToVehicle(targetvehicle);
             }
         }
-        // HACK: match consist door permit state with the preset in the active
-        // cab
+        // HACK: match consist door permit state with the preset in the
+        // active cab
         if (Train->ggDoorPermitPresetButton.SubModel != nullptr) {
             Train->mvOccupied->ChangeDoorPermitPreset(0);
         }
@@ -6910,8 +6863,8 @@ bool TTrain::Update(double const Deltatime) {
     if (m_linebreakerstate == 1) {
         if (false == (mvControlled->Mains || mvControlled->dizel_startup)) {
             // crude way to catch cases where the main was knocked out
-            // because the state of the line breaker isn't changed to match, we
-            // need to do it here manually
+            // because the state of the line breaker isn't changed to match,
+            // we need to do it here manually
             m_linebreakerstate = 0;
         }
     }
@@ -6945,13 +6898,13 @@ bool TTrain::Update(double const Deltatime) {
         }
     }
     if (m_linebreakerstate == 2) {
-        // for diesels and/or vehicles with toggle switch setup we complete the
-        // engine start here
+        // for diesels and/or vehicles with toggle switch setup we complete
+        // the engine start here
         // TODO: make it a test for main_on_bt of type push_delayed instead
         if ((ggMainOnButton.SubModel == nullptr) ||
             (mvControlled->EngineType != TEngineType::ElectricSeriesMotor)) {
-            // try to finalize state change of the line breaker, set the state
-            // based on the outcome
+            // try to finalize state change of the line breaker, set the
+            // state based on the outcome
             m_linebreakerstate = (mvControlled->MainSwitch(true) ? 1 : 0);
         }
     }
@@ -7008,10 +6961,10 @@ bool TTrain::Update(double const Deltatime) {
     m_dirbackward = (mvControlled->DirActive < 0);
 
     // check for received user commands
-    // NOTE: this is a temporary arrangement, for the transition period from old
-    // command setup to the new one eventually commands are going to be
-    // retrieved directly by the vehicle, filtered through active control stand
-    // and ultimately executed, provided the stand allows it.
+    // NOTE: this is a temporary arrangement, for the transition period from
+    // old command setup to the new one eventually commands are going to be
+    // retrieved directly by the vehicle, filtered through active control
+    // stand and ultimately executed, provided the stand allows it.
     command_data commanddata;
     while (simulation::Commands.pop(
         commanddata,
@@ -7070,7 +7023,8 @@ bool TTrain::Update(double const Deltatime) {
         }
     }
 
-    // McZapkie: predkosc wyswietlana na tachometrze brana jest z obrotow kol
+    // McZapkie: predkosc wyswietlana na tachometrze brana jest z obrotow
+    // kol
     auto const maxtacho{3.0};
     fTachoVelocity = static_cast<float>(std::min(
         std::abs(11.31 * mvControlled->WheelDiameter * mvControlled->nrot),
@@ -7099,8 +7053,8 @@ bool TTrain::Update(double const Deltatime) {
         fTachoCount = std::max(0.0, fTachoCount - Deltatime * 0.66);
     }
 
-    // Ra 2014-09: napięcia i prądy muszą być ustalone najpierw, bo wysyłane są
-    // ewentualnie na PoKeys
+    // Ra 2014-09: napięcia i prądy muszą być ustalone najpierw, bo wysyłane
+    // są ewentualnie na PoKeys
     if ((mvControlled->EngineType != TEngineType::DieselElectric) &&
         (mvControlled->EngineType !=
          TEngineType::ElectricInductionMotor)) {  // Ra 2014-09: czy taki
@@ -7238,8 +7192,9 @@ bool TTrain::Update(double const Deltatime) {
                 bConv[in] = p->MoverParameters->ConverterFlag;
                 bHeat[in] = p->MoverParameters->Heating;
                 // bComp[in][2] = (p->MoverParameters->CompressorAllow ||
-                // (p->MoverParameters->CompressorStart == start_t::automatic));
-                // bComp[in][3] = (p->MoverParameters->CompressorFlag);
+                // (p->MoverParameters->CompressorStart ==
+                // start_t::automatic)); bComp[in][3] =
+                // (p->MoverParameters->CompressorFlag);
                 in++;
                 iPowerNo = in;
             }
@@ -7293,8 +7248,8 @@ bool TTrain::Update(double const Deltatime) {
     }
 
     //        if (mvControlled == mvOccupied)
-    //            fEIMParams[0][3] = mvControlled->eimv[eimv_Fzad]; // procent
-    //            zadany
+    //            fEIMParams[0][3] = mvControlled->eimv[eimv_Fzad]; //
+    //            procent zadany
     //        else
     //            fEIMParams[0][3] =
     //                mvControlled->eimv[eimv_Fzad] -
@@ -7350,8 +7305,8 @@ bool TTrain::Update(double const Deltatime) {
             && (false ==
                 DynamicObject->Mechanik
                     ->AIControllFlag)) {  // hunter-091012: poprawka (zmiana
-                                          // warunku z CompressorPower /rozne od
-                                          // 0/ na /rowne 1/)
+                                          // warunku z CompressorPower
+                                          // /rozne od 0/ na /rowne 1/)
             if (fConverterTimer < fConverterPrzekaznik) {
                 mvControlled->ConvOvldFlag = true;
                 if (mvControlled->TrainType != dt_EZT)
@@ -7360,8 +7315,8 @@ bool TTrain::Update(double const Deltatime) {
                         (mvControlled->TrainType == dt_EZT ? range_t::unit
                                                            : range_t::local));
             } else if (fConverterTimer >= fConverterPrzekaznik) {
-                // changed switch from always true to take into account state of
-                // the compressor switch
+                // changed switch from always true to take into account
+                // state of the compressor switch
                 mvControlled->CompressorSwitch(mvControlled->CompressorAllow);
             }
         }
@@ -7468,10 +7423,10 @@ bool TTrain::Update(double const Deltatime) {
 
     // Winger 140404 - woltomierz NN
     if (ggLVoltage.SubModel) {
-        // NOTE: since we don't have functional converter object, we're faking
-        // it here by simple check whether converter is on
-        // TODO: implement object-based circuits and power systems model so we
-        // can have this working more properly
+        // NOTE: since we don't have functional converter object, we're
+        // faking it here by simple check whether converter is on
+        // TODO: implement object-based circuits and power systems model so
+        // we can have this working more properly
         ggLVoltage.UpdateValue(std::max(
             (mvOccupied->Power110vIsAvailable
                  ? mvOccupied->NominalBatteryVoltage
@@ -7516,13 +7471,13 @@ bool TTrain::Update(double const Deltatime) {
     }
 
     if (mvControlled->SlippingWheels) {
-        // Ra 2014-12: lokomotywy 181/182 dostają SlippingWheels po zahamowaniu
-        // powyżej 2.85 bara i buczały
+        // Ra 2014-12: lokomotywy 181/182 dostają SlippingWheels po
+        // zahamowaniu powyżej 2.85 bara i buczały
         double veldiff = (DynamicObject->GetVelocity() - fTachoVelocity) /
                          mvControlled->Vmax;
         if (veldiff < -0.01) {
-            // 1% Vmax rezerwy, żeby 181/182 nie buczały po zahamowaniu, ale to
-            // proteza
+            // 1% Vmax rezerwy, żeby 181/182 nie buczały po zahamowaniu, ale
+            // to proteza
             if (std::abs(mvControlled->Im) > 10.0) {
                 btLampkaPoslizg.Turn(true);
             }
@@ -7692,7 +7647,8 @@ bool TTrain::Update(double const Deltatime) {
             case dt_ET41: {
                 // odhamowanie drugiego członu
                 if (mvSecond) {
-                    // bo może komuś przyjść do głowy jeżdżenie jednym członem
+                    // bo może komuś przyjść do głowy jeżdżenie jednym
+                    // członem
                     btLampkaHamienie.Turn(mvSecond->BrakePress < 0.4);
                 }
                 break;
@@ -7844,7 +7800,7 @@ bool TTrain::Update(double const Deltatime) {
 
     {                                  // yB - wskazniki drugiego czlonu
         TDynamicObject *tmp{nullptr};  //=mvControlled->mvSecond; //Ra 2014-07:
-                                       //trzeba to jeszcze wyjąć z kabiny...
+                                       // trzeba to jeszcze wyjąć z kabiny...
         // Ra 2014-07: no nie ma potrzeby szukać tego w każdej klatce
         if ((TestFlag(
                 mvControlled->Couplers[1].CouplingFlag, coupling::control)) &&
@@ -7875,11 +7831,11 @@ bool TTrain::Update(double const Deltatime) {
                 } else if (mover->BrakePress < 1.0) {
                     btLampkaStycznB.Turn(true);  // mozna prowadzic rozruch
                 }
-                // hunter-271211: sygnalizacja poslizgu w pierwszym pojezdzie,
-                // gdy wystapi w drugim
+                // hunter-271211: sygnalizacja poslizgu w pierwszym
+                // pojezdzie, gdy wystapi w drugim
                 if (mover->SlippingWheels) {
-                    // Ra 2014-12: lokomotywy 181/182 dostają SlippingWheels po
-                    // zahamowaniu powyżej 2.85 bara i buczały
+                    // Ra 2014-12: lokomotywy 181/182 dostają SlippingWheels
+                    // po zahamowaniu powyżej 2.85 bara i buczały
                     auto const veldiff{
                         (DynamicObject->GetVelocity() - fTachoVelocity) /
                         mvControlled->Vmax};
@@ -7913,8 +7869,8 @@ bool TTrain::Update(double const Deltatime) {
                 btLampkaHVoltageB.Turn(
                     mover->NoVoltRelay && mover->OvervoltageRelay);
                 btLampkaMalfunctionB.Turn(mover->dizel_heat.PA);
-                // motor fuse indicator turns on if the fuse was blown in any
-                // unit under control
+                // motor fuse indicator turns on if the fuse was blown in
+                // any unit under control
                 if (mover->Mains) {
                     btLampkaNadmSil.Turn(
                         btLampkaNadmSil.GetValue() || mover->FuseFlagCheck());
@@ -7939,8 +7895,8 @@ bool TTrain::Update(double const Deltatime) {
     }
     // McZapkie-080602: obroty (albo translacje) regulatorow
     if (ggJointCtrl.SubModel != nullptr) {
-        // joint master controller moves forward to adjust power and backward to
-        // adjust brakes
+        // joint master controller moves forward to adjust power and
+        // backward to adjust brakes
         auto const brakerangemultiplier{
             /* NOTE: scaling disabled as it was conflicting with associating
             sounds with control positions ( mvControlled->CoupledCtrl ?
@@ -8038,7 +7994,8 @@ bool TTrain::Update(double const Deltatime) {
                                                     Global.iFeedbackMode == 4 /*|| (Global.bMWDmasterEnable && Global.bMWDBreakEnable)*/))
                                     : false && Global.fCalibrateIn[0][1] !=
                                                    0.0)  // nie blokujemy AI
-        {  // Ra: nie najlepsze miejsce, ale na początek gdzieś to dać trzeba
+        {  // Ra: nie najlepsze miejsce, ale na początek gdzieś to dać
+           // trzeba
             // Firleju: dlatego kasujemy i zastepujemy funkcją w Console
             if (mvOccupied->BrakeHandle == TBrakeHandle::FV4a) {
                 double b = Console::AnalogCalibrateGet(0);
@@ -8051,8 +8008,8 @@ bool TTrain::Update(double const Deltatime) {
                 mvOccupied->BrakeLevelSet(b);
             } else if (
                 mvOccupied->BrakeHandle ==
-                TBrakeHandle::FVel6)  // może można usunąć ograniczenie do FV4a
-                                      // i FVel6?
+                TBrakeHandle::FVel6)  // może można usunąć ograniczenie do
+                                      // FV4a i FVel6?
             {
                 double b = Console::AnalogCalibrateGet(0);
                 b = b * 7.0 - 1.0;
@@ -8091,8 +8048,9 @@ bool TTrain::Update(double const Deltatime) {
          && ( mvOccupied->BrakeLocHandle == TBrakeHandle::FD1 )
          && ( ( Global.iFeedbackMode == 4 )  && Global.fCalibrateIn[ 0 ][ 1 ] != 0.0
 /*         || ( Global.bMWDmasterEnable && Global.bMWDBreakEnable )*/ ) ) {
-            // Ra: nie najlepsze miejsce, ale na początek gdzieś to dać trzeba
-            // Firleju: dlatego kasujemy i zastepujemy funkcją w Console
+            // Ra: nie najlepsze miejsce, ale na początek gdzieś to dać
+            // trzeba Firleju: dlatego kasujemy i zastepujemy funkcją w
+            // Console
             auto const b =
                 clamp<double>(Console::AnalogCalibrateGet(1), 0.0, 1.0);
             mvOccupied->LocalBrakePosA = b;
@@ -8161,9 +8119,8 @@ bool TTrain::Update(double const Deltatime) {
                                           mvOccupied->Power110vIsAvailable
                                     : false)};
     InstrumentLightActive =
-        (InstrumentLightType == 3
-             ? true
-             :  // TODO: link the light state with the state of the master key
+        (InstrumentLightType == 3 ? true :  // TODO: link the light state with
+                                            // the state of the master key
              InstrumentLightType == 4
              ? (mvOccupied->iLights[end::front] != 0) ||
                    (mvOccupied->iLights[end::rear] != 0)
@@ -8233,8 +8190,14 @@ bool TTrain::Update(double const Deltatime) {
     ggTrainHeatingButton.Update();
     ggSignallingButton.Update();
     ggNextCurrentButton.Update();
+    ggHornButton.UpdateValue(
+        simulation->isHighHornSignalActive()
+            ? 1.0
+            : (simulation->isLowHornSignalActive() ? -1.0 : 0.0));
     ggHornButton.Update();
+    ggHornLowButton.UpdateValue((float)simulation->isLowHornSignalActive());
     ggHornLowButton.Update();
+    ggHornHighButton.UpdateValue((float)simulation->isHighHornSignalActive());
     ggHornHighButton.Update();
     ggWhistleButton.Update();
     if (DynamicObject->Mechanik != nullptr) {
@@ -8300,9 +8263,9 @@ bool TTrain::Update(double const Deltatime) {
 
     // calculate current level of interior illumination
     {
-        // TODO: organize it along with rest of train update in a more sensible
-        // arrangement Ra: uzeleżnic od napięcia w obwodzie sterowania
-        // hunter-091012: uzaleznienie jasnosci od przetwornicy
+        // TODO: organize it along with rest of train update in a more
+        // sensible arrangement Ra: uzeleżnic od napięcia w obwodzie
+        // sterowania hunter-091012: uzaleznienie jasnosci od przetwornicy
         int cabidx{0};
         for (auto &cab : Cabine) {
             auto const cablightlevel =
@@ -8323,7 +8286,8 @@ bool TTrain::Update(double const Deltatime) {
         }
     }
 
-    // anti slip system activation, maintained while the control button is down
+    // anti slip system activation, maintained while the control button is
+    // down
     if (mvOccupied->BrakeSystem != TBrakeSystem::ElectroPneumatic) {
         if (ggAntiSlipButton.GetDesiredValue() > 0.95) {
             mvControlled->AntiSlippingBrake();
@@ -8347,8 +8311,8 @@ void TTrain::update_sounds(double const Deltatime) {
 
     // Winger-160404 - syczenie pomocniczego (luzowanie)
     if (m_lastlocalbrakepressure != -1.f) {
-        // calculate rate of pressure drop in local brake cylinder, once it's
-        // been initialized
+        // calculate rate of pressure drop in local brake cylinder, once
+        // it's been initialized
         auto const brakepressuredifference{
             mvOccupied->LocBrakePress - m_lastlocalbrakepressure};
         m_localbrakepressurechange = interpolate<float>(
@@ -8395,8 +8359,8 @@ void TTrain::update_sounds(double const Deltatime) {
     }
 
     // McZapkie-280302 - syczenie
-    // TODO: softer volume reduction than plain abrupt stop, perhaps as reusable
-    // wrapper?
+    // TODO: softer volume reduction than plain abrupt stop, perhaps as
+    // reusable wrapper?
     if ((mvOccupied->BrakeHandle == TBrakeHandle::FV4a) ||
         (mvOccupied->BrakeHandle == TBrakeHandle::FVel6)) {
         // upuszczanie z PG
@@ -8516,8 +8480,8 @@ void TTrain::update_sounds(double const Deltatime) {
                                   std::max(1, mvOccupied->NBpA))),
                 0.0, 1.0)};
             // HACK: in external view mute the sound rather than stop it, in
-            // case there's an opening bookend it'd (re)play on sound restart
-            // after returning inside
+            // case there's an opening bookend it'd (re)play on sound
+            // restart after returning inside
             volume =
                 (FreeFlyModeFlag ? 0.0
                                  : rsBrake->m_amplitudeoffset +
@@ -8539,8 +8503,8 @@ void TTrain::update_sounds(double const Deltatime) {
     }
 
     // ambient sound
-    // since it's typically ticking of the clock we can center it on tachometer
-    // or on middle of compartment bounding area
+    // since it's typically ticking of the clock we can center it on
+    // tachometer or on middle of compartment bounding area
     if (rsFadeSound) {
         rsFadeSound->play(sound_flags::exclusive | sound_flags::looping);
     }
@@ -8651,9 +8615,9 @@ void TTrain::update_sounds(double const Deltatime) {
                 (DynamicObject->ctOwner != nullptr ? DynamicObject->ctOwner
                                                    : DynamicObject->Mechanik)};
             if (m_distancecounter > owner->fLength) {
-                // play assigned sound if the train travelled its full length
-                // since meter activation TBD: check all combinations of
-                // directions and active cab
+                // play assigned sound if the train travelled its full
+                // length since meter activation TBD: check all combinations
+                // of directions and active cab
                 m_distancecounter =
                     -1.f;  // turn off the meter after its task is done
                 m_distancecounterclear->pitch(
@@ -8739,7 +8703,8 @@ void TTrain::update_sounds_radio() {
                 }),
             std::end(m_radiomessages));
     }
-    // adjust audibility of remaining messages based on current radio conditions
+    // adjust audibility of remaining messages based on current radio
+    // conditions
     auto const radioenabled{
         (true == mvOccupied->Radio) &&
         (mvOccupied->Power24vIsAvailable || mvOccupied->Power110vIsAvailable)};
@@ -8797,8 +8762,8 @@ void TTrain::add_distance(double const Distance) {
     }
 }
 
-bool TTrain::CabChange(
-    int iDirection) {  // McZapkie-090902: zmiana kabiny 1->0->2 i z powrotem
+bool TTrain::CabChange(int iDirection) {  // McZapkie-090902: zmiana kabiny
+                                          // 1->0->2 i z powrotem
     if ((DynamicObject->Mechanik == nullptr) ||
         (true == DynamicObject->Mechanik->AIControllFlag)) {
         // jeśli prowadzi AI albo jest w innym członie
@@ -8828,8 +8793,8 @@ bool TTrain::CabChange(
 // McZapkie-310302
 // wczytywanie pliku z danymi multimedialnymi (dzwieki, kontrolki, kabiny)
 bool TTrain::LoadMMediaFile(std::string const &asFileName) {
-    // initialize sounds so potential entries from previous vehicle don't stick
-    // around
+    // initialize sounds so potential entries from previous vehicle don't
+    // stick around
     std::unordered_map<
         std::string, std::tuple<
                          std::optional<sound_source> &, sound_placement, float,
@@ -8917,8 +8882,8 @@ bool TTrain::LoadMMediaFile(std::string const &asFileName) {
     for (auto &soundconfig : internalsounds) {
         std::get<std::optional<sound_source> &>(soundconfig.second).reset();
     }
-    // NOTE: since radiosound is an incomplete template not using std::optional
-    // it gets a special treatment
+    // NOTE: since radiosound is an incomplete template not using
+    // std::optional it gets a special treatment
     m_radiosound.owner(DynamicObject);
     CabSoundLocations.clear();
 
@@ -8954,8 +8919,8 @@ bool TTrain::LoadMMediaFile(std::string const &asFileName) {
             std::get<std::optional<sound_source> &>(soundconfig) = sound;
         } while (token != "");
 
-        // assign default samples to sound emitters which weren't included in
-        // the config file
+        // assign default samples to sound emitters which weren't included
+        // in the config file
         if (!m_rainsound) {
             sound_source rainsound;
             rainsound.deserialize("rainsound_default", sound_type::single);
@@ -9091,7 +9056,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
     if (token == cabstr) {
         // jeśli znaleziony wpis kabiny
         Cabine[cabindex].Load(parser);
-        // NOTE: the position and angle definitions depend on strict entry order
+        // NOTE: the position and angle definitions depend on strict entry
+        // order
         // TODO: refactor into more flexible arrangement
         parser.getTokens();
         parser >> token;
@@ -9099,7 +9065,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
             std::string("driver" + std::to_string(cabindex) + "angle:")) {
             // camera view angle
             parser.getTokens(2, false);
-            // angle is specified in degrees but internally stored in radians
+            // angle is specified in degrees but internally stored in
+            // radians
             glm::vec2 viewangle;
             parser >> viewangle.y  // yaw first, then pitch
                 >> viewangle.x;
@@ -9142,10 +9109,10 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
                 parse = true;
             }
             // inicjacja kabiny
-            // Ra 2014-08: zmieniamy zasady - zamiast przypisywać submodel do
-            // istniejących obiektów animujących
-            // będziemy teraz uaktywniać obiekty animujące z tablicy i podawać
-            // im submodel oraz wskaźnik na parametr
+            // Ra 2014-08: zmieniamy zasady - zamiast przypisywać submodel
+            // do istniejących obiektów animujących będziemy teraz
+            // uaktywniać obiekty animujące z tablicy i podawać im submodel
+            // oraz wskaźnik na parametr
             if (token ==
                 std::string("cab" + std::to_string(cabindex) + "model:")) {
                 // model kabiny
@@ -9157,8 +9124,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
                     Global.asCurrentTexturePath = DynamicObject->asBaseDir;
                     // szukaj kabinę jako oddzielny model
                     // name can contain leading slash, erase it to avoid
-                    // creation of double slashes when the name is combined with
-                    // current directory
+                    // creation of double slashes when the name is combined
+                    // with current directory
                     replace_slashes(token);
                     erase_leading_slashes(token);
                     if (token[0] == '/') {
@@ -9177,13 +9144,14 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
                         DynamicObject->mdKabina = kabina;  // nowa kabina
                     }
                     //(mdKabina) może zostać to samo po przejściu do innego
-                    //członu bez
-                    // zmiany kabiny, przy powrocie musi być wiązanie ponowne
-                    // else
-                    // break; //wyjście z pętli, bo model zostaje bez zmian
+                    // członu bez
+                    // zmiany kabiny, przy powrocie musi być wiązanie
+                    // ponowne else break; //wyjście z pętli, bo model
+                    // zostaje bez zmian
                 } else if (cabindex == 1) {
                     // model tylko, gdy nie ma kabiny 1
-                    // McZapkie-170103: szukaj elementy kabiny w glownym modelu
+                    // McZapkie-170103: szukaj elementy kabiny w glownym
+                    // modelu
                     DynamicObject->mdKabina = DynamicObject->mdModel;
                 }
                 clear_cab_controls();
@@ -9191,8 +9159,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
             /*
                         if (nullptr == DynamicObject->mdKabina)
                         {
-                            // don't bother with other parts until the cab is
-               initialised continue;
+                            // don't bother with other parts until the cab
+               is initialised continue;
                         }
             */
             else if (true == initialize_gauge(parser, token, cabindex)) {
@@ -9230,7 +9198,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
                     }
                     auto const material{submodel->GetMaterial()};
                     if (material <= 0) {
-                        // sub model nie posiada tekstury lub tekstura wymienna
+                        // sub model nie posiada tekstury lub tekstura
+                        // wymienna
                         // - nie obslugiwana
                         WriteLog(
                             "Python Screen: invalid texture id " +
@@ -9246,11 +9215,11 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
                     tex->make_stub();
                 }
 
-                tex->create(true);  // make the surface static so it doesn't get
-                                    // destroyed by garbage collector if the
-                                    // user spends long time outside cab
-                // TBD, TODO: keep texture handles around, so we can undo the
-                // static switch when the user changes cabs?
+                tex->create(true);  // make the surface static so it doesn't
+                                    // get destroyed by garbage collector if
+                                    // the user spends long time outside cab
+                // TBD, TODO: keep texture handles around, so we can undo
+                // the static switch when the user changes cabs?
                 auto rt = std::make_shared<python_rt>();
                 rt->shared_tex = tex->id;
 
@@ -9275,8 +9244,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
             }
             // btLampkaUnknown.Init("unknown",mdKabina,false);
         } while ((token != "")
-                 // TODO: enable full per-cab deserialization when/if .mmd files
-                 // get proper per-cab switch configuration
+                 // TODO: enable full per-cab deserialization when/if .mmd
+                 // files get proper per-cab switch configuration
                  //               && ( token != "cab1definition:" )
                  //               && ( token != "cab2definition:" )
                  && (token != "cab0definition:"));
@@ -9303,14 +9272,14 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
         if (DynamicObject->mdKabina)
         {
     */
-    // configure placement of sound emitters which aren't bound with any device
-    // model, and weren't placed manually
+    // configure placement of sound emitters which aren't bound with any
+    // device model, and weren't placed manually
     auto const caboffset{
         glm::dvec3{
             (Cabine[cabindex].CabPos1 + Cabine[cabindex].CabPos2) * 0.5} +
         glm::dvec3{0, 1, 0}};
-    // NOTE: since radiosound is an incomplete template not using std::optional
-    // it gets a special treatment
+    // NOTE: since radiosound is an incomplete template not using
+    // std::optional it gets a special treatment
     if (m_radiosound.offset() == nullvector) {
         m_radiosound.offset(btLampkaRadio.model_offset());
     }
@@ -9323,8 +9292,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
             {dsbReverserKey, ggDirKey.model_offset()},
             {dsbNastawnikJazdy, ggJointCtrl.model_offset()},
             {dsbNastawnikJazdy,
-             ggMainCtrl.model_offset()},  // NOTE: fallback for vehicles without
-                                          // universal controller
+             ggMainCtrl.model_offset()},  // NOTE: fallback for vehicles
+                                          // without universal controller
             {dsbNastawnikBocz, ggScndCtrl.model_offset()},
             {dsbSwitch, caboffset},
             {dsbPneumaticSwitch, caboffset},
@@ -9335,12 +9304,12 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
             {rsHissT, ggBrakeCtrl.model_offset()},
             {rsSBHiss, ggLocalBrake.model_offset()},
             {rsSBHiss,
-             ggBrakeCtrl.model_offset()},  // NOTE: fallback if the local brake
-                                           // model can't be located
+             ggBrakeCtrl.model_offset()},  // NOTE: fallback if the local
+                                           // brake model can't be located
             {rsSBHissU, ggLocalBrake.model_offset()},
             {rsSBHissU,
-             ggBrakeCtrl.model_offset()},  // NOTE: fallback if the local brake
-                                           // model can't be located
+             ggBrakeCtrl.model_offset()},  // NOTE: fallback if the local
+                                           // brake model can't be located
             {rsFadeSound, caboffset},
             {rsRunningNoise, caboffset},
             {rsHuntingNoise, caboffset},
@@ -9357,8 +9326,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
             sound.first.get()->offset(sound.second);
         }
     }
-    // second pass, in case some items received no positioning due to missing
-    // submodels etc
+    // second pass, in case some items received no positioning due to
+    // missing submodels etc
     for (auto &sound : soundlocations) {
         if ((sound.first.get()) &&
             (sound.first.get()->offset() == nullvector)) {
@@ -9368,8 +9337,8 @@ bool TTrain::InitializeCab(int NewCabNo, std::string const &asFileName) {
 
     if (DynamicObject->mdKabina)
         DynamicObject->mdKabina
-            ->Init();  // obrócenie modelu oraz optymalizacja, również zapisanie
-                       // binarnego
+            ->Init();  // obrócenie modelu oraz optymalizacja, również
+                       // zapisanie binarnego
 
     set_cab_controls(NewCabNo < 0 ? 2 : NewCabNo);
     /*
@@ -9397,14 +9366,15 @@ void TTrain::DynamicSet(TDynamicObject *d) {  // taka proteza: chcę podłączy�
     // kabinę EN57 bezpośrednio z
     // silnikowym, aby nie robić tego
     // przez ukrotnienie
-    // drugi silnikowy i tak musi być ukrotniony, podobnie jak kolejna jednostka
-    // problem się robi ze światłami, które będą zapalane w silnikowym, ale
-    // muszą świecić się w rozrządczych dla EZT światła czołowe będą "zapalane w
-    // silnikowym", ale widziane z rozrządczych również wczytywanie MMD powinno
-    // dotyczyć aktualnego członu problematyczna może być kwestia wybranej
-    // kabiny (w silnikowym...) jeśli silnikowy będzie zapięty odwrotnie (tzn.
-    // -1), to i tak powinno jeździć dobrze również hamowanie wykonuje się
-    // zaworem w członie, a nie w silnikowym...
+    // drugi silnikowy i tak musi być ukrotniony, podobnie jak kolejna
+    // jednostka problem się robi ze światłami, które będą zapalane w
+    // silnikowym, ale muszą świecić się w rozrządczych dla EZT światła
+    // czołowe będą "zapalane w silnikowym", ale widziane z rozrządczych
+    // również wczytywanie MMD powinno dotyczyć aktualnego członu
+    // problematyczna może być kwestia wybranej kabiny (w silnikowym...)
+    // jeśli silnikowy będzie zapięty odwrotnie (tzn. -1), to i tak powinno
+    // jeździć dobrze również hamowanie wykonuje się zaworem w członie, a
+    // nie w silnikowym...
     DynamicObject = d;  // jedyne miejsce zmiany
     mvOccupied = mvControlled =
         (d ? DynamicObject->MoverParameters : nullptr);  // albo silnikowy w EZT
@@ -9503,7 +9473,8 @@ void TTrain::MoveToVehicle(TDynamicObject *target) {
     } else {
         // move this TTrain to other dynamic
 
-        // remove TTrain from global list, we're going to change dynamic anyway
+        // remove TTrain from global list, we're going to change dynamic
+        // anyway
         simulation::Trains.detach(Dynamic()->name());
 
         if (!Dynamic()->Mechanik || !Dynamic()->Mechanik->AIControllFlag) {
@@ -9890,7 +9861,8 @@ void TTrain::clear_cab_controls() {
     ggRearRightEndLightButton.Clear();
 }
 
-// NOTE: we can get rid of this function once we have per-cab persistent state
+// NOTE: we can get rid of this function once we have per-cab persistent
+// state
 void TTrain::set_cab_controls(int const Cab) {
     // switches
     // battery
@@ -9904,8 +9876,8 @@ void TTrain::set_cab_controls(int const Cab) {
          : mvOccupied->IsCabMaster()                      ? 1.f
                                                           : 0.f));
     // line breaker
-    if (ggMainButton.SubModel !=
-        nullptr) {  // instead of single main button there can be on/off pair
+    if (ggMainButton.SubModel != nullptr) {  // instead of single main button
+                                             // there can be on/off pair
         ggMainButton.PutValue(
             (ggMainButton.type() == TGaugeType::push ? 0.5f
              : m_linebreakerstate > 0                ? 1.f
@@ -9921,29 +9893,26 @@ void TTrain::set_cab_controls(int const Cab) {
         if( mvOccupied->PantSwitchType != "impulse" ) {
             if( ggPantFrontButton.SubModel ) {
                 ggPantFrontButton.PutValue(
-                    ( mvControlled->Pantographs[end::front].valve.is_enabled ?
-                        1.f :
-                        0.f ) );
+                    ( mvControlled->Pantographs[end::front].valve.is_enabled
+       ? 1.f : 0.f ) );
             }
             if( ggPantFrontButtonOff.SubModel ) {
                 ggPantFrontButtonOff.PutValue(
-                    ( mvControlled->Pantographs[end::front].valve.is_disabled ?
-                        1.f :
-                        0.f ) );
+                    (
+       mvControlled->Pantographs[end::front].valve.is_disabled ? 1.f : 0.f )
+       );
             }
         }
         if( mvOccupied->PantSwitchType != "impulse" ) {
             if( ggPantRearButton.SubModel ) {
                 ggPantRearButton.PutValue(
-                    ( mvControlled->Pantographs[end::rear].valve.is_enabled ?
-                        1.f :
-                        0.f ) );
+                    ( mvControlled->Pantographs[end::rear].valve.is_enabled
+       ? 1.f : 0.f ) );
             }
             if( ggPantRearButtonOff.SubModel ) {
                 ggPantRearButtonOff.PutValue(
-                    ( mvControlled->Pantographs[end::rear].valve.is_disabled ?
-                        1.f :
-                        0.f ) );
+                    ( mvControlled->Pantographs[end::rear].valve.is_disabled
+       ? 1.f : 0.f ) );
             }
         }
     */
@@ -9953,7 +9922,8 @@ void TTrain::set_cab_controls(int const Cab) {
             (mvPantographUnit->PantsValve.is_enabled ? 1.f : 0.f));
     } else {
         if (false == m_controlmapper.contains("pantselectedoff_sw:")) {
-            // single impulse switch arrangement, with neutral position mid-way
+            // single impulse switch arrangement, with neutral position
+            // mid-way
             ggPantSelectedButton.PutValue(0.5f);
         }
     }
@@ -10146,8 +10116,8 @@ void TTrain::set_cab_controls(int const Cab) {
             ggScndCtrl.is_toggle() ? 0.5f
                                    :  // pushtoggle is two-way control with
                                       // neutral position in the middle
-                0.f);  // push is on/off control, active while held down, due to
-                       // legacy use
+                0.f);  // push is on/off control, active while held down,
+                       // due to legacy use
     }
     // tempomat
     if (false == ggScndCtrlButton.is_push()) {
@@ -10193,8 +10163,8 @@ void TTrain::set_cab_controls(int const Cab) {
     // function, so we can reuse it
 }
 
-// initializes a button matching provided label. returns: true if the label was
-// found, false otherwise
+// initializes a button matching provided label. returns: true if the label
+// was found, false otherwise
 // TODO: refactor the cabin controls into some sensible structure
 bool TTrain::initialize_button(
     cParser &Parser, std::string const &Label, int const Cabindex) {
@@ -10352,8 +10322,8 @@ bool TTrain::initialize_button(
     return true;
 }
 
-// initializes a gauge matching provided label. returns: true if the label was
-// found, false otherwise
+// initializes a gauge matching provided label. returns: true if the label
+// was found, false otherwise
 // TODO: refactor the cabin controls into some sensible structure
 bool TTrain::initialize_gauge(
     cParser &Parser, std::string const &Label, int const Cabindex) {
@@ -10528,8 +10498,8 @@ bool TTrain::initialize_gauge(
     }
     // dedicated gauges with state-driven optional submodel
     // TODO: move viable gauges here
-    // TODO: convert dedicated gauges to auto-allocated ones, replace dedicated
-    // references in command handlers to mapper lookups
+    // TODO: convert dedicated gauges to auto-allocated ones, replace
+    // dedicated references in command handlers to mapper lookups
     std::unordered_map<
         std::string, std::tuple<TGauge &, bool const *>> const stategauges = {
         {"tempomat_sw:",

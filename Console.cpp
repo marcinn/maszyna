@@ -22,7 +22,7 @@ http://mozilla.org/MPL/2.0/.
 // Ra: stan wejścia zmieniany klawiaturą albo dedykowanym urządzeniem
 // Ra: stan wyjścia zmieniany przez symulację (mierniki, kontrolki)
 
-/*******************************
+/*
 Do klawisza klawiatury przypisana jest maska bitowa oraz numer wejścia.
 Naciśnięcie klawisza powoduje wywołanie procedury ustawienia bitu o podanej
 masce na podanym wejściu. Zwonienie klawisza analogicznie wywołuje zerowanie
@@ -55,7 +55,7 @@ Działanie jest następujące:
 - skrypt sprawdza zależności i np. modyfikuje własności fizyki albo inne maski
 - ewentualnie do wyzwalacza czasowego dodana jest maska i numer wejścia
 
-/*******************************/
+*/
 
 // static class member storage allocation
 TKeyTrans Console::ktTable[4 * 256];

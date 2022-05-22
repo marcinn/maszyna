@@ -7,12 +7,12 @@ obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-#include "MOVER.h"
+#include "McZapkie/MOVER.h"
 
 #include "DynObj.h"
 #include "Globals.h"
 #include "Logs.h"
-#include "Oerlikon_ESt.h"
+#include "McZapkie/Oerlikon_ESt.h"
 #include "parser.h"
 #include "simulation.h"
 #include "stdafx.h"
@@ -5753,7 +5753,7 @@ double TMoverParameters::TractionForce(double dt) {
 
                 if (abs(Im) > Imax)
                     Vhyp += dt;  //*(abs(Im) / Imax - 0.9) * 10; // zwieksz czas
-                                 //oddzialywania na PN
+                                 // oddzialywania na PN
                 else
                     Vhyp = 0;
                 if (Vhyp >
@@ -6206,7 +6206,7 @@ double TMoverParameters::TractionForce(double dt) {
                                 if (NewSCAP != SpeedCtrlValue) {
                                     SpeedCtrlValue = NewSCAP;
                                     //								SendCtrlToNext("SpeedCntrl",
-                                    //SpeedCtrlValue, CabActive);
+                                    // SpeedCtrlValue, CabActive);
                                 }
                             }
                         }
@@ -7366,7 +7366,7 @@ void TMoverParameters::CheckEIMIC(double dt) {
             if (Hamulec->GetEDBCP() > 0.3 && eimic < 0 &&
                 !UniCtrlIntegratedLocalBrakeCtrl)  // when braking with
                                                    // pneumatic brake
-                eimic = 0;  // shut off retarder
+                eimic = 0;                         // shut off retarder
             if ((UniCtrlIntegratedBrakeCtrl == false) &&
                 (UniCtrlIntegratedLocalBrakeCtrl == false)) {
                 eimic = (LocalBrakeRatio() > 0.01 ? -LocalBrakeRatio() : eimic);
@@ -11918,9 +11918,10 @@ bool TMoverParameters::RunCommand(
         OK = SendCtrlToNext(Command, CValue1, CValue2, Couplertype);
     }  // youby - odluzniacz hamulcow, przyda sie
     else if (Command == "BrakeReleaser") {
-        OK = BrakeReleaser(Round(CValue1));  // samo się przesyła dalej
-                                             // OK:=SendCtrlToNext(command,CValue1,CValue2);
-                                             // //to robiło kaskadę 2^n
+        OK = BrakeReleaser(
+            Round(CValue1));  // samo się przesyła dalej
+                              // OK:=SendCtrlToNext(command,CValue1,CValue2);
+                              // //to robiło kaskadę 2^n
     } else if (Command == "WaterPumpBreakerSwitch") {
         /*
                 if( FuelPump.start_type != start::automatic ) {

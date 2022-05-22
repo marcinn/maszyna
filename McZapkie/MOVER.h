@@ -12,7 +12,7 @@ http://mozilla.org/MPL/2.0/.
 // Q: 20160805 - odlaczenie pliku fizyki .pas od kompilacji
 #include <map>
 
-#include "hamulce.h"
+#include "McZapkie/hamulce.h"
 #include "ladderlogic.h"
 /*
 MaSzyna EU07 locomotive simulator
@@ -662,7 +662,7 @@ struct TScheme {
     double R = 0.0; /*opornik rozruchowy*/ /*dla dizla napelnienie*/
     int Bn = 0;
     int Mn = 0;
-        /*ilosc galezi i silnikow w galezi*/ /*dla dizla Mn: czy luz czy nie*/
+    /*ilosc galezi i silnikow w galezi*/ /*dla dizla Mn: czy luz czy nie*/
     bool AutoSwitch =
         false; /*czy dana pozycja nastawniana jest recznie czy autom.*/
     int ScndAct =
@@ -1146,12 +1146,12 @@ class TMoverParameters {  // Ra: wrapper na kod pascalowy, przejmujący jego
         std::shared_ptr<TReservoir> Cylinder;
         bool Activate{false};  // Input: switching brake on/off in exploitation
                                // - main valve/switch
-        bool ShuttOff{true};  // Input: shutting brake off during failure -
-                              // valve in pneumatic container
-        bool Release{false};  // Input: emergency releasing rod
+        bool ShuttOff{true};   // Input: shutting brake off during failure -
+                               // valve in pneumatic container
+        bool Release{false};   // Input: emergency releasing rod
 
-        bool IsReady{false};  // Output: readyness to braking - cylinder is
-                              // armed, spring is tentioned
+        bool IsReady{false};   // Output: readyness to braking - cylinder is
+                               // armed, spring is tentioned
         bool IsActive{false};  // Output: brake is working
         double SBP{0.0};       // Output: pressure in spring brake cylinder
 
@@ -1162,12 +1162,12 @@ class TMoverParameters {  // Ra: wrapper na kod pascalowy, przejmujący jego
         double ResetPressure{0.0};  // Conf: Pressure for arming brake cylinder
         double MinForcePressure{0.1};  // Conf: Minimal pressure for zero force
         double MaxBrakeForce{0.0};     // Conf: Maximal tension for brake
-                                    // pads/shoes
+                                       // pads/shoes
         double PressureOn{-2.0};   // Conf: Pressure changing ActiveFlag to "On"
         double PressureOff{-1.0};  // Conf: Pressure changing ActiveFlag to
                                    // "Off"
-        double ValveOffArea{0.0};      // Conf: Area of filling valve
-        double ValveOnArea{0.0};       // Conf: Area of dumping valve
+        double ValveOffArea{0.0};  // Conf: Area of filling valve
+        double ValveOnArea{0.0};   // Conf: Area of dumping valve
         double ValvePNBrakeArea{0.0};  // Conf: Area of bypass to brake
                                        // cylinders
 
@@ -1385,7 +1385,7 @@ class TMoverParameters {  // Ra: wrapper na kod pascalowy, przejmujący jego
     double InitialCtrlDelay = 0.0;
     double CtrlDelay = 0.0; /* -//-  -//- miedzy kolejnymi poz.*/
     double CtrlDownDelay = 0.0;
-        /* -//-  -//- przy schodzeniu z poz.*/ /*hunter-101012*/
+    /* -//-  -//- przy schodzeniu z poz.*/ /*hunter-101012*/
     int FastSerialCircuit = 0;/*0 - po kolei zamyka styczniki az do osiagniecia szeregowej, 1 - natychmiastowe wejscie na szeregowa*/ /*hunter-111012*/
     int BackwardsBranchesAllowed = 1;
     int AutoRelayType = 0;    /*0 -brak, 1 - jest, 2 - opcja*/
@@ -1686,10 +1686,10 @@ class TMoverParameters {  // Ra: wrapper na kod pascalowy, przejmujący jego
     double Volume = 0.0;        /*objetosc spr. powietrza w zbiorniku hamulca*/
     double CompressedVolume = 0.0; /*objetosc spr. powietrza w ukl. zasilania*/
     double PantVolume = 0.48;
-        /*objetosc spr. powietrza w ukl. pantografu*/  // aby podniesione
-                                                       // pantografy opadły w
-                                                       // krótkim czasie przy
-                                                       // wyłączonej sprężarce
+    /*objetosc spr. powietrza w ukl. pantografu*/  // aby podniesione
+                                                   // pantografy opadły w
+                                                   // krótkim czasie przy
+                                                   // wyłączonej sprężarce
     double Compressor = 0.0;     /*! cisnienie w ukladzie zasilajacym*/
     bool CompressorFlag = false; /*!o czy wlaczona sprezarka*/
     bool PantCompFlag = false;   /*!o czy wlaczona sprezarka pantografow*/
@@ -1979,7 +1979,7 @@ class TMoverParameters {  // Ra: wrapper na kod pascalowy, przejmujący jego
     load_attributes LoadType;
     std::string LoadQuantity;  // jednostki miary
     int LoadStatus = 0;        //+1=trwa rozladunek,+2=trwa
-                               //zaladunek,+4=zakończono,0=zaktualizowany model
+                         // zaladunek,+4=zakończono,0=zaktualizowany model
     bool LoadTypeChange{false};       // indicates load type was changed
     double LastLoadChangeTime = 0.0;  // raz (roz)ładowania
 #ifdef EU07_USEOLDDOORCODE

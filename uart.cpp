@@ -311,7 +311,7 @@ void uart_input::poll() {
         return;
     }
 
-    auto const *t = simulation::Train;
+    TTrain *t = simulation::get_train_controlled_by_player();
     if (!t) return;
 
     sp_return ret;
@@ -429,7 +429,7 @@ void uart_input::poll() {
                 auto desiredpercent{buffer[6] * 0.01};
                 auto desiredposition{
                     desiredpercent > 0.01
-                        ? 1 + ((simulation::Train->Occupied()->MainCtrlPosNo -
+                        ? 1 + ((t->Occupied()->MainCtrlPosNo -
                                 1) *
                                desiredpercent)
                         : buffer[6]};
@@ -439,7 +439,7 @@ void uart_input::poll() {
                     // TODO: pass correct entity id once the missing systems are
                     // in place
                     0);
-                simulation::Train->Occupied()->eimic_analog = desiredpercent;
+                t->Occupied()->eimic_analog = desiredpercent;
             }
         }
         if (true == conf.scndenable) {
@@ -484,7 +484,7 @@ void uart_input::poll() {
 
     if (!data_pending && sp_output_waiting(port) == 0) {
         // TODO: ugly! move it into structure like input_bits
-        auto const trainstate = t->get_state();
+        TTrain::state_t trainstate = t->get_state();
 
         SYSTEMTIME time = simulation::Time.data();
         uint16_t tacho =

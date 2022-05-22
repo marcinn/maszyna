@@ -15,6 +15,8 @@ http://mozilla.org/MPL/2.0/.
 #include "Driver.h"
 #include "DynObj.h"
 #include "Gauge.h"
+#include "McZapkie/MOVER.h"
+#include "PlayerController.h"
 #include "PyInt.h"
 #include "command.h"
 #include "dictionary.h"
@@ -79,6 +81,9 @@ class TTrain {
     friend class drivingaid_panel;
 
    public:
+    SimulationState *simulation;
+    PlayerController *playerCtrl;
+
     // types
     struct state_t {
         std::uint8_t shp;
@@ -1046,9 +1051,10 @@ class TTrain {
         0.f};  // recent change of pressure in local brake cylinder
                /*
                    int iCabLightFlag; // McZapkie:120503: oswietlenie kabiny (0: wyl, 1:
-                  przyciemnione, 2: pelne)            bool bCabLight; // hunter-091012: czy swiatlo
-                  jest zapalone?            bool bCabLightDim; // hunter-091012: czy przyciemnienie
-                  kabiny jest zapalone?
+                  przyciemnione, 2: pelne)            bool bCabLight; // hunter-091012: czy
+                  swiatlo            jest zapalone?            bool bCabLightDim; //
+                  hunter-091012:            czy przyciemnienie            kabiny jest
+                  zapalone?
                */
     // McZapkie: opis kabiny - obszar poruszania sie mechanika oraz zajetosc
     std::array<TCab, 3>

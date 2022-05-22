@@ -919,7 +919,7 @@ void TDynamicObject::ABuLittleUpdate(
                 }
             }
             //*************************************************************///
-            //koniec
+            // koniec
             // wezykow
             // uginanie zderzakow
             for (int i = 0; i < 2; ++i) {
@@ -1295,7 +1295,7 @@ TDynamicObject *TDynamicObject::ABuScanNearestObject(
         if (ScanDir >= 0)
             ActDist =
                 Track->Length() - RaTranslationGet();  //???-przesunięcie wózka
-                                                       //względem Point1 toru
+                                                       // względem Point1 toru
         else
             ActDist =
                 RaTranslationGet();  // przesunięcie wózka względem Point1 toru
@@ -1451,7 +1451,7 @@ TDynamicObject *TDynamicObject::ABuFindObject(
             objectposition =
                 myposition -
                 (dynamic->RaTranslationGet());  //???-przesunięcie wózka
-                                                //względem Point1 toru
+                                                // względem Point1 toru
             if ((objectposition > 0) && (objectposition < distance)) {
                 Foundcoupler = (dynamic->RaDirectionGet() > 0)
                                    ? 0
@@ -1871,7 +1871,8 @@ double TDynamicObject::Init(
         Cab = -1;                // iDirection?-1:1;
                                  /*
                                      // NOTE: leave passenger in the middle section, this is most likely to
-                                    be 'passenger' section in MU trains                              else if (DriverType == "p")
+                                    be 'passenger' section in MU trains                              else if
+                                    (DriverType == "p")
                                      {
                                          if (Random(6) < 3)
                                              Cab = 1;
@@ -2235,7 +2236,7 @@ double TDynamicObject::Init(
         iHornWarning =
             0;  // nie będzie trąbienia po podaniu zezwolenia na jazdę
         if (fDist < 0.0)  //-0.5*MoverParameters->Dim.L) //jeśli jest
-                          //przesunięcie do tyłu
+                          // przesunięcie do tyłu
             if (!Track->CurrentPrev())  // a nie ma tam odcinka i trzeba by coś
                 // wygenerować
                 fDist = -fDist;  // to traktujemy, jakby przesunięcie było w
@@ -3464,12 +3465,12 @@ bool TDynamicObject::Update(double dt, double dt1) {
                      : MoverParameters->EpFuse)) {
                 FzadED = std::min(Fzad, FmaxED);
             }
-            /*/ELF - wdrazanie ED po powrocie na utrzymanie hamowania - do
+            /* ELF - wdrazanie ED po powrocie na utrzymanie hamowania - do
             usuniecia if (MoverParameters->EIMCtrlType == 2 &&
             MoverParameters->MainCtrlPos < 2 && MoverParameters->eimic > -0.999)
             {
                     FzadED = std::min(FzadED, MED_oldFED);
-            } //*/
+            } */
             // opoznienie wdrazania ED
             if (FzadED > MED_oldFED) {
                 if (MoverParameters->MED_ED_DelayTimer <= 0) {
@@ -4128,7 +4129,7 @@ bool TDynamicObject::Update(double dt, double dt1) {
                 if (k < p->fAngleL0) k = p->fAngleL0;  // położenie minimalne
             }
             if (k != p->fAngleL) {  //żeby nie liczyć w kilku miejscach ani gdy
-                                    //nie potrzeba
+                                    // nie potrzeba
                 if (k + p->fAngleU <
                     M_PI) {  // o ile nie został osiągnięty kąt maksymalny
                     p->fAngleL = k;  // zmieniony kąt
@@ -5438,11 +5439,11 @@ void TDynamicObject::LoadMMediaFile(
                                                                // pantografy są
                                                                // (a domyślnie
                                                                // są)
-                                            pants =
-                                                &pAnimations[k];  // zapamiętanie
-                                                                  // na potrzeby
-                                                                  // wyszukania
-                                                                  // submodeli
+                                            pants = &pAnimations
+                                                        [k];  // zapamiętanie
+                                                              // na potrzeby
+                                                              // wyszukania
+                                                              // submodeli
                                 pAnimations[k].iShift =
                                     sm;  // przesunięcie do przydzielenia
                                          // wskaźnika
@@ -5807,7 +5808,7 @@ void TDynamicObject::LoadMMediaFile(
                                     // jeśli pierwsze ramię nie ustawiło tej
                                     // wartości, próbować drugim
                                     //!!!! docelowo zrobić niezależną animację
-                                    //!ramion z każdej strony
+                                    //! ramion z każdej strony
                                     m = float4x4(
                                         *sm->GetMatrix());  // skopiowanie, bo
                                                             // będziemy mnożyć
@@ -6123,8 +6124,9 @@ void TDynamicObject::LoadMMediaFile(
                                                                         // NOTE: no longer used
                                                                         pAnimations[i +
                                                j].fSpeed = Random(150); // oryginalny koncept z
-                                               DoorSpeedFactor                 pAnimations[i + j].fSpeed =
-                                               (pAnimations[i + j].fSpeed + 100) / 100;
+                                               DoorSpeedFactor                 pAnimations[i +
+                                               j].fSpeed =                 (pAnimations[i + j].fSpeed + 100) /
+                                               100;
                                             */
                         }
                     }
@@ -6176,8 +6178,9 @@ void TDynamicObject::LoadMMediaFile(
                                                                         // NOTE: no longer used
                                                                         pAnimations[i +
                                                j].fSpeed = Random(150); // oryginalny koncept z
-                                               DoorSpeedFactor                 pAnimations[i + j].fSpeed =
-                                               (pAnimations[i + j].fSpeed + 100) / 100;
+                                               DoorSpeedFactor                 pAnimations[i +
+                                               j].fSpeed =                 (pAnimations[i + j].fSpeed + 100) /
+                                               100;
                                             */
                         }
                     }
@@ -6224,8 +6227,9 @@ void TDynamicObject::LoadMMediaFile(
                                                                         // NOTE: no longer used
                                                                         pAnimations[i +
                                                j].fSpeed = Random(150); // oryginalny koncept z
-                                               DoorSpeedFactor                 pAnimations[i + j].fSpeed =
-                                               (pAnimations[i + j].fSpeed + 100) / 100;
+                                               DoorSpeedFactor                 pAnimations[i +
+                                               j].fSpeed =                 (pAnimations[i + j].fSpeed + 100) /
+                                               100;
                                             */
                         }
                     }

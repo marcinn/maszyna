@@ -13,7 +13,7 @@ http://mozilla.org/MPL/2.0/.
 #include "Driver.h"
 #include "DynObj.h"
 #include "Globals.h"
-#include "MOVER.h"
+#include "McZapkie/MOVER.h"
 #include "Timer.h"
 #include "stdafx.h"
 #include "utilities.h"

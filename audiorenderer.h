@@ -9,6 +9,10 @@ http://mozilla.org/MPL/2.0/.
 
 #pragma once
 
+#include <glm/glm.hpp>
+#include <list>
+#include <stack>
+
 #include "ResourceManager.h"
 #include "audio.h"
 #include "uitranscripts.h"

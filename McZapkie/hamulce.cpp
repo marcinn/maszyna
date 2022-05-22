@@ -12,11 +12,11 @@ Brakes. Oerlikon ESt.
 Copyright (C) 2007-2014 Maciej Cierniak
 */
 
-#include "hamulce.h"
+#include "McZapkie/hamulce.h"
 
 #include <typeinfo>
 
-#include "MOVER.h"
+#include "McZapkie/MOVER.h"
 #include "stdafx.h"
 #include "utilities.h"
 
@@ -2447,7 +2447,7 @@ double TMHZ_EN57::GetPF(
         (UniversalFlag &
          TUniversalBrake::ub_HighPressure);  // button is pressed
     if (ManualOvrld && !ManualOvrldActive)   // no overpressure for not pressed
-                                            // button if it does not exists
+                                             // button if it does not exists
         uop = 0;
 
     if ((EQ(i_bcp, -1)) && (uop > 0))
@@ -2602,7 +2602,7 @@ double TMHZ_K5P::GetPF(
         (UniversalFlag &
          TUniversalBrake::ub_HighPressure);  // button is pressed
     if (ManualOvrld && !ManualOvrldActive)   // no overpressure for not pressed
-                                            // button if it does not exists
+                                             // button if it does not exists
         uop = 0;
 
     dpPipe = Min0R(HP, CP + TP + RedAdj);
@@ -2734,7 +2734,7 @@ double TMHZ_6P::GetPF(
         (UniversalFlag &
          TUniversalBrake::ub_HighPressure);  // button is pressed
     if (ManualOvrld && !ManualOvrldActive)   // no overpressure for not pressed
-                                            // button if it does not exists
+                                             // button if it does not exists
         uop = 0;
 
     if (EQ(i_bcp, -1)) {
