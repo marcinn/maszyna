@@ -489,6 +489,9 @@ std::unordered_map<std::string, vr_openvr::button_bindings> vr_openvr::m_buttonb
     { "security_reset_bt:", {
         user_command::alerteracknowledge,
         user_command::none } },
+    { "shp_reset_bt:", {
+        user_command::cabsignalacknowledge,
+        user_command::none } },
     { "releaser_bt:", {
         user_command::independentbrakebailoff,
         user_command::none } },
@@ -942,4 +945,3 @@ std::unordered_map<std::string, vr_openvr::button_bindings> vr_openvr::m_buttonb
 };
 
 bool vr_openvr::backend_register = vr_interface_factory::get_instance()->register_backend("openvr", vr_openvr::create_func);
-

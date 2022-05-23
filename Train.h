@@ -523,6 +523,7 @@ public: // reszta może by?publiczna
     TGauge ggMainOnButton;
     TGauge ggMainButton; // EZT
     TGauge ggSecurityResetButton;
+    TGauge ggSHPResetButton;
     TGauge ggReleaserButton;
 	TGauge ggSpringBrakeOnButton;
 	TGauge ggSpringBrakeOffButton;
