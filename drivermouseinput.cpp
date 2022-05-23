@@ -64,7 +64,7 @@ mouse_slider::bind( user_command const &Command ) {
             auto const brakerangemultiplier { powerrange / LocalBrakePosNo };
 
             m_valuerange = 1.0;
-            m_value = 
+            m_value =
                 0.5
                 + 0.5 * ( vehicle->CoupledCtrl ?
                         vehicle->MainCtrlPos + vehicle->ScndCtrlPos :
@@ -604,6 +604,9 @@ drivermouse_input::default_bindings() {
             user_command::none } },
         { "security_reset_bt:", {
             user_command::alerteracknowledge,
+            user_command::none } },
+        { "shp_reset_bt:", {
+            user_command::cabsignalacknowledge,
             user_command::none } },
         { "releaser_bt:", {
             user_command::independentbrakebailoff,

@@ -656,6 +656,7 @@ class TSecuritySystem
 	bool radiostop_enabled = false;
 
 	bool cabsignal_active = false;
+	bool alerter_active = false;
 	bool pressed = false;
 	bool enabled = false;
 	bool is_sifa = false; // Sifa-like pedal device, with inverted input for convenient keyboard usage
@@ -691,6 +692,7 @@ public:
 	bool is_braking() const;
 	bool is_engine_blocked() const;
 	bool radiostop_available() const;
+	bool has_separate_acknowledge() const;
 	void load(std::string const &line, double Vmax);
 
 	double MagnetLocation = 0.0;
@@ -1326,7 +1328,7 @@ public:
 	double Ftmax = 0.0;
 	/*- dla lokomotyw z silnikami indukcyjnymi -*/
 	double eimc[26];
-	bool EIMCLogForce = false; // 
+	bool EIMCLogForce = false; //
     static std::vector<std::string> const eimc_labels;
     double InverterFrequency { 0.0 }; // current frequency of power inverters
 	int InvertersNo = 0; // number of inverters

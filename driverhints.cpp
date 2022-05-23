@@ -1205,6 +1205,17 @@ TController::cue_action( driver_hint const Action, float const Actionparameter )
                     return !mvOccupied->SecuritySystem.is_blinking(); } );
             break;
         }
+        case driver_hint::shpsystemreset: {
+            if( AIControllFlag ) {
+                if (mvOccupied->SecuritySystem.is_cabsignal_blinking())
+                    mvOccupied->SecuritySystem.cabsignal_reset();
+            }
+            hint(
+                Action,
+                [this](float const Parameter) -> bool {
+                    return !mvOccupied->SecuritySystem.is_cabsignal_blinking(); } );
+            break;
+        }
         case driver_hint::couplingadapterattach: {
             // TODO: run also for potential settings-based virtual assistant
             if( AIControllFlag ) {

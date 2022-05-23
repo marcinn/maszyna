@@ -1037,7 +1037,7 @@ void TTrain::OnCommand_jointcontrollerset( TTrain *Train, command_data const &Co
         // on press or hold
         // value controls brake in range 0-0.5, master controller in range 0.5-1.0
         if( Command.param1 >= 0.5 ) {
-            Train->set_master_controller( 
+            Train->set_master_controller(
                 ( Command.param1 * 2 - 1 )
                 * ( Train->mvControlled->CoupledCtrl ?
                         Train->mvControlled->MainCtrlPosNo + Train->mvControlled->ScndCtrlPosNo :
@@ -2303,7 +2303,10 @@ void TTrain::OnCommand_cabsignalacknowledge( TTrain *Train, command_data const &
 	// TODO: visual feedback
 	if( Command.action == GLFW_PRESS ) {
 		Train->mvOccupied->SecuritySystem.cabsignal_reset();
-	}
+        Train->ggSHPResetButton.UpdateValue( 1.0, Train->dsbSwitch );
+	} else if( Command.action == GLFW_RELEASE ) {
+        Train->ggSHPResetButton.UpdateValue( 0.0 );
+    }
 }
 
 void TTrain::OnCommand_batterytoggle( TTrain *Train, command_data const &Command )
@@ -3672,7 +3675,7 @@ void TTrain::OnCommand_compressorpresetactivateprevious(TTrain *Train, command_d
     if( Train->ggCompressorListButton.type() == TGaugeType::push ) {
         // impulse switch toggles only between positions 'default' and 'default+1'
         return;
-    } 
+    }
 
 	if ((Train->mvOccupied->CompressorListPos > 1)
 		|| (true == Train->mvOccupied->CompressorListWrap)) {
@@ -5031,7 +5034,7 @@ void TTrain::OnCommand_heatingdisable( TTrain *Train, command_data const &Comman
 
         Train->mvOccupied->HeatingSwitch( false );
         // visual feedback
-        Train->ggTrainHeatingButton.UpdateValue( 
+        Train->ggTrainHeatingButton.UpdateValue(
             ( Train->ggTrainHeatingButton.type() == TGaugeType::push ?
                 1.0 :
                 0.0 ),
@@ -5167,7 +5170,7 @@ void TTrain::OnCommand_springbrakeshutoffdisable(TTrain *Train, command_data con
 void TTrain::OnCommand_springbrakerelease(TTrain *Train, command_data const &Command) {
 	if (Command.action == GLFW_PRESS) {
 		// only reacting to press, so the switch doesn't flip back and forth if key is held down
-		
+
 		auto *vehicle{ Train->find_nearest_consist_vehicle(Command.freefly, Command.location) };
 		if (vehicle == nullptr) { return; }
 		Train->mvOccupied->SpringBrakeRelease();
@@ -5271,7 +5274,7 @@ void TTrain::OnCommand_inverterenable(TTrain *Train, command_data const &Command
 				{
 					itemindex -= p->MoverParameters->InvertersNo;
 				}
-			
+
 			}
 			p = (kier ? p->Next(flag) : p->Prev(flag));
 		}
@@ -6434,8 +6437,8 @@ void TTrain::UpdateCab() {
 
     // Ra: przesiadka, jeśli AI zmieniło kabinę (a człon?)...
     if( ( DynamicObject->Mechanik ) // może nie być?
-     && ( DynamicObject->Mechanik->AIControllFlag ) ) { 
-        
+     && ( DynamicObject->Mechanik->AIControllFlag ) ) {
+
         if( iCabn != ( // numer kabiny (-1: kabina B)
                 mvOccupied->CabOccupied == -1 ?
                     2 :
@@ -7466,7 +7469,7 @@ bool TTrain::Update( double const Deltatime )
     {
 #ifdef _WIN32
         if (DynamicObject->Mechanik ?
-                (DynamicObject->Mechanik->AIControllFlag ? false : 
+                (DynamicObject->Mechanik->AIControllFlag ? false :
 					(Global.iFeedbackMode == 4 /*|| (Global.bMWDmasterEnable && Global.bMWDBreakEnable)*/)) :
                 false && Global.fCalibrateIn[ 0 ][ 1 ] != 0.0) // nie blokujemy AI
         { // Ra: nie najlepsze miejsce, ale na początek gdzieś to dać trzeba
@@ -7596,6 +7599,7 @@ bool TTrain::Update( double const Deltatime )
     ggMainOnButton.Update();
     ggMainButton.Update();
     ggSecurityResetButton.Update();
+    ggSHPResetButton.Update();
     ggReleaserButton.Update();
 	ggSpringBrakeOnButton.Update();
 	ggSpringBrakeOffButton.Update();
@@ -7660,7 +7664,7 @@ bool TTrain::Update( double const Deltatime )
         ggHelperButton.UpdateValue( DynamicObject->Mechanik->HelperState );
     }
 	ggHelperButton.Update();
- 
+
     ggSpeedControlIncreaseButton.Update( lowvoltagepower );
 	ggSpeedControlDecreaseButton.Update( lowvoltagepower );
 	ggSpeedControlPowerIncreaseButton.Update( lowvoltagepower );
@@ -7859,7 +7863,7 @@ TTrain::update_sounds( double const Deltatime ) {
                 rsHissX->stop();
             }
         }
-        // upuszczanie z czasowego 
+        // upuszczanie z czasowego
         if( rsHissT ) {
             volume = mvOccupied->Handle->GetSound( s_fv4a_t ) * rsHissT->m_amplitudefactor + +rsHissT->m_amplitudeoffset;
             if( volume * brakevolumescale > 0.05 ) {
@@ -8947,6 +8951,7 @@ void TTrain::clear_cab_controls()
     ggMainOffButton.Clear();
     ggMainOnButton.Clear();
     ggSecurityResetButton.Clear();
+    ggSHPResetButton.Clear();
     ggReleaserButton.Clear();
 	ggSpringBrakeOnButton.Clear();
 	ggSpringBrakeOffButton.Clear();
@@ -9517,7 +9522,7 @@ void TTrain::set_cab_controls( int const Cab ) {
 			p = (kier ? p->Next(flag) : p->Prev(flag));
 		}
 	}
-       
+
     // we reset all indicators, as they're set during the update pass
     // TODO: when cleaning up break setting indicator state into a separate function, so we can reuse it
 }
@@ -9708,6 +9713,7 @@ bool TTrain::initialize_gauge(cParser &Parser, std::string const &Label, int con
         { "main_off_bt:", ggMainOffButton },
         { "main_on_bt:", ggMainOnButton },
         { "security_reset_bt:", ggSecurityResetButton },
+        { "shp_reset_bt:", ggSHPResetButton },
         { "releaser_bt:", ggReleaserButton },
 		{ "springbrakeon_bt:", ggSpringBrakeOnButton },
 		{ "springbrakeoff_bt:", ggSpringBrakeOffButton },
