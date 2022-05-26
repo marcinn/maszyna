@@ -2302,8 +2302,10 @@ void TTrain::OnCommand_alerteracknowledge( TTrain *Train, command_data const &Co
 void TTrain::OnCommand_cabsignalacknowledge( TTrain *Train, command_data const &Command ) {
 	// TODO: visual feedback
 	if( Command.action == GLFW_PRESS ) {
-		Train->mvOccupied->SecuritySystem.cabsignal_reset();
-        Train->ggSHPResetButton.UpdateValue( 1.0, Train->dsbSwitch );
+        if(Train->mvOccupied->SecuritySystem.has_separate_acknowledge()) {
+            Train->mvOccupied->SecuritySystem.cabsignal_reset();
+            Train->ggSHPResetButton.UpdateValue( 1.0, Train->dsbSwitch );
+        }
 	} else if( Command.action == GLFW_RELEASE ) {
         Train->ggSHPResetButton.UpdateValue( 0.0 );
     }
