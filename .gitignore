@@ -1,3 +1,4 @@
 builds/
 CMakeLists.txt.user
 ci_shadervalidator/validateshaders
+lang/*.mo

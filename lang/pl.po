@@ -1,0 +1,1700 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-02 01:44+0200\n"
+"PO-Revision-Date: 2022-06-02 01:49+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: driveruipanels.cpp:924
+#, c-format
+msgid ""
+"\n"
+" pantograph %d: drawing from: [%s, %s] through: [%.2f, %.2f, %.2f]"
+msgstr ""
+"\n"
+" pantograf %d: pobiera z: [%s, %s] poprzez: [%.2f, %.2f, %.2f]"
+
+#: driveruipanels.cpp:841 widgets/vehicleparams.cpp:200
+#, c-format
+msgid ""
+"\n"
+"Temperatures:\n"
+" engine: %.2f, oil: %.2f, water: %.2f%c%.2f"
+msgstr ""
+"\n"
+"Temperatury:\n"
+" silnik: %.2f, olej: %.2f, woda: %.2f%c%.2f"
+
+#: driveruipanels.cpp:823 widgets/vehicleparams.cpp:182
+msgid " (shunt mode)"
+msgstr " (tryb manewrowy)"
+
+#: driveruipanels.cpp:193
+#, c-format
+msgid " Another vehicle ahead (distance: %.1f m)"
+msgstr " Inny pojazd na drodze (odległość: %.1f m)"
+
+#: driveruipanels.cpp:68
+#, c-format
+msgid " Grade: %.1f%%%%"
+msgstr " Nachylenie: %.1f%%%%"
+
+#: driveruipanels.cpp:184
+#, c-format
+msgid " Loading/unloading in progress (%d s left)"
+msgstr " Wsiadanie/wysiadanie pasażerów (do zakończenia %d s)"
+
+#: driveruipanels.cpp:158
+#, c-format
+msgid " Pressure: %.2f kPa (train pipe: %.2f kPa)"
+msgstr " Ciśnienie: %.2f kPa (przewód główny: %.2f kPa)"
+
+#: driveruipanels.cpp:795
+msgid " R"
+msgstr " R"
+
+#: driveruipanels.cpp:134
+#, c-format
+msgid " Speed: %d km/h (limit %d km/h%s)%s"
+msgstr " Prędkość: %d km/h (limit %d km/h%s)%s"
+
+#: driveruipanels.cpp:796 widgets/vehicleparams.cpp:164
+msgid " oil pressure: "
+msgstr " cisń. oleju: "
+
+#: driveruipanels.cpp:883 widgets/vehicleparams.cpp:252
+#, c-format
+msgid " pantograph: %.2f%cMT"
+msgstr " pantograf: %.2f%cZG"
+
+#: driveruipanels.cpp:201
+msgid "!ALERTER! "
+msgstr "!CZUWAK!  "
+
+#: driveruipanels.cpp:205
+msgid "!SHP!"
+msgstr "!SHP!"
+
+#: driveruipanels.cpp:960
+msgid "##Range"
+msgstr "##Zakres"
+
+#: driveruilayer.cpp:47 driveruipanels.cpp:316
+#, c-format
+msgid "%-*.*s    Time: %d:%02d:%02d"
+msgstr "%-*.*s Godzina: %d:%02d:%02d"
+
+#. only bother if there's stations to list
+#: driveruipanels.cpp:390
+msgid "(no timetable)"
+msgstr "(brak rozkładu)"
+
+#: driveruipanels.cpp:126
+#, c-format
+msgid ", new limit: %d km/h in %.1f km"
+msgstr ", nowy limit: %d km/h za %.1f km"
+
+#: driveruipanels.cpp:762
+msgid ", owned by: "
+msgstr ", wlaściciel: "
+
+#: widgets/map.cpp:674
+msgid "A1"
+msgstr "A1"
+
+#: driverhints_def.h:81
+msgid "Acknowledge SHP"
+msgstr "Zbić SHP"
+
+#: driverhints_def.h:80
+msgid "Acknowledge alerter"
+msgstr "Zbić czuwak"
+
+#: driverhints_def.h:104
+msgid "Activate cabin"
+msgstr "Aktywuj kabinę"
+
+#: driverhints_def.h:101
+msgid "Actuate"
+msgstr "Załączyć odluźniacz"
+
+#: launcher/vehicle_picker.cpp:31
+msgid "Animals"
+msgstr "Zwierzęta"
+
+#: widgets/time.cpp:19
+msgid "Apply"
+msgstr "Zastosuj"
+
+#: driverhints_def.h:93
+msgid "Apply anti slip brake"
+msgstr "Załą hamulec przeciwpoślizgowy"
+
+#: driverhints_def.h:91
+msgid "Apply independent brake"
+msgstr "Załączyć hamulec lokomotywy"
+
+#: driverhints_def.h:35
+msgid "Apply manual brake"
+msgstr "Załączyć hamulec ręczny"
+
+#: driverhints_def.h:33
+msgid "Apply spring brake"
+msgstr "Załączyć hamulec sprężynowy"
+
+#: driverhints_def.h:103
+msgid "Apply tractive force to compress buffers"
+msgstr "Zastosować siłę trakcyjną celem ściśnięcia składu"
+
+#: driverhints_def.h:54
+msgid "Apply train brake"
+msgstr "Załączyć hamulec zespolony"
+
+#: driveruipanels.cpp:270
+msgid "Assignment"
+msgstr "Zlecenie"
+
+#: driverhints_def.h:82
+msgid "Attach coupling adapter"
+msgstr "Założyć półsprzęg"
+
+#: Driver.cpp:2036
+msgid "Bank consist ahead"
+msgstr "Popychać skład z przodu"
+
+#: driveruipanels.cpp:854
+#, c-format
+msgid ""
+"Brakes:\n"
+" train: %.2f (mode: %d, delay: %s, load flag: %d)\n"
+" independent: %.2f (%.2f), manual: %.2f, spring: %.2f\n"
+"Brake cylinder pressures:\n"
+" train: %.2f, independent: %.2f, status: 0x%.2x\n"
+"Pipe pressures:\n"
+" brake: %.2f (hat: %.2f), main: %.2f, control: %.2f\n"
+"Tank pressures:\n"
+" auxiliary: %.2f, main: %.2f, control: %.2f"
+msgstr ""
+"Hamulce:\n"
+" zespolony: %.2f (tryb: %d, nastawa: %s, ładunek: %d)\n"
+" pomocniczny: %.2f (%.2f), ręczny: %.2f, sprężynowy: %.2f\n"
+"Ciśnienie w cylindrach:\n"
+" zespolony: %.2f, pomocniczny: %.2f, status: 0x%.2x\n"
+"Ciśnienia w przewodach:\n"
+" główny: %.2f (kapturek: %.2f), zasilający: %.2f, sterujący: %.2f\n"
+"Ciśnienia w zbiornikach:\n"
+" pomocniczny: %.2f, główny: %.2f, sterujący: %.2f"
+
+#: widgets/vehicleparams.cpp:226
+#, c-format
+msgid ""
+"Brakes:\n"
+" train: %.2f, independent: %.2f, mode: %d, delay: %s, load flag: %d\n"
+"Brake cylinder pressures:\n"
+" train: %.2f, independent: %.2f, status: 0x%.2x\n"
+"Pipe pressures:\n"
+" brake: %.2f (hat: %.2f), main: %.2f, control: %.2f\n"
+"Tank pressures:\n"
+" auxiliary: %.2f, main: %.2f, control: %.2f"
+msgstr ""
+"Hamulce:\n"
+" zespolony: %.2f, pomocniczy: %.2f, tryb: %d, nastawa: %s, ładunek: %d\n"
+"Ciśnienie w cylindrach:\n"
+" zespolony: %.2f, pomocniczy: %.2f, status: 0x%.2x\n"
+"Ciśnienia w przewodach:\n"
+" główny: %.2f (kapturek: %.2f), zasilający: %.2f, kontrolny: %.2f\n"
+"Ciśnienia w zbiornikach:\n"
+" pomocniczy: %.2f, główny: %.2f, sterujący: %.2f"
+
+#: driveruipanels.cpp:167
+#, c-format
+msgid "Brakes: %5.1f+%-2.0f%c%s"
+msgstr "Hamulce: %5.1f+%-2.0f%c%s"
+
+#: launcher/vehicle_picker.cpp:28
+msgid "Buses"
+msgstr "Busy"
+
+#: widgets/cameraview_extcam.cpp:13
+msgid "Camera preview"
+msgstr "Podgląd kamery"
+
+#: launcher/vehicle_picker.cpp:26
+msgid "Carriages"
+msgstr "Wagony"
+
+#: launcher/vehicle_picker.cpp:29
+msgid "Cars"
+msgstr "Samochody"
+
+#: Driver.cpp:1998 Driver.cpp:2006
+msgid "Change direction"
+msgstr "Zmienić kierunek jazdy"
+
+#: widgets/map.cpp:527
+msgid "Close -"
+msgstr "Zamknij -"
+
+#: driverhints_def.h:67 driverhints_def.h:69
+msgid "Close doors"
+msgstr "Zamknąć drzwi"
+
+#: driverhints_def.h:25
+msgid "Close line breaker"
+msgstr "Zamknąć wyłącznik szybki"
+
+#: widgets/map.cpp:684
+msgid "Command"
+msgstr "Polecenie"
+
+#: driveruipanels.cpp:379
+#, c-format
+msgid ""
+"Consist weight: %d t (specified) %d t (actual)\n"
+"Consist length: %d m"
+msgstr ""
+"Brutto: %d t (rozkładowe) %d t (rzeczywiste)\n"
+"Długość pociągu: %d m"
+
+#: driveruipanels.cpp:819 widgets/vehicleparams.cpp:178
+#, c-format
+msgid ""
+"Controllers:\n"
+" master: %d(%d), secondary: %s\n"
+"Engine output: %.1f, current: %.0f\n"
+"Revolutions:\n"
+" engine: %.0f, motors: %.0f\n"
+" engine fans: %.0f, motor fans: %.0f+%.0f, cooling fans: %.0f+%.0f"
+msgstr ""
+"Nastawniki:\n"
+" glówny: %d(%d), dodatkowy: %s\n"
+"Moc silnika: %.1f, prąd silnika: %.0f\n"
+"Obroty:\n"
+" silnik: %.0f, motory: %.0f,\n"
+"went. silnika: %.0f, went. motorów: %.0f+%.0f, went. chłodnicy: %.0f+%.0f"
+
+#: Driver.cpp:2007
+msgid "Couple to consist ahead"
+msgstr "Sprząc się ze składem z przodu"
+
+#: launcher/scenery_list.cpp:236 launcher/scenery_list.cpp:419
+msgid "Coupling:"
+msgstr "Sprzęg:"
+
+#: driveruipanels.cpp:234
+msgid "Current task:"
+msgstr "Bieżace zadanie:"
+
+#: widgets/time.cpp:14
+msgid "Day in year"
+msgstr "Dzień w roku"
+
+#: driverhints_def.h:105
+msgid "Deactivate cabin"
+msgstr "Dezaktywuj kabinę"
+
+#: uilayer.cpp:468
+msgid "Debug mode"
+msgstr "Tryb debug"
+
+#: widgets/map.cpp:638
+msgid "Delete obstacle"
+msgstr "Usuń przeszkodę"
+
+#: driveruipanels.cpp:775
+#, c-format
+msgid ""
+"Devices: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+"Power transfers: %.0f@%.0f%s[%.0f]%s%.0f@%.0f :: %.0f@%.0f%s[%.0f]%s%.0f@%.0f"
+msgstr ""
+"Urządzenia: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+"Transfer prądów: %.0f@%.0f%s[%.0f]%s%.0f@%.0f :: %.0f@%.0f%s[%.0f]%s%.0f@%.0f"
+
+#: widgets/vehicleparams.cpp:147
+#, c-format
+msgid ""
+"Devices: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+"Power transfers: %.0f@%.0f%s%s%s%.0f@%.0f"
+msgstr ""
+"Urządzenia: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+"Przepływ prądu: %.0f@%.0f%s%s%s%.0f@%.0f"
+
+#: launcher/vehicle_picker.cpp:19
+msgid "Diesel locos"
+msgstr "Lokomotywy spalinowe"
+
+#: driverhints_def.h:15
+msgid "Disable pantographcs valve"
+msgstr "Zamknąć zawór pantografów"
+
+#: widgets/map.cpp:527
+msgid "Divert /"
+msgstr "W bok /"
+
+#: launcher/vehicle_picker.cpp:24
+msgid "Draisines"
+msgstr "Drezyny"
+
+#: Driver.cpp:2035
+msgid "Drive according to signals and timetable"
+msgstr "Prowadzić skład według sygnałów i rozkładu"
+
+#: driveruilayer.cpp:41
+msgid "Driving Aid"
+msgstr "Pomocnik"
+
+#: launcher/vehicle_picker.cpp:22
+msgid "EMU"
+msgstr "EZT"
+
+#: launcher/vehicle_picker.cpp:18
+msgid "Electric locos"
+msgstr "Lokomotywy elektryczne"
+
+#: widgets/vehicleparams.cpp:297
+#, c-format
+msgid ""
+"Electricity usage:\n"
+" drawn: %.1f kWh\n"
+" returned: %.1f kWh\n"
+" balance: %.1f kWh"
+msgstr ""
+"Zużycie energii:\n"
+" pobrano:    %.1f kWh\n"
+" oddano: %.1f kWh\n"
+" bilans:  %.1f kWh"
+
+#: driverhints_def.h:14
+msgid "Enable pantographs valve"
+msgstr "Otworzyć zawór pantografów"
+
+#: widgets/map.cpp:253
+msgid "Follow camera"
+msgstr "Podążaj za kamerą"
+
+#: widgets/map.cpp:255
+msgid "Follow vehicle"
+msgstr "Podążaj za pojazdem"
+
+#: driveruipanels.cpp:893
+#, c-format
+msgid ""
+"Forces:\n"
+" tractive: %.1f, brake: %.1f, drag: %.2f%s\n"
+"Acceleration:\n"
+" tangential: %.2f, normal: %.2f (path radius: %s)\n"
+"Velocity: %.2f, distance traveled: %.2f\n"
+"Position: [%.2f, %.2f, %.2f]"
+msgstr ""
+"Siły:\n"
+" trakcyjna: %.1f, hamowania: %.1f, tarcie: %.2f%s\n"
+"Przyśpieszenia:\n"
+" styczne: %.2f, normalne: %.2f (promień ścieżki: %s)\n"
+"Prędkość: %.2f, pokonana odległość: %.2f\n"
+"Pozycja: [%.2f, %.2f, %.2f]"
+
+#: widgets/vehicleparams.cpp:260
+#, c-format
+msgid ""
+"Forces:\n"
+" tractive: %.1f, brake: %.1f, friction: %.2f%s\n"
+"Acceleration:\n"
+" tangential: %.2f, normal: %.2f (path radius: %s)\n"
+"Velocity: %.2f, distance traveled: %.2f\n"
+"Position: [%.2f, %.2f, %.2f]"
+msgstr ""
+"Siły:\n"
+" napędna: %.1f, hamowania: %.1f, tarcie: %.2f%s\n"
+"Przyśpieszenia:\n"
+" styczne: %.2f, normalne: %.2f (promień: %s)\n"
+"Prędkość: %.2f, pokonana odleglość: %.2f\n"
+"Pozycja: [%.2f, %.2f, %.2f]"
+
+#: uilayer.cpp:466
+msgid "General"
+msgstr "Ogólne"
+
+#: driverhints_def.h:70 driverhints_def.h:72
+msgid "Grant permit to open doors"
+msgstr "Podać zezwolenie na otwarcie drzwi"
+
+#: launcher/vehicle_picker.cpp:54
+msgid "Group by: "
+msgstr "Grupuj według: "
+
+#: uilayer.cpp:491
+msgid "Headlight config"
+msgstr "Konfiguracja reflektorów"
+
+#: driveruipanels.cpp:283
+msgid "Hints"
+msgstr "Podpowiedzi"
+
+#: launcher/scenery_list.cpp:221
+#, c-format
+msgid "ID: %s"
+msgstr "ID: %s"
+
+#: uilayer.cpp:490
+msgid "ImGui Demo"
+msgstr "Demo ImGui"
+
+#: driverhints_def.h:88
+msgid "Increase braking force"
+msgstr "Zwiększyć siłę hamowania"
+
+#: driverhints_def.h:86
+msgid "Increase tractive force"
+msgstr "Zwiększyć siłę pociągową"
+
+#: widgets/map.cpp:607
+msgid "Insert obstacle:"
+msgstr "Wstaw przeszkodę:"
+
+#: launcher/launcheruilayer.cpp:39 launcher/keymapper.cpp:6
+msgid "Keymapper"
+msgstr "Mapowanie klawiszy"
+
+#: driverhints_def.h:90
+msgid "Lap train brake"
+msgstr "Utrzymać siłę hamującą"
+
+#: launcher/scenery_list.cpp:102
+msgid "Launch"
+msgstr "Uruchom"
+
+#: widgets/map.cpp:660
+msgid "Light signal:"
+msgstr "Sygnał świetlny:"
+
+#: driverhints_def.h:47
+msgid "Link water circuits"
+msgstr "Połączyć obiegi wody"
+
+#: launcher/keymapper.cpp:40
+msgid "Load"
+msgstr "Wczytaj"
+
+#: launcher/scenery_list.cpp:408
+msgid "Load count"
+msgstr "Ilość ładunku"
+
+#: launcher/scenery_list.cpp:401
+msgid "Load type"
+msgstr "Rodzaj ładunku"
+
+#: launcher/scenery_list.cpp:231
+#, c-format
+msgid "Load: %s: %d"
+msgstr "Ładunek: %s: %d"
+
+#: uilayer.cpp:434
+msgid "Loading"
+msgstr "Ładowanie"
+
+#: scenarioloadermode.cpp:89
+msgid "Loading scenery"
+msgstr "Wczytywanie scenerii"
+
+#: uilayer.cpp:488
+msgid "Log"
+msgstr "Log"
+
+#: uilayer.cpp:476
+msgid "Logging to log.txt"
+msgstr "Logowanie do log.txt"
+
+#: Driver.cpp:2034
+msgid "Loose shunt according to signals"
+msgstr "Prowadzić manewry przetaczania odrzutem"
+
+#: driverhints_def.h:17
+msgid "Lower pantograph A"
+msgstr "Opuścić pantograf A"
+
+#: driverhints_def.h:19
+msgid "Lower pantograph B"
+msgstr "Opuścić pantograf B"
+
+#: launcher/launcheruilayer.cpp:34
+msgid "Main menu"
+msgstr "Główne menu"
+
+#: widgets/map.cpp:12
+msgid "Map"
+msgstr "Mapa"
+
+#: driveruilayer.cpp:70
+msgid "Mode windows"
+msgstr "Okna trybu"
+
+#: widgets/vehicleparams.cpp:334
+msgid "Move +500m"
+msgstr "Przesuń +500m"
+
+#: widgets/vehicleparams.cpp:338
+msgid "Move -500m"
+msgstr "Przesuń -500m"
+
+#: launcher/scenery_list.cpp:374
+msgid "Name"
+msgstr "Nazwa"
+
+#: driveruipanels.cpp:760
+#, c-format
+msgid ""
+"Name: %s%s\n"
+"Load: %.0f %s\n"
+"Status: %s%s\n"
+"Couplers:\n"
+" front: %s\n"
+" rear:  %s"
+msgstr ""
+"Nazwa: %s%s\n"
+"Ładunek: %.0f %s\n"
+"Status: %s%s\n"
+"Sprzęgi:\n"
+" przedni: %s\n"
+" tylny:   %s"
+
+#: uilayer.cpp:376
+msgid "No"
+msgstr "Nie"
+
+#: launcher/scenery_list.cpp:109
+msgid "OK"
+msgstr "OK"
+
+#: launcher/scenery_list.cpp:389
+msgid "Occupancy"
+msgstr "Obsada"
+
+#: launcher/scenery_list.cpp:229
+#, c-format
+msgid "Occupied: %s"
+msgstr "Obsada: %s"
+
+#: driverhints_def.h:66 driverhints_def.h:68
+msgid "Open doors"
+msgstr "Otworzyć drzwi"
+
+#: driverhints_def.h:26
+msgid "Open line breaker"
+msgstr "Otworzyć wyłącznik szybki"
+
+#: widgets/map.cpp:523
+msgid "Open |"
+msgstr "Otwórz |"
+
+#: widgets/time.cpp:16
+msgid "Overcast and precipitation"
+msgstr "Zachmurzenie i opady"
+
+#: widgets/map.cpp:251
+msgid "Pan"
+msgstr "Ręcznie"
+
+#: widgets/map.cpp:700
+msgid "Param 1"
+msgstr "Parametr 1"
+
+#: widgets/map.cpp:701
+msgid "Param 2"
+msgstr "Parametr 2"
+
+#: launcher/scenery_list.cpp:415
+msgid "Parameters"
+msgstr "Parametry pojazdu"
+
+#: launcher/scenery_list.cpp:233
+#, c-format
+msgid "Parameters: %s"
+msgstr "Parametry: %s"
+
+#: widgets/map.cpp:668
+msgid "Pc6"
+msgstr "Pc6"
+
+#: launcher/vehicle_picker.cpp:30
+msgid "People"
+msgstr "Ludzie"
+
+#: widgets/perfgraphs.cpp:6
+msgid "Performance"
+msgstr "Wydajność"
+
+#: driveruipanels.cpp:914
+#, c-format
+msgid ""
+"Power use:\n"
+" drawn:    %.1f kWh\n"
+" returned: %.1f kWh\n"
+" balance:  %.1f kWh"
+msgstr ""
+"Zużycie energii:\n"
+" pobrano:    %.1f kWh\n"
+" oddano: %.1f kWh\n"
+" bilans:  %.1f kWh"
+
+#: uilayer.cpp:370 uilayer.cpp:469 launcher/launcheruilayer.cpp:41
+#: driveruilayer.cpp:234
+msgid "Quit"
+msgstr "Wyjdź"
+
+#: uilayer.cpp:371
+msgid "Quit simulation?"
+msgstr "Zakończyć symulację?"
+
+#: widgets/vehicleparams.cpp:305
+msgid "Radiostop"
+msgstr "Radiostop"
+
+#: launcher/vehicle_picker.cpp:21
+msgid "Railcars"
+msgstr "Szynobusy"
+
+#: driverhints_def.h:16
+msgid "Raise pantograph A"
+msgstr "Podnieść pantograf A"
+
+#: driverhints_def.h:18
+msgid "Raise pantograph B"
+msgstr "Podnieść pantograf B"
+
+#: widgets/perfgraphs.cpp:60
+msgid "Range"
+msgstr "Zakres"
+
+#: driverhints_def.h:87
+msgid "Reduce braking force"
+msgstr "Zmniejszyć siłę hamowania"
+
+#: driverhints_def.h:85
+msgid "Reduce tractive force"
+msgstr "Zmniejszyć siłę pociągową"
+
+#: widgets/vehicleparams.cpp:319
+msgid "Refill main tank"
+msgstr "Napełnij ZG"
+
+#: driverhints_def.h:92
+msgid "Release independent brake"
+msgstr "Zwolnić hamulec lokomotywy"
+
+#: driverhints_def.h:36
+msgid "Release manual brake"
+msgstr "Zwolnić hamulec ręczny"
+
+#: driverhints_def.h:34
+msgid "Release spring brake"
+msgstr "Zwolnić hamulec sprężynowy"
+
+#: driverhints_def.h:53
+msgid "Release train brake"
+msgstr "Ustawić hamulec zespolony na pozycję jazdy"
+
+#: driverhints_def.h:89
+msgid "Release train brakes"
+msgstr "Odhamować skład"
+
+#: driverhints_def.h:83
+msgid "Remove coupling adapter"
+msgstr "Zdjąć półsprzęg"
+
+#: driverhints_def.h:22
+msgid "Reset converter overload relay"
+msgstr "Odblokować przekaźnik nadmiarowy przetwornicy"
+
+#: driverhints_def.h:23
+msgid "Reset main circuit ground relay"
+msgstr "Odblokować przekaźnik różnicowy obwodu głównego"
+
+#: widgets/vehicleparams.cpp:313
+msgid "Reset position"
+msgstr "Zresetuj pozycję"
+
+#: driverhints_def.h:24
+msgid "Reset traction motors overload relay"
+msgstr "Odblokować przekaźnik nadmiarowy silników trakcyjnych"
+
+#: driveruilayer.cpp:231
+msgid "Resume"
+msgstr "Wznów"
+
+#: driverhints_def.h:71 driverhints_def.h:73
+msgid "Revoke permit to open doors"
+msgstr "Cofnąć zezwolenie na otwarcie drzwi"
+
+#: widgets/vehicleparams.cpp:323
+msgid "Rupture main pipe"
+msgstr "Zerwij PG"
+
+#: launcher/keymapper.cpp:45
+msgid "Save"
+msgstr "Zapisz"
+
+#: driveruilayer.cpp:43
+msgid "Scenario"
+msgstr "Scenariusz"
+
+#: launcher/scenery_list.cpp:12 launcher/launcheruilayer.cpp:35
+msgid "Scenario list"
+msgstr "Lista scenariuszy"
+
+#: widgets/vehicleparams.cpp:116
+msgid "Screen"
+msgstr "Ekran"
+
+#: uilayer.cpp:482
+msgid "Screenshot"
+msgstr "Zrzut ekranu"
+
+#: launcher/vehicle_picker.cpp:6
+msgid "Select vehicle"
+msgstr "Wybierz pojazd"
+
+#: widgets/map.cpp:702
+msgid "Send"
+msgstr "Wyślij"
+
+#: widgets/map.cpp:683
+msgid "Send command:"
+msgstr "Wyślij polecenie:"
+
+#: driverhints_def.h:52
+msgid "Set brake controller to pipe filling mode"
+msgstr "Ustawić hamulec zespolony na pozycje popełnienia przewodu głównego"
+
+#: driverhints_def.h:37
+msgid "Set engine to idle"
+msgstr "Ustawić nastawnik jazdy na pozycję biegu jałowego"
+
+#: driverhints_def.h:50
+msgid "Set master controller to neutral"
+msgstr "Ustawić nastawnik jazdy na pozycje neutralną"
+
+#: driverhints_def.h:51
+#, c-format
+msgid "Set master controller to position %.0f"
+msgstr "Ustawić nastawnik jazdy na pozycję %.0f"
+
+#: driverhints_def.h:38
+msgid "Set master controller to series mode"
+msgstr "Ustawić nastawnik jazdy na pozycję szeregową"
+
+#: driverhints_def.h:55
+msgid "Set reverser to forward"
+msgstr "Ustawić nawrotnik do przodu"
+
+#: driverhints_def.h:58
+msgid "Set reverser to neutral"
+msgstr "Ustawić nawrotnik na pozycję neutralną"
+
+#: driverhints_def.h:56
+msgid "Set reverser to reverse"
+msgstr "Ustawić nawrotnik do tyłu"
+
+#: Driver.cpp:2033
+msgid "Shunt according to signals"
+msgstr "Prowadzić manewry według sygnałów"
+
+#: Driver.cpp:2005
+msgid "Shut down the engine"
+msgstr "Wyłączyc pojazd"
+
+#. pause/quit modal
+#: driveruilayer.cpp:227
+msgid "Simulation Paused"
+msgstr "Symulacja wstrzymana"
+
+#: launcher/scenery_list.cpp:377
+msgid "Skin"
+msgstr "Malowanie"
+
+#: launcher/scenery_list.cpp:225
+#, c-format
+msgid "Skin: %s"
+msgstr "Malowanie: %s"
+
+#: launcher/vehicle_picker.cpp:182
+#, c-format
+msgid ""
+"Skin: %s\n"
+"Type: %s\n"
+"Carrier code: %s\n"
+"Depot: %s\n"
+"Maintenance: %s, by %s\n"
+"Skin author: %s\n"
+"Photo author: %s"
+msgstr ""
+"Malowanie: %s\n"
+"Typ: %s\n"
+"Kod przewoźnika: %s\n"
+"Szopa: %s\n"
+"Przegląd: %s, by %s\n"
+"Autor tekstury: %s\n"
+"Autor zdjęć: %s"
+
+#: driverhints_def.h:74
+msgid "Sound the horn"
+msgstr "Podać sygnał dźwiękowy"
+
+#: Driver.cpp:2004
+msgid "Start the engine"
+msgstr "Przygotować pojazd do jazdy"
+
+#: launcher/vehicle_picker.cpp:20
+msgid "Steam locos"
+msgstr "Lokomotywy parowe"
+
+#: driverhints_def.h:102
+msgid "Stop actuating"
+msgstr "Wyłączyć odluźniacz"
+
+#: widgets/vehicleparams.cpp:309
+msgid "Stop and repair"
+msgstr "Zatrzymaj i napraw"
+
+#: widgets/map.cpp:523
+msgid "Straight |"
+msgstr "Prosto |"
+
+#: driverhints_def.h:2
+msgid "Switch off battery"
+msgstr "Wyłączyć akumulatory"
+
+#: driverhints_def.h:28
+msgid "Switch off compressor"
+msgstr "Wyłączyć sprężarkę"
+
+#: driverhints_def.h:79
+msgid "Switch off consist heating"
+msgstr "Wyłączyć ogrzewanie pociągu"
+
+#: driverhints_def.h:77
+msgid "Switch off consist lights"
+msgstr "Wyłączyć oświetlenie pociągu"
+
+#: driverhints_def.h:21
+msgid "Switch off converter"
+msgstr "Wyłączyć przetwornicę"
+
+#: driverhints_def.h:65
+msgid "Switch off departure signal"
+msgstr "Wyłączyć sygnał odjazdu"
+
+#: driverhints_def.h:84
+msgid "Switch off field shunting"
+msgstr "Wyłączyć bocznikowanie"
+
+#: driverhints_def.h:30
+msgid "Switch off front motor blowers"
+msgstr "Wyłączyć wentylatory przednich silników trakcyjnych"
+
+#: driverhints_def.h:9
+msgid "Switch off fuel pump"
+msgstr "Wyłączyć pompę paliwa"
+
+#: driverhints_def.h:75
+msgid "Switch off horn"
+msgstr "Wyłączyć syrenę"
+
+#: driverhints_def.h:100
+msgid "Switch off lights"
+msgstr "Wyłączyć światła"
+
+#: driverhints_def.h:7
+msgid "Switch off oil pump"
+msgstr "Wyłączyć pompę oleju"
+
+#: driverhints_def.h:13
+msgid "Switch off pantograph compressor"
+msgstr "Wyłączyć sprężarkę pantografów"
+
+#: driverhints_def.h:4
+msgid "Switch off radio"
+msgstr "Wyłączyć radio"
+
+#: driverhints_def.h:32
+msgid "Switch off rear motor blowers"
+msgstr "Wyłączyć wentylatory tylnich silników trakcyjnych"
+
+#: driverhints_def.h:62
+msgid "Switch off sanding"
+msgstr "Wyłączyć piaskowanie"
+
+#: driverhints_def.h:40
+msgid "Switch off water heater"
+msgstr "Wyłączyć podgrzewacz wody"
+
+#: driverhints_def.h:42
+msgid "Switch off water heater breaker"
+msgstr "Wyłączyć bezpiecznik podgrzewacza wody"
+
+#: driverhints_def.h:44
+msgid "Switch off water pump"
+msgstr "Wyłączyć pompę wody"
+
+#: driverhints_def.h:46
+msgid "Switch off water pump breaker"
+msgstr "Wyłączyć bezpiecznik pompy wody"
+
+#: driverhints_def.h:96
+msgid "Switch on Pc 1 head lamp code"
+msgstr "Zapalić sygnał jazdy rozkładowej Pc1"
+
+#: driverhints_def.h:97
+msgid "Switch on Pc 2 head lamp code"
+msgstr "Zapalić sygnał jazdy rozkładowej Pc2"
+
+#: driverhints_def.h:98
+msgid "Switch on Pc 5 tail lamp code"
+msgstr "Zapalić sygnał końca pociągu Pc5"
+
+#: driverhints_def.h:99
+msgid "Switch on Tb 1 head lamp code"
+msgstr "Zapalić sygnał jazdy manewrowej Tb1"
+
+#: driverhints_def.h:1
+msgid "Switch on battery"
+msgstr "Załączyć akumulatory"
+
+#: driverhints_def.h:27
+msgid "Switch on compressor"
+msgstr "Załączyć sprężarkę"
+
+#: driverhints_def.h:78
+msgid "Switch on consist heating"
+msgstr "Załączyć ogrzewanie pociągu"
+
+#: driverhints_def.h:76
+msgid "Switch on consist lights"
+msgstr "Załączyć oświetlenie pociągu"
+
+#: driverhints_def.h:20
+msgid "Switch on converter"
+msgstr "Załączyć przetwornicę"
+
+#: driverhints_def.h:64
+msgid "Switch on departure signal"
+msgstr "Załączyć sygnał odjazdu"
+
+#: driverhints_def.h:63
+msgid "Switch on door locks"
+msgstr "Załączyć blokadę drzwi"
+
+#: driverhints_def.h:29
+msgid "Switch on front motor blowers"
+msgstr "Załączyć wentylatory przednich silników trakcyjnych"
+
+#: driverhints_def.h:8
+msgid "Switch on fuel pump"
+msgstr "Załączyć pompę paliwa"
+
+#: driverhints_def.h:6
+msgid "Switch on oil pump"
+msgstr "Załączyć pompę oleju"
+
+#: driverhints_def.h:12
+msgid "Switch on pantograph compressor"
+msgstr "Załączyć sprężarkę pantografów"
+
+#: driverhints_def.h:3
+msgid "Switch on radio"
+msgstr "Załączyć radio"
+
+#: driverhints_def.h:31
+msgid "Switch on rear motor blowers"
+msgstr "Załączyć wentylatory tylnich silników trakcyjnych"
+
+#: driverhints_def.h:61
+msgid "Switch on sanding"
+msgstr "Załączyć piaskowanie"
+
+#: driverhints_def.h:39
+msgid "Switch on water heater"
+msgstr "Załączyć podgrzewacz wody"
+
+#: driverhints_def.h:41
+msgid "Switch on water heater breaker"
+msgstr "Załączyć bezpiecznik podgrzewacza wody"
+
+#: driverhints_def.h:43
+msgid "Switch on water pump"
+msgstr "Załączyć pompę wody"
+
+#: driverhints_def.h:45
+msgid "Switch on water pump breaker"
+msgstr "Załączyć bezpiecznik pompy wody"
+
+#: driverhints_def.h:11
+msgid "Switch pantograph 3-way valve to auxiliary air source"
+msgstr "Ustawić kurek trójdrogowy w pozycji napełniania cylindrów pantografów"
+
+#: driverhints_def.h:10
+msgid "Switch pantograph 3-way valve to primary air source"
+msgstr "Ustawić kurek trójdrogowy w pozycji napełniania zbiornika głównego"
+
+#: driverhints_def.h:57
+msgid "Switch reverser to opposite direction"
+msgstr "Ustawić nawrotnik na przeciwną pozycję"
+
+#: widgets/time.cpp:17
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: driveruipanels.cpp:144
+#, c-format
+msgid "Throttle: %3d+%d %c%s"
+msgstr "Nastawnik: %3d+%d %c%s"
+
+#: widgets/time.cpp:13
+msgid "Time"
+msgstr "Czas"
+
+#: widgets/time.cpp:6
+msgid "Time and environment"
+msgstr "Czas i środowisko"
+
+#: widgets/perfgraphs.cpp:12
+msgid "Timer"
+msgstr "Czasomierz"
+
+#: driveruilayer.cpp:74 driveruipanels.cpp:318
+msgid "Timetable"
+msgstr "Rozkład jazdy"
+
+#: uilayer.cpp:472
+msgid "Tools"
+msgstr "Narzędzia"
+
+#: launcher/scenery_list.cpp:108
+msgid "Trainset not occupied"
+msgstr "Skład bez obsady"
+
+#: launcher/vehicle_picker.cpp:25
+msgid "Trams"
+msgstr "Tramwaje"
+
+#: driveruilayer.cpp:51
+msgid "Transcripts"
+msgstr "Transkrypcje"
+
+#: launcher/vehicle_picker.cpp:27
+msgid "Trucks"
+msgstr "Ciężarówki"
+
+#: driverhints_def.h:5
+#, c-format
+msgid "Tune into channel %.0f"
+msgstr "Ustawić radio na kanał %.0f"
+
+#: launcher/scenery_list.cpp:224 launcher/scenery_list.cpp:371
+#, c-format
+msgid "Type: %s"
+msgstr "Typ: %s"
+
+#: Driver.cpp:2029
+#, c-format
+msgid "Uncouple %s"
+msgstr "Odpiąć %s"
+
+#: launcher/vehicle_picker.cpp:32
+msgid "Unknown"
+msgstr "Nieznane"
+
+#: driverhints_def.h:48
+msgid "Unlink water circuits"
+msgstr "Rozłączyć obiegi wody"
+
+#: launcher/vehicle_picker.cpp:23
+msgid "Utility"
+msgstr "Użytkowe"
+
+#: launcher/launcheruilayer.cpp:37 widgets/vehiclelist.cpp:8
+msgid "Vehicle list"
+msgstr "Lista pojazdów"
+
+#: widgets/vehicleparams.cpp:9
+msgid "Vehicle parameters"
+msgstr "Parametry pojazdu"
+
+#: widgets/time.cpp:15
+msgid "Visibility"
+msgstr "Widoczność"
+
+#: driverhints_def.h:95
+msgid "Wait for departure time"
+msgstr "Zaczekać na godzinę odjazdu"
+
+#: driverhints_def.h:59
+msgid "Wait for main reservoir to fill"
+msgstr "Zaczekać na napełnienie zbiornika głównego"
+
+#. done with uncoupling, order should update shortly
+#: Driver.cpp:2003 Driver.cpp:2011
+msgid "Wait for orders"
+msgstr "Oczekiwać dalszych poleceń"
+
+#: driverhints_def.h:94
+msgid "Wait for passenger exchange to complete"
+msgstr "Zaczekać na zakończenie wymiany pasażerskiej"
+
+#: driverhints_def.h:60
+msgid "Wait for sufficient air pressure in pantograph subsystem"
+msgstr "Zaczekać na osiągnięcie ciśnienia potrzebnego do podniesienia pantografów"
+
+#: driverhints_def.h:49
+msgid "Wait for warm up to complete"
+msgstr "Zaczekać na osiągnięcie temperatury roboczej"
+
+#: uilayer.cpp:486
+msgid "Windows"
+msgstr "Okna"
+
+#: uilayer.cpp:372
+msgid "Yes"
+msgstr "Tak"
+
+#: translation.cpp:222
+msgid "alerter"
+msgstr "czuwak"
+
+#: translation.cpp:244
+msgid "all doors (close)"
+msgstr "drzwi (zamknij)"
+
+#: translation.cpp:243
+msgid "all doors (open)"
+msgstr "drzwi (otwórz)"
+
+#: translation.cpp:218
+msgid "all motor blowers"
+msgstr "wszystkie wentylatory silników trakcyjnych"
+
+#: translation.cpp:280
+msgid "all pantographs"
+msgstr "wszystkie pantografy"
+
+#: widgets/vehicleparams.cpp:72
+msgid "bat."
+msgstr "bat."
+
+#: translation.cpp:300 translation.cpp:301 translation.cpp:302
+msgid "battery"
+msgstr "bateria"
+
+#: translation.cpp:204
+msgid "brake acting speed"
+msgstr "nastawa hamulca"
+
+#: translation.cpp:205
+msgid "brake acting speed: cargo"
+msgstr "nastawa hamulca: towarowy"
+
+#: translation.cpp:206
+msgid "brake acting speed: rapid"
+msgstr "nastawa hamulca: pośpieszny"
+
+#: translation.cpp:338
+msgid "brake hose"
+msgstr "przewód hamulcowy"
+
+#: translation.cpp:207
+msgid "brake operation mode"
+msgstr "tryb pracy hamulca"
+
+#: translation.cpp:288
+msgid "braking indicator"
+msgstr "sygnalizacja hamowania"
+
+#: widgets/vehicleparams.cpp:78
+msgid "comp."
+msgstr "komp."
+
+#: translation.cpp:296 translation.cpp:297 translation.cpp:298
+msgid "compartment lights"
+msgstr "oświetlenie przedziału"
+
+#: translation.cpp:260
+msgid "compressor"
+msgstr "sprężarka"
+
+#: translation.cpp:339
+msgid "control"
+msgstr "kontrolny"
+
+#: widgets/vehicleparams.cpp:76
+msgid "conv."
+msgstr "przetw."
+
+#: translation.cpp:262 translation.cpp:264
+msgid "converter"
+msgstr "przetwornica"
+
+#: translation.cpp:232
+msgid "converter overload relay reset"
+msgstr "przekaźnik nadmiarowy przetwornicy"
+
+#: translation.cpp:219
+msgid "cooling fans"
+msgstr "wentylatory oporów rozruchowych"
+
+#: translation.cpp:337
+msgid "coupler"
+msgstr "sprzęg"
+
+#: translation.cpp:299
+msgid "coupling"
+msgstr "sprzęgi"
+
+#: translation.cpp:179 translation.cpp:180
+msgid "cruise control"
+msgstr "tempomat"
+
+#: translation.cpp:183 translation.cpp:184
+msgid "cruise control (power)"
+msgstr "tempomat (moc)"
+
+#: translation.cpp:181 translation.cpp:182 translation.cpp:185
+#: translation.cpp:186 translation.cpp:187 translation.cpp:188
+#: translation.cpp:189 translation.cpp:190 translation.cpp:191
+#: translation.cpp:192 translation.cpp:193 translation.cpp:194
+msgid "cruise control (speed)"
+msgstr "tempomat (prędkość)"
+
+#: translation.cpp:290
+msgid "current indicator source"
+msgstr "prądy drugiego członu"
+
+#: translation.cpp:292
+msgid "dashboard light"
+msgstr "oświetlenie pulpitu"
+
+#: translation.cpp:247
+msgid "departure signal"
+msgstr "sygnal odjazdu"
+
+#: translation.cpp:195
+msgid "distance counter"
+msgstr "licznik odległości"
+
+#: translation.cpp:236
+msgid "door (permit)"
+msgstr "drzwi (zezwól)"
+
+#: translation.cpp:246
+msgid "door control mode"
+msgstr "tryb sterowania drzwiami"
+
+#: translation.cpp:289
+msgid "door locking"
+msgstr "blokada drzwi"
+
+#: translation.cpp:245
+msgid "doorstep"
+msgstr "stopień drzwi"
+
+#: translation.cpp:203
+msgid "emergency brake"
+msgstr "hamulec bezpieczeństwa"
+
+#: translation.cpp:303
+msgid "ep brake"
+msgstr "hamulec EP"
+
+#: uilayer.cpp:80
+msgid "expand"
+msgstr "rozszerz"
+
+#: translation.cpp:336
+msgid "faux"
+msgstr "wirtualny"
+
+#: translation.cpp:214
+msgid "fuel pump"
+msgstr "pompa paliwa"
+
+#: translation.cpp:341
+msgid "gangway"
+msgstr "przejście"
+
+#: launcher/scenery_list.cpp:363
+msgid "headdriver"
+msgstr "maszynista (przednia kabina)"
+
+#: translation.cpp:251
+msgid "headlights dimmer"
+msgstr "przyciemnienie reflektórow"
+
+#: translation.cpp:287 translation.cpp:343
+msgid "heating"
+msgstr "ogrzewanie pociągu"
+
+#: translation.cpp:229
+msgid "high tone horn"
+msgstr "syrena (ton wysoki)"
+
+#: translation.cpp:340
+msgid "high voltage"
+msgstr "wysokiego napięcia"
+
+#: translation.cpp:227 widgets/vehicleparams.cpp:81
+msgid "horn"
+msgstr "syrena"
+
+#: translation.cpp:201
+msgid "independent brake"
+msgstr "hamulec pomocniczy"
+
+#: translation.cpp:224 widgets/vehicleparams.cpp:327
+msgid "independent brake releaser"
+msgstr "odluźniacz"
+
+#: translation.cpp:291
+msgid "instrument light"
+msgstr "oświetlenie przyrządow"
+
+#: translation.cpp:313 translation.cpp:314 translation.cpp:315
+#: translation.cpp:316 translation.cpp:317 translation.cpp:318
+#: translation.cpp:319 translation.cpp:320 translation.cpp:321
+#: translation.cpp:322
+msgid "interactive part"
+msgstr "element ruchomy"
+
+#: translation.cpp:294
+msgid "interior light"
+msgstr "oświetlenie kabiny"
+
+#: translation.cpp:295
+msgid "interior light dimmer"
+msgstr "przyciemnienie oświetlenia kabiny"
+
+#: translation.cpp:237
+msgid "left door"
+msgstr "drzwi lewe"
+
+#: translation.cpp:241
+msgid "left door (close)"
+msgstr "drzwi lewe (zamknij)"
+
+#: translation.cpp:239
+msgid "left door (open)"
+msgstr "drzwi lewe (otwórz)"
+
+#: translation.cpp:234
+msgid "left door (permit)"
+msgstr "drzwi lewe (zezwól)"
+
+#: translation.cpp:249
+msgid "left headlight"
+msgstr "reflektor lewy"
+
+#: translation.cpp:252
+msgid "left marker light"
+msgstr "sygnal lewy"
+
+#: translation.cpp:254
+msgid "light pattern"
+msgstr "programator świateł"
+
+#: translation.cpp:220 translation.cpp:221 translation.cpp:265
+msgid "line breaker"
+msgstr "wyłącznik szybki"
+
+#: translation.cpp:261
+msgid "local compressor"
+msgstr "sprężarka lokalna"
+
+#: translation.cpp:263
+msgid "local converter"
+msgstr "przetwornica lokalna"
+
+#: translation.cpp:228
+msgid "low tone horn"
+msgstr "syrena (ton niski)"
+
+#: translation.cpp:342
+msgid "main hose"
+msgstr "przewód główny"
+
+#: widgets/vehicleparams.cpp:74
+msgid "main."
+msgstr "ws."
+
+#: translation.cpp:202
+msgid "manual brake"
+msgstr "hamulec ręczny"
+
+#: translation.cpp:175 translation.cpp:176
+msgid "master controller"
+msgstr "nastawnik jazdy"
+
+#: translation.cpp:216
+msgid "motor blowers A"
+msgstr "wentylatory silników trakcyjnych A"
+
+#: translation.cpp:217
+msgid "motor blowers B"
+msgstr "wentylatory silników trakcyjnych B"
+
+#: translation.cpp:233
+msgid "motor connectors"
+msgstr "styczniki liniowe"
+
+#: translation.cpp:231
+msgid "motor overload relay reset"
+msgstr "przekaźnik nadmiarowy silników trakcyjnych"
+
+#: translation.cpp:208
+msgid "motor overload relay threshold"
+msgstr "zakres prądu rozruchu"
+
+#: launcher/scenery_list.cpp:366
+msgid "nobody"
+msgstr "nikt"
+
+#: driveruipanels.cpp:971 widgets/map.cpp:662
+msgid "none"
+msgstr "wolny"
+
+#: translation.cpp:215
+msgid "oil pump"
+msgstr "pompa oleju"
+
+#: translation.cpp:286
+msgid "pantograph 3 way valve"
+msgstr "kurek trójdrogowy pantografow"
+
+#: translation.cpp:276 translation.cpp:278
+msgid "pantograph A"
+msgstr "pantograf A"
+
+#: translation.cpp:277 translation.cpp:279
+msgid "pantograph B"
+msgstr "pantograf B"
+
+#: translation.cpp:285
+msgid "pantograph compressor"
+msgstr "sprężarka pantografow"
+
+#: launcher/scenery_list.cpp:365
+msgid "passenger"
+msgstr "pasażer"
+
+#: translation.cpp:344
+msgid "permanent"
+msgstr "permanentny"
+
+#: translation.cpp:346
+msgid "power 110V"
+msgstr "zasilanie 110V"
+
+#: translation.cpp:345
+msgid "power 24V"
+msgstr "zasilanie 24V"
+
+#: translation.cpp:347
+msgid "power 3x400V"
+msgstr "zasilanie 3x400V"
+
+#: translation.cpp:266
+msgid "radio"
+msgstr "radio"
+
+#: translation.cpp:272
+msgid "radio call 3"
+msgstr "zew 3"
+
+#: translation.cpp:267 translation.cpp:268 translation.cpp:269
+msgid "radio channel"
+msgstr "kanał radia"
+
+#: translation.cpp:273 translation.cpp:274 translation.cpp:275
+msgid "radio volume"
+msgstr "głośność radia"
+
+#: translation.cpp:271
+msgid "radiostop"
+msgstr "radiostop"
+
+#: translation.cpp:270
+msgid "radiostop test"
+msgstr "test radiostopu"
+
+#: translation.cpp:256
+msgid "rear left headlight"
+msgstr "tylny reflektor lewy"
+
+#: translation.cpp:258
+msgid "rear left marker light"
+msgstr "tylny sygnal lewy"
+
+#: translation.cpp:257
+msgid "rear right headlight"
+msgstr "tylny reflektor prawy"
+
+#: translation.cpp:259
+msgid "rear right marker light"
+msgstr "tylny sygnal prawy"
+
+#: translation.cpp:255
+msgid "rear upper headlight"
+msgstr "tylny reflektor górny"
+
+#: launcher/scenery_list.cpp:364
+msgid "reardriver"
+msgstr "maszynista (tylnia kabina)"
+
+#: translation.cpp:304 translation.cpp:305 translation.cpp:306
+msgid "relay reset"
+msgstr "reset przekaźnika"
+
+#: translation.cpp:196 translation.cpp:197 translation.cpp:198
+#: translation.cpp:199
+msgid "reverser"
+msgstr "nastawnik kierunku"
+
+#: translation.cpp:238
+msgid "right door"
+msgstr "drzwi prawe"
+
+#: translation.cpp:242
+msgid "right door (close)"
+msgstr "drzwi prawe (zamknij)"
+
+#: translation.cpp:240
+msgid "right door (open)"
+msgstr "drzwi prawe (otwórz)"
+
+#: translation.cpp:235
+msgid "right door (permit)"
+msgstr "drzwi prawe (zezwól)"
+
+#: translation.cpp:250
+msgid "right headlight"
+msgstr "reflektor prawy"
+
+#: translation.cpp:253
+msgid "right marker light"
+msgstr "sygnal prawy"
+
+#: translation.cpp:225
+msgid "sandbox"
+msgstr "piasecznica"
+
+#: translation.cpp:177
+msgid "second controller"
+msgstr "nastawnik dodatkowy"
+
+#: translation.cpp:281 translation.cpp:282 translation.cpp:283
+#: translation.cpp:284
+msgid "selected pantograph"
+msgstr "wybrany pantograf"
+
+#: translation.cpp:223
+msgid "shp"
+msgstr "shp"
+
+#: translation.cpp:178
+msgid "shunt mode power"
+msgstr "sterowanie analogowe"
+
+#: translation.cpp:307 translation.cpp:308 translation.cpp:309
+msgid "spring brake"
+msgstr "hamulec sprężynowy"
+
+#: launcher/vehicle_picker.cpp:59
+msgid "texture group"
+msgstr "grupy tekstur"
+
+#: Driver.cpp:2023
+msgid "the engine"
+msgstr "pojazd prowadzący"
+
+#: Driver.cpp:2019
+#, c-format
+msgid "the engine plus %d next vehicles"
+msgstr "pojazd prowadzący plus %d kolejnych"
+
+#: Driver.cpp:2024
+msgid "the engine plus the next vehicle"
+msgstr "pojazd prowadzący plus kolejny"
+
+#: translation.cpp:293
+msgid "timetable light"
+msgstr "oświetlenie rozkładu jazdy"
+
+#: translation.cpp:200 translation.cpp:310 translation.cpp:311
+#: translation.cpp:312
+msgid "train brake"
+msgstr "hamulec zespolony"
+
+#: launcher/vehicle_picker.cpp:56
+msgid "type"
+msgstr "typu"
+
+#: translation.cpp:350
+msgid "unknown"
+msgstr "nieznane"
+
+#: translation.cpp:248
+msgid "upper headlight"
+msgstr "reflektor gorny"
+
+#: translation.cpp:213
+msgid "water circuits link"
+msgstr "zawór połaczenia obiegow wody"
+
+#: translation.cpp:211
+msgid "water heater"
+msgstr "podgrzewacz wody"
+
+#: translation.cpp:212
+msgid "water heater breaker"
+msgstr "wyłącznik samoczynny podgrzewacza wody"
+
+#: translation.cpp:209
+msgid "water pump"
+msgstr "pompa wody"
+
+#: translation.cpp:210
+msgid "water pump breaker"
+msgstr "wyłącznik samoczynny pompy wody"
+
+#: translation.cpp:226
+msgid "wheelspin brake"
+msgstr "hamulec przeciwpoślizgowy"
+
+#: translation.cpp:230
+msgid "whistle"
+msgstr "gwizdawka"
+
+#~ msgid "tempomat"
+#~ msgstr "tempomat"
+
+#, c-format
+#~ msgid "Throttle:  %2d+%d %c%s"
+#~ msgstr "Nastawnik: %2d+%d %c%s"
+
+#, c-format
+#~ msgid "Brakes:  %4.1f+%-2.0f%c%s"
+#~ msgstr "Hamulce: %4.1f+%-2.0f%c%s"
+
+#, c-format
+#~ msgid ""
+#~ "Devices: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+#~ "Power transfers: %.0f@%.0f%s%s[%.0f]%s%s%.0f@%.0f"
+#~ msgstr ""
+#~ "Urządzenia: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+#~ "Przepływ prądu: %.0f@%.0f%s%s[%.0f]%s%s%.0f@%.0f"
+
+#~ msgid " radio: "
+#~ msgstr " radio: "

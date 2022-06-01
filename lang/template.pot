@@ -1,0 +1,1616 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-02 01:48+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: driveruipanels.cpp:924
+#, c-format
+msgid ""
+"\n"
+" pantograph %d: drawing from: [%s, %s] through: [%.2f, %.2f, %.2f]"
+msgstr ""
+
+#: driveruipanels.cpp:841 widgets/vehicleparams.cpp:200
+#, c-format
+msgid ""
+"\n"
+"Temperatures:\n"
+" engine: %.2f, oil: %.2f, water: %.2f%c%.2f"
+msgstr ""
+
+#: driveruipanels.cpp:823 widgets/vehicleparams.cpp:182
+msgid " (shunt mode)"
+msgstr ""
+
+#: driveruipanels.cpp:193
+#, c-format
+msgid " Another vehicle ahead (distance: %.1f m)"
+msgstr ""
+
+#: driveruipanels.cpp:68
+#, c-format
+msgid " Grade: %.1f%%%%"
+msgstr ""
+
+#: driveruipanels.cpp:184
+#, c-format
+msgid " Loading/unloading in progress (%d s left)"
+msgstr ""
+
+#: driveruipanels.cpp:158
+#, c-format
+msgid " Pressure: %.2f kPa (train pipe: %.2f kPa)"
+msgstr ""
+
+#: driveruipanels.cpp:795
+msgid " R"
+msgstr ""
+
+#: driveruipanels.cpp:134
+#, c-format
+msgid " Speed: %d km/h (limit %d km/h%s)%s"
+msgstr ""
+
+#: driveruipanels.cpp:796 widgets/vehicleparams.cpp:164
+msgid " oil pressure: "
+msgstr ""
+
+#: driveruipanels.cpp:883 widgets/vehicleparams.cpp:252
+#, c-format
+msgid " pantograph: %.2f%cMT"
+msgstr ""
+
+#: driveruipanels.cpp:201
+msgid "!ALERTER! "
+msgstr ""
+
+#: driveruipanels.cpp:205
+msgid "!SHP!"
+msgstr ""
+
+#: driveruipanels.cpp:960
+msgid "##Range"
+msgstr ""
+
+#: driveruilayer.cpp:47 driveruipanels.cpp:316
+#, c-format
+msgid "%-*.*s    Time: %d:%02d:%02d"
+msgstr ""
+
+#. only bother if there's stations to list
+#: driveruipanels.cpp:390
+msgid "(no timetable)"
+msgstr ""
+
+#: driveruipanels.cpp:126
+#, c-format
+msgid ", new limit: %d km/h in %.1f km"
+msgstr ""
+
+#: driveruipanels.cpp:762
+msgid ", owned by: "
+msgstr ""
+
+#: widgets/map.cpp:674
+msgid "A1"
+msgstr ""
+
+#: driverhints_def.h:81
+msgid "Acknowledge SHP"
+msgstr ""
+
+#: driverhints_def.h:80
+msgid "Acknowledge alerter"
+msgstr ""
+
+#: driverhints_def.h:104
+msgid "Activate cabin"
+msgstr ""
+
+#: driverhints_def.h:101
+msgid "Actuate"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:31
+msgid "Animals"
+msgstr ""
+
+#: widgets/time.cpp:19
+msgid "Apply"
+msgstr ""
+
+#: driverhints_def.h:93
+msgid "Apply anti slip brake"
+msgstr ""
+
+#: driverhints_def.h:91
+msgid "Apply independent brake"
+msgstr ""
+
+#: driverhints_def.h:35
+msgid "Apply manual brake"
+msgstr ""
+
+#: driverhints_def.h:33
+msgid "Apply spring brake"
+msgstr ""
+
+#: driverhints_def.h:103
+msgid "Apply tractive force to compress buffers"
+msgstr ""
+
+#: driverhints_def.h:54
+msgid "Apply train brake"
+msgstr ""
+
+#: driveruipanels.cpp:270
+msgid "Assignment"
+msgstr ""
+
+#: driverhints_def.h:82
+msgid "Attach coupling adapter"
+msgstr ""
+
+#: Driver.cpp:2036
+msgid "Bank consist ahead"
+msgstr ""
+
+#: driveruipanels.cpp:854
+#, c-format
+msgid ""
+"Brakes:\n"
+" train: %.2f (mode: %d, delay: %s, load flag: %d)\n"
+" independent: %.2f (%.2f), manual: %.2f, spring: %.2f\n"
+"Brake cylinder pressures:\n"
+" train: %.2f, independent: %.2f, status: 0x%.2x\n"
+"Pipe pressures:\n"
+" brake: %.2f (hat: %.2f), main: %.2f, control: %.2f\n"
+"Tank pressures:\n"
+" auxiliary: %.2f, main: %.2f, control: %.2f"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:226
+#, c-format
+msgid ""
+"Brakes:\n"
+" train: %.2f, independent: %.2f, mode: %d, delay: %s, load flag: %d\n"
+"Brake cylinder pressures:\n"
+" train: %.2f, independent: %.2f, status: 0x%.2x\n"
+"Pipe pressures:\n"
+" brake: %.2f (hat: %.2f), main: %.2f, control: %.2f\n"
+"Tank pressures:\n"
+" auxiliary: %.2f, main: %.2f, control: %.2f"
+msgstr ""
+
+#: driveruipanels.cpp:167
+#, c-format
+msgid "Brakes: %5.1f+%-2.0f%c%s"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:28
+msgid "Buses"
+msgstr ""
+
+#: widgets/cameraview_extcam.cpp:13
+msgid "Camera preview"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:26
+msgid "Carriages"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:29
+msgid "Cars"
+msgstr ""
+
+#: Driver.cpp:1998 Driver.cpp:2006
+msgid "Change direction"
+msgstr ""
+
+#: widgets/map.cpp:527
+msgid "Close -"
+msgstr ""
+
+#: driverhints_def.h:67 driverhints_def.h:69
+msgid "Close doors"
+msgstr ""
+
+#: driverhints_def.h:25
+msgid "Close line breaker"
+msgstr ""
+
+#: widgets/map.cpp:684
+msgid "Command"
+msgstr ""
+
+#: driveruipanels.cpp:379
+#, c-format
+msgid ""
+"Consist weight: %d t (specified) %d t (actual)\n"
+"Consist length: %d m"
+msgstr ""
+
+#: driveruipanels.cpp:819 widgets/vehicleparams.cpp:178
+#, c-format
+msgid ""
+"Controllers:\n"
+" master: %d(%d), secondary: %s\n"
+"Engine output: %.1f, current: %.0f\n"
+"Revolutions:\n"
+" engine: %.0f, motors: %.0f\n"
+" engine fans: %.0f, motor fans: %.0f+%.0f, cooling fans: %.0f+%.0f"
+msgstr ""
+
+#: Driver.cpp:2007
+msgid "Couple to consist ahead"
+msgstr ""
+
+#: launcher/scenery_list.cpp:236 launcher/scenery_list.cpp:419
+msgid "Coupling:"
+msgstr ""
+
+#: driveruipanels.cpp:234
+msgid "Current task:"
+msgstr ""
+
+#: widgets/time.cpp:14
+msgid "Day in year"
+msgstr ""
+
+#: driverhints_def.h:105
+msgid "Deactivate cabin"
+msgstr ""
+
+#: uilayer.cpp:468
+msgid "Debug mode"
+msgstr ""
+
+#: widgets/map.cpp:638
+msgid "Delete obstacle"
+msgstr ""
+
+#: driveruipanels.cpp:775
+#, c-format
+msgid ""
+"Devices: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+"Power transfers: %.0f@%.0f%s[%.0f]%s%.0f@%.0f :: %.0f@%.0f%s[%.0f]%s%.0f@%.0f"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:147
+#, c-format
+msgid ""
+"Devices: %c%c%c%c%c%c%c%c%c%c%c%c%c%c%s%s\n"
+"Power transfers: %.0f@%.0f%s%s%s%.0f@%.0f"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:19
+msgid "Diesel locos"
+msgstr ""
+
+#: driverhints_def.h:15
+msgid "Disable pantographcs valve"
+msgstr ""
+
+#: widgets/map.cpp:527
+msgid "Divert /"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:24
+msgid "Draisines"
+msgstr ""
+
+#: Driver.cpp:2035
+msgid "Drive according to signals and timetable"
+msgstr ""
+
+#: driveruilayer.cpp:41
+msgid "Driving Aid"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:22
+msgid "EMU"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:18
+msgid "Electric locos"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:297
+#, c-format
+msgid ""
+"Electricity usage:\n"
+" drawn: %.1f kWh\n"
+" returned: %.1f kWh\n"
+" balance: %.1f kWh"
+msgstr ""
+
+#: driverhints_def.h:14
+msgid "Enable pantographs valve"
+msgstr ""
+
+#: widgets/map.cpp:253
+msgid "Follow camera"
+msgstr ""
+
+#: widgets/map.cpp:255
+msgid "Follow vehicle"
+msgstr ""
+
+#: driveruipanels.cpp:893
+#, c-format
+msgid ""
+"Forces:\n"
+" tractive: %.1f, brake: %.1f, drag: %.2f%s\n"
+"Acceleration:\n"
+" tangential: %.2f, normal: %.2f (path radius: %s)\n"
+"Velocity: %.2f, distance traveled: %.2f\n"
+"Position: [%.2f, %.2f, %.2f]"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:260
+#, c-format
+msgid ""
+"Forces:\n"
+" tractive: %.1f, brake: %.1f, friction: %.2f%s\n"
+"Acceleration:\n"
+" tangential: %.2f, normal: %.2f (path radius: %s)\n"
+"Velocity: %.2f, distance traveled: %.2f\n"
+"Position: [%.2f, %.2f, %.2f]"
+msgstr ""
+
+#: uilayer.cpp:466
+msgid "General"
+msgstr ""
+
+#: driverhints_def.h:70 driverhints_def.h:72
+msgid "Grant permit to open doors"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:54
+msgid "Group by: "
+msgstr ""
+
+#: uilayer.cpp:491
+msgid "Headlight config"
+msgstr ""
+
+#: driveruipanels.cpp:283
+msgid "Hints"
+msgstr ""
+
+#: launcher/scenery_list.cpp:221
+#, c-format
+msgid "ID: %s"
+msgstr ""
+
+#: uilayer.cpp:490
+msgid "ImGui Demo"
+msgstr ""
+
+#: driverhints_def.h:88
+msgid "Increase braking force"
+msgstr ""
+
+#: driverhints_def.h:86
+msgid "Increase tractive force"
+msgstr ""
+
+#: widgets/map.cpp:607
+msgid "Insert obstacle:"
+msgstr ""
+
+#: launcher/launcheruilayer.cpp:39 launcher/keymapper.cpp:6
+msgid "Keymapper"
+msgstr ""
+
+#: driverhints_def.h:90
+msgid "Lap train brake"
+msgstr ""
+
+#: launcher/scenery_list.cpp:102
+msgid "Launch"
+msgstr ""
+
+#: widgets/map.cpp:660
+msgid "Light signal:"
+msgstr ""
+
+#: driverhints_def.h:47
+msgid "Link water circuits"
+msgstr ""
+
+#: launcher/keymapper.cpp:40
+msgid "Load"
+msgstr ""
+
+#: launcher/scenery_list.cpp:408
+msgid "Load count"
+msgstr ""
+
+#: launcher/scenery_list.cpp:401
+msgid "Load type"
+msgstr ""
+
+#: launcher/scenery_list.cpp:231
+#, c-format
+msgid "Load: %s: %d"
+msgstr ""
+
+#: uilayer.cpp:434
+msgid "Loading"
+msgstr ""
+
+#: scenarioloadermode.cpp:89
+msgid "Loading scenery"
+msgstr ""
+
+#: uilayer.cpp:488
+msgid "Log"
+msgstr ""
+
+#: uilayer.cpp:476
+msgid "Logging to log.txt"
+msgstr ""
+
+#: Driver.cpp:2034
+msgid "Loose shunt according to signals"
+msgstr ""
+
+#: driverhints_def.h:17
+msgid "Lower pantograph A"
+msgstr ""
+
+#: driverhints_def.h:19
+msgid "Lower pantograph B"
+msgstr ""
+
+#: launcher/launcheruilayer.cpp:34
+msgid "Main menu"
+msgstr ""
+
+#: widgets/map.cpp:12
+msgid "Map"
+msgstr ""
+
+#: driveruilayer.cpp:70
+msgid "Mode windows"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:334
+msgid "Move +500m"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:338
+msgid "Move -500m"
+msgstr ""
+
+#: launcher/scenery_list.cpp:374
+msgid "Name"
+msgstr ""
+
+#: driveruipanels.cpp:760
+#, c-format
+msgid ""
+"Name: %s%s\n"
+"Load: %.0f %s\n"
+"Status: %s%s\n"
+"Couplers:\n"
+" front: %s\n"
+" rear:  %s"
+msgstr ""
+
+#: uilayer.cpp:376
+msgid "No"
+msgstr ""
+
+#: launcher/scenery_list.cpp:109
+msgid "OK"
+msgstr ""
+
+#: launcher/scenery_list.cpp:389
+msgid "Occupancy"
+msgstr ""
+
+#: launcher/scenery_list.cpp:229
+#, c-format
+msgid "Occupied: %s"
+msgstr ""
+
+#: driverhints_def.h:66 driverhints_def.h:68
+msgid "Open doors"
+msgstr ""
+
+#: driverhints_def.h:26
+msgid "Open line breaker"
+msgstr ""
+
+#: widgets/map.cpp:523
+msgid "Open |"
+msgstr ""
+
+#: widgets/time.cpp:16
+msgid "Overcast and precipitation"
+msgstr ""
+
+#: widgets/map.cpp:251
+msgid "Pan"
+msgstr ""
+
+#: widgets/map.cpp:700
+msgid "Param 1"
+msgstr ""
+
+#: widgets/map.cpp:701
+msgid "Param 2"
+msgstr ""
+
+#: launcher/scenery_list.cpp:415
+msgid "Parameters"
+msgstr ""
+
+#: launcher/scenery_list.cpp:233
+#, c-format
+msgid "Parameters: %s"
+msgstr ""
+
+#: widgets/map.cpp:668
+msgid "Pc6"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:30
+msgid "People"
+msgstr ""
+
+#: widgets/perfgraphs.cpp:6
+msgid "Performance"
+msgstr ""
+
+#: driveruipanels.cpp:914
+#, c-format
+msgid ""
+"Power use:\n"
+" drawn:    %.1f kWh\n"
+" returned: %.1f kWh\n"
+" balance:  %.1f kWh"
+msgstr ""
+
+#: uilayer.cpp:370 uilayer.cpp:469 launcher/launcheruilayer.cpp:41
+#: driveruilayer.cpp:234
+msgid "Quit"
+msgstr ""
+
+#: uilayer.cpp:371
+msgid "Quit simulation?"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:305
+msgid "Radiostop"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:21
+msgid "Railcars"
+msgstr ""
+
+#: driverhints_def.h:16
+msgid "Raise pantograph A"
+msgstr ""
+
+#: driverhints_def.h:18
+msgid "Raise pantograph B"
+msgstr ""
+
+#: widgets/perfgraphs.cpp:60
+msgid "Range"
+msgstr ""
+
+#: driverhints_def.h:87
+msgid "Reduce braking force"
+msgstr ""
+
+#: driverhints_def.h:85
+msgid "Reduce tractive force"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:319
+msgid "Refill main tank"
+msgstr ""
+
+#: driverhints_def.h:92
+msgid "Release independent brake"
+msgstr ""
+
+#: driverhints_def.h:36
+msgid "Release manual brake"
+msgstr ""
+
+#: driverhints_def.h:34
+msgid "Release spring brake"
+msgstr ""
+
+#: driverhints_def.h:53
+msgid "Release train brake"
+msgstr ""
+
+#: driverhints_def.h:89
+msgid "Release train brakes"
+msgstr ""
+
+#: driverhints_def.h:83
+msgid "Remove coupling adapter"
+msgstr ""
+
+#: driverhints_def.h:22
+msgid "Reset converter overload relay"
+msgstr ""
+
+#: driverhints_def.h:23
+msgid "Reset main circuit ground relay"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:313
+msgid "Reset position"
+msgstr ""
+
+#: driverhints_def.h:24
+msgid "Reset traction motors overload relay"
+msgstr ""
+
+#: driveruilayer.cpp:231
+msgid "Resume"
+msgstr ""
+
+#: driverhints_def.h:71 driverhints_def.h:73
+msgid "Revoke permit to open doors"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:323
+msgid "Rupture main pipe"
+msgstr ""
+
+#: launcher/keymapper.cpp:45
+msgid "Save"
+msgstr ""
+
+#: driveruilayer.cpp:43
+msgid "Scenario"
+msgstr ""
+
+#: launcher/scenery_list.cpp:12 launcher/launcheruilayer.cpp:35
+msgid "Scenario list"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:116
+msgid "Screen"
+msgstr ""
+
+#: uilayer.cpp:482
+msgid "Screenshot"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:6
+msgid "Select vehicle"
+msgstr ""
+
+#: widgets/map.cpp:702
+msgid "Send"
+msgstr ""
+
+#: widgets/map.cpp:683
+msgid "Send command:"
+msgstr ""
+
+#: driverhints_def.h:52
+msgid "Set brake controller to pipe filling mode"
+msgstr ""
+
+#: driverhints_def.h:37
+msgid "Set engine to idle"
+msgstr ""
+
+#: driverhints_def.h:50
+msgid "Set master controller to neutral"
+msgstr ""
+
+#: driverhints_def.h:51
+#, c-format
+msgid "Set master controller to position %.0f"
+msgstr ""
+
+#: driverhints_def.h:38
+msgid "Set master controller to series mode"
+msgstr ""
+
+#: driverhints_def.h:55
+msgid "Set reverser to forward"
+msgstr ""
+
+#: driverhints_def.h:58
+msgid "Set reverser to neutral"
+msgstr ""
+
+#: driverhints_def.h:56
+msgid "Set reverser to reverse"
+msgstr ""
+
+#: Driver.cpp:2033
+msgid "Shunt according to signals"
+msgstr ""
+
+#: Driver.cpp:2005
+msgid "Shut down the engine"
+msgstr ""
+
+#. pause/quit modal
+#: driveruilayer.cpp:227
+msgid "Simulation Paused"
+msgstr ""
+
+#: launcher/scenery_list.cpp:377
+msgid "Skin"
+msgstr ""
+
+#: launcher/scenery_list.cpp:225
+#, c-format
+msgid "Skin: %s"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:182
+#, c-format
+msgid ""
+"Skin: %s\n"
+"Type: %s\n"
+"Carrier code: %s\n"
+"Depot: %s\n"
+"Maintenance: %s, by %s\n"
+"Skin author: %s\n"
+"Photo author: %s"
+msgstr ""
+
+#: driverhints_def.h:74
+msgid "Sound the horn"
+msgstr ""
+
+#: Driver.cpp:2004
+msgid "Start the engine"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:20
+msgid "Steam locos"
+msgstr ""
+
+#: driverhints_def.h:102
+msgid "Stop actuating"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:309
+msgid "Stop and repair"
+msgstr ""
+
+#: widgets/map.cpp:523
+msgid "Straight |"
+msgstr ""
+
+#: driverhints_def.h:2
+msgid "Switch off battery"
+msgstr ""
+
+#: driverhints_def.h:28
+msgid "Switch off compressor"
+msgstr ""
+
+#: driverhints_def.h:79
+msgid "Switch off consist heating"
+msgstr ""
+
+#: driverhints_def.h:77
+msgid "Switch off consist lights"
+msgstr ""
+
+#: driverhints_def.h:21
+msgid "Switch off converter"
+msgstr ""
+
+#: driverhints_def.h:65
+msgid "Switch off departure signal"
+msgstr ""
+
+#: driverhints_def.h:84
+msgid "Switch off field shunting"
+msgstr ""
+
+#: driverhints_def.h:30
+msgid "Switch off front motor blowers"
+msgstr ""
+
+#: driverhints_def.h:9
+msgid "Switch off fuel pump"
+msgstr ""
+
+#: driverhints_def.h:75
+msgid "Switch off horn"
+msgstr ""
+
+#: driverhints_def.h:100
+msgid "Switch off lights"
+msgstr ""
+
+#: driverhints_def.h:7
+msgid "Switch off oil pump"
+msgstr ""
+
+#: driverhints_def.h:13
+msgid "Switch off pantograph compressor"
+msgstr ""
+
+#: driverhints_def.h:4
+msgid "Switch off radio"
+msgstr ""
+
+#: driverhints_def.h:32
+msgid "Switch off rear motor blowers"
+msgstr ""
+
+#: driverhints_def.h:62
+msgid "Switch off sanding"
+msgstr ""
+
+#: driverhints_def.h:40
+msgid "Switch off water heater"
+msgstr ""
+
+#: driverhints_def.h:42
+msgid "Switch off water heater breaker"
+msgstr ""
+
+#: driverhints_def.h:44
+msgid "Switch off water pump"
+msgstr ""
+
+#: driverhints_def.h:46
+msgid "Switch off water pump breaker"
+msgstr ""
+
+#: driverhints_def.h:96
+msgid "Switch on Pc 1 head lamp code"
+msgstr ""
+
+#: driverhints_def.h:97
+msgid "Switch on Pc 2 head lamp code"
+msgstr ""
+
+#: driverhints_def.h:98
+msgid "Switch on Pc 5 tail lamp code"
+msgstr ""
+
+#: driverhints_def.h:99
+msgid "Switch on Tb 1 head lamp code"
+msgstr ""
+
+#: driverhints_def.h:1
+msgid "Switch on battery"
+msgstr ""
+
+#: driverhints_def.h:27
+msgid "Switch on compressor"
+msgstr ""
+
+#: driverhints_def.h:78
+msgid "Switch on consist heating"
+msgstr ""
+
+#: driverhints_def.h:76
+msgid "Switch on consist lights"
+msgstr ""
+
+#: driverhints_def.h:20
+msgid "Switch on converter"
+msgstr ""
+
+#: driverhints_def.h:64
+msgid "Switch on departure signal"
+msgstr ""
+
+#: driverhints_def.h:63
+msgid "Switch on door locks"
+msgstr ""
+
+#: driverhints_def.h:29
+msgid "Switch on front motor blowers"
+msgstr ""
+
+#: driverhints_def.h:8
+msgid "Switch on fuel pump"
+msgstr ""
+
+#: driverhints_def.h:6
+msgid "Switch on oil pump"
+msgstr ""
+
+#: driverhints_def.h:12
+msgid "Switch on pantograph compressor"
+msgstr ""
+
+#: driverhints_def.h:3
+msgid "Switch on radio"
+msgstr ""
+
+#: driverhints_def.h:31
+msgid "Switch on rear motor blowers"
+msgstr ""
+
+#: driverhints_def.h:61
+msgid "Switch on sanding"
+msgstr ""
+
+#: driverhints_def.h:39
+msgid "Switch on water heater"
+msgstr ""
+
+#: driverhints_def.h:41
+msgid "Switch on water heater breaker"
+msgstr ""
+
+#: driverhints_def.h:43
+msgid "Switch on water pump"
+msgstr ""
+
+#: driverhints_def.h:45
+msgid "Switch on water pump breaker"
+msgstr ""
+
+#: driverhints_def.h:11
+msgid "Switch pantograph 3-way valve to auxiliary air source"
+msgstr ""
+
+#: driverhints_def.h:10
+msgid "Switch pantograph 3-way valve to primary air source"
+msgstr ""
+
+#: driverhints_def.h:57
+msgid "Switch reverser to opposite direction"
+msgstr ""
+
+#: widgets/time.cpp:17
+msgid "Temperature"
+msgstr ""
+
+#: driveruipanels.cpp:144
+#, c-format
+msgid "Throttle: %3d+%d %c%s"
+msgstr ""
+
+#: widgets/time.cpp:13
+msgid "Time"
+msgstr ""
+
+#: widgets/time.cpp:6
+msgid "Time and environment"
+msgstr ""
+
+#: widgets/perfgraphs.cpp:12
+msgid "Timer"
+msgstr ""
+
+#: driveruilayer.cpp:74 driveruipanels.cpp:318
+msgid "Timetable"
+msgstr ""
+
+#: uilayer.cpp:472
+msgid "Tools"
+msgstr ""
+
+#: launcher/scenery_list.cpp:108
+msgid "Trainset not occupied"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:25
+msgid "Trams"
+msgstr ""
+
+#: driveruilayer.cpp:51
+msgid "Transcripts"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:27
+msgid "Trucks"
+msgstr ""
+
+#: driverhints_def.h:5
+#, c-format
+msgid "Tune into channel %.0f"
+msgstr ""
+
+#: launcher/scenery_list.cpp:224 launcher/scenery_list.cpp:371
+#, c-format
+msgid "Type: %s"
+msgstr ""
+
+#: Driver.cpp:2029
+#, c-format
+msgid "Uncouple %s"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:32
+msgid "Unknown"
+msgstr ""
+
+#: driverhints_def.h:48
+msgid "Unlink water circuits"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:23
+msgid "Utility"
+msgstr ""
+
+#: launcher/launcheruilayer.cpp:37 widgets/vehiclelist.cpp:8
+msgid "Vehicle list"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:9
+msgid "Vehicle parameters"
+msgstr ""
+
+#: widgets/time.cpp:15
+msgid "Visibility"
+msgstr ""
+
+#: driverhints_def.h:95
+msgid "Wait for departure time"
+msgstr ""
+
+#: driverhints_def.h:59
+msgid "Wait for main reservoir to fill"
+msgstr ""
+
+#. done with uncoupling, order should update shortly
+#: Driver.cpp:2003 Driver.cpp:2011
+msgid "Wait for orders"
+msgstr ""
+
+#: driverhints_def.h:94
+msgid "Wait for passenger exchange to complete"
+msgstr ""
+
+#: driverhints_def.h:60
+msgid "Wait for sufficient air pressure in pantograph subsystem"
+msgstr ""
+
+#: driverhints_def.h:49
+msgid "Wait for warm up to complete"
+msgstr ""
+
+#: uilayer.cpp:486
+msgid "Windows"
+msgstr ""
+
+#: uilayer.cpp:372
+msgid "Yes"
+msgstr ""
+
+#: translation.cpp:222
+msgid "alerter"
+msgstr ""
+
+#: translation.cpp:244
+msgid "all doors (close)"
+msgstr ""
+
+#: translation.cpp:243
+msgid "all doors (open)"
+msgstr ""
+
+#: translation.cpp:218
+msgid "all motor blowers"
+msgstr ""
+
+#: translation.cpp:280
+msgid "all pantographs"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:72
+msgid "bat."
+msgstr ""
+
+#: translation.cpp:300 translation.cpp:301 translation.cpp:302
+msgid "battery"
+msgstr ""
+
+#: translation.cpp:204
+msgid "brake acting speed"
+msgstr ""
+
+#: translation.cpp:205
+msgid "brake acting speed: cargo"
+msgstr ""
+
+#: translation.cpp:206
+msgid "brake acting speed: rapid"
+msgstr ""
+
+#: translation.cpp:338
+msgid "brake hose"
+msgstr ""
+
+#: translation.cpp:207
+msgid "brake operation mode"
+msgstr ""
+
+#: translation.cpp:288
+msgid "braking indicator"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:78
+msgid "comp."
+msgstr ""
+
+#: translation.cpp:296 translation.cpp:297 translation.cpp:298
+msgid "compartment lights"
+msgstr ""
+
+#: translation.cpp:260
+msgid "compressor"
+msgstr ""
+
+#: translation.cpp:339
+msgid "control"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:76
+msgid "conv."
+msgstr ""
+
+#: translation.cpp:262 translation.cpp:264
+msgid "converter"
+msgstr ""
+
+#: translation.cpp:232
+msgid "converter overload relay reset"
+msgstr ""
+
+#: translation.cpp:219
+msgid "cooling fans"
+msgstr ""
+
+#: translation.cpp:337
+msgid "coupler"
+msgstr ""
+
+#: translation.cpp:299
+msgid "coupling"
+msgstr ""
+
+#: translation.cpp:179 translation.cpp:180
+msgid "cruise control"
+msgstr ""
+
+#: translation.cpp:183 translation.cpp:184
+msgid "cruise control (power)"
+msgstr ""
+
+#: translation.cpp:181 translation.cpp:182 translation.cpp:185
+#: translation.cpp:186 translation.cpp:187 translation.cpp:188
+#: translation.cpp:189 translation.cpp:190 translation.cpp:191
+#: translation.cpp:192 translation.cpp:193 translation.cpp:194
+msgid "cruise control (speed)"
+msgstr ""
+
+#: translation.cpp:290
+msgid "current indicator source"
+msgstr ""
+
+#: translation.cpp:292
+msgid "dashboard light"
+msgstr ""
+
+#: translation.cpp:247
+msgid "departure signal"
+msgstr ""
+
+#: translation.cpp:195
+msgid "distance counter"
+msgstr ""
+
+#: translation.cpp:236
+msgid "door (permit)"
+msgstr ""
+
+#: translation.cpp:246
+msgid "door control mode"
+msgstr ""
+
+#: translation.cpp:289
+msgid "door locking"
+msgstr ""
+
+#: translation.cpp:245
+msgid "doorstep"
+msgstr ""
+
+#: translation.cpp:203
+msgid "emergency brake"
+msgstr ""
+
+#: translation.cpp:303
+msgid "ep brake"
+msgstr ""
+
+#: uilayer.cpp:80
+msgid "expand"
+msgstr ""
+
+#: translation.cpp:336
+msgid "faux"
+msgstr ""
+
+#: translation.cpp:214
+msgid "fuel pump"
+msgstr ""
+
+#: translation.cpp:341
+msgid "gangway"
+msgstr ""
+
+#: launcher/scenery_list.cpp:363
+msgid "headdriver"
+msgstr ""
+
+#: translation.cpp:251
+msgid "headlights dimmer"
+msgstr ""
+
+#: translation.cpp:287 translation.cpp:343
+msgid "heating"
+msgstr ""
+
+#: translation.cpp:229
+msgid "high tone horn"
+msgstr ""
+
+#: translation.cpp:340
+msgid "high voltage"
+msgstr ""
+
+#: translation.cpp:227 widgets/vehicleparams.cpp:81
+msgid "horn"
+msgstr ""
+
+#: translation.cpp:201
+msgid "independent brake"
+msgstr ""
+
+#: translation.cpp:224 widgets/vehicleparams.cpp:327
+msgid "independent brake releaser"
+msgstr ""
+
+#: translation.cpp:291
+msgid "instrument light"
+msgstr ""
+
+#: translation.cpp:313 translation.cpp:314 translation.cpp:315
+#: translation.cpp:316 translation.cpp:317 translation.cpp:318
+#: translation.cpp:319 translation.cpp:320 translation.cpp:321
+#: translation.cpp:322
+msgid "interactive part"
+msgstr ""
+
+#: translation.cpp:294
+msgid "interior light"
+msgstr ""
+
+#: translation.cpp:295
+msgid "interior light dimmer"
+msgstr ""
+
+#: translation.cpp:237
+msgid "left door"
+msgstr ""
+
+#: translation.cpp:241
+msgid "left door (close)"
+msgstr ""
+
+#: translation.cpp:239
+msgid "left door (open)"
+msgstr ""
+
+#: translation.cpp:234
+msgid "left door (permit)"
+msgstr ""
+
+#: translation.cpp:249
+msgid "left headlight"
+msgstr ""
+
+#: translation.cpp:252
+msgid "left marker light"
+msgstr ""
+
+#: translation.cpp:254
+msgid "light pattern"
+msgstr ""
+
+#: translation.cpp:220 translation.cpp:221 translation.cpp:265
+msgid "line breaker"
+msgstr ""
+
+#: translation.cpp:261
+msgid "local compressor"
+msgstr ""
+
+#: translation.cpp:263
+msgid "local converter"
+msgstr ""
+
+#: translation.cpp:228
+msgid "low tone horn"
+msgstr ""
+
+#: translation.cpp:342
+msgid "main hose"
+msgstr ""
+
+#: widgets/vehicleparams.cpp:74
+msgid "main."
+msgstr ""
+
+#: translation.cpp:202
+msgid "manual brake"
+msgstr ""
+
+#: translation.cpp:175 translation.cpp:176
+msgid "master controller"
+msgstr ""
+
+#: translation.cpp:216
+msgid "motor blowers A"
+msgstr ""
+
+#: translation.cpp:217
+msgid "motor blowers B"
+msgstr ""
+
+#: translation.cpp:233
+msgid "motor connectors"
+msgstr ""
+
+#: translation.cpp:231
+msgid "motor overload relay reset"
+msgstr ""
+
+#: translation.cpp:208
+msgid "motor overload relay threshold"
+msgstr ""
+
+#: launcher/scenery_list.cpp:366
+msgid "nobody"
+msgstr ""
+
+#: driveruipanels.cpp:971 widgets/map.cpp:662
+msgid "none"
+msgstr ""
+
+#: translation.cpp:215
+msgid "oil pump"
+msgstr ""
+
+#: translation.cpp:286
+msgid "pantograph 3 way valve"
+msgstr ""
+
+#: translation.cpp:276 translation.cpp:278
+msgid "pantograph A"
+msgstr ""
+
+#: translation.cpp:277 translation.cpp:279
+msgid "pantograph B"
+msgstr ""
+
+#: translation.cpp:285
+msgid "pantograph compressor"
+msgstr ""
+
+#: launcher/scenery_list.cpp:365
+msgid "passenger"
+msgstr ""
+
+#: translation.cpp:344
+msgid "permanent"
+msgstr ""
+
+#: translation.cpp:346
+msgid "power 110V"
+msgstr ""
+
+#: translation.cpp:345
+msgid "power 24V"
+msgstr ""
+
+#: translation.cpp:347
+msgid "power 3x400V"
+msgstr ""
+
+#: translation.cpp:266
+msgid "radio"
+msgstr ""
+
+#: translation.cpp:272
+msgid "radio call 3"
+msgstr ""
+
+#: translation.cpp:267 translation.cpp:268 translation.cpp:269
+msgid "radio channel"
+msgstr ""
+
+#: translation.cpp:273 translation.cpp:274 translation.cpp:275
+msgid "radio volume"
+msgstr ""
+
+#: translation.cpp:271
+msgid "radiostop"
+msgstr ""
+
+#: translation.cpp:270
+msgid "radiostop test"
+msgstr ""
+
+#: translation.cpp:256
+msgid "rear left headlight"
+msgstr ""
+
+#: translation.cpp:258
+msgid "rear left marker light"
+msgstr ""
+
+#: translation.cpp:257
+msgid "rear right headlight"
+msgstr ""
+
+#: translation.cpp:259
+msgid "rear right marker light"
+msgstr ""
+
+#: translation.cpp:255
+msgid "rear upper headlight"
+msgstr ""
+
+#: launcher/scenery_list.cpp:364
+msgid "reardriver"
+msgstr ""
+
+#: translation.cpp:304 translation.cpp:305 translation.cpp:306
+msgid "relay reset"
+msgstr ""
+
+#: translation.cpp:196 translation.cpp:197 translation.cpp:198
+#: translation.cpp:199
+msgid "reverser"
+msgstr ""
+
+#: translation.cpp:238
+msgid "right door"
+msgstr ""
+
+#: translation.cpp:242
+msgid "right door (close)"
+msgstr ""
+
+#: translation.cpp:240
+msgid "right door (open)"
+msgstr ""
+
+#: translation.cpp:235
+msgid "right door (permit)"
+msgstr ""
+
+#: translation.cpp:250
+msgid "right headlight"
+msgstr ""
+
+#: translation.cpp:253
+msgid "right marker light"
+msgstr ""
+
+#: translation.cpp:225
+msgid "sandbox"
+msgstr ""
+
+#: translation.cpp:177
+msgid "second controller"
+msgstr ""
+
+#: translation.cpp:281 translation.cpp:282 translation.cpp:283
+#: translation.cpp:284
+msgid "selected pantograph"
+msgstr ""
+
+#: translation.cpp:223
+msgid "shp"
+msgstr ""
+
+#: translation.cpp:178
+msgid "shunt mode power"
+msgstr ""
+
+#: translation.cpp:307 translation.cpp:308 translation.cpp:309
+msgid "spring brake"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:59
+msgid "texture group"
+msgstr ""
+
+#: Driver.cpp:2023
+msgid "the engine"
+msgstr ""
+
+#: Driver.cpp:2019
+#, c-format
+msgid "the engine plus %d next vehicles"
+msgstr ""
+
+#: Driver.cpp:2024
+msgid "the engine plus the next vehicle"
+msgstr ""
+
+#: translation.cpp:293
+msgid "timetable light"
+msgstr ""
+
+#: translation.cpp:200 translation.cpp:310 translation.cpp:311
+#: translation.cpp:312
+msgid "train brake"
+msgstr ""
+
+#: launcher/vehicle_picker.cpp:56
+msgid "type"
+msgstr ""
+
+#: translation.cpp:350
+msgid "unknown"
+msgstr ""
+
+#: translation.cpp:248
+msgid "upper headlight"
+msgstr ""
+
+#: translation.cpp:213
+msgid "water circuits link"
+msgstr ""
+
+#: translation.cpp:211
+msgid "water heater"
+msgstr ""
+
+#: translation.cpp:212
+msgid "water heater breaker"
+msgstr ""
+
+#: translation.cpp:209
+msgid "water pump"
+msgstr ""
+
+#: translation.cpp:210
+msgid "water pump breaker"
+msgstr ""
+
+#: translation.cpp:226
+msgid "wheelspin brake"
+msgstr ""
+
+#: translation.cpp:230
+msgid "whistle"
+msgstr ""
