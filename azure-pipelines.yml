@@ -1,5 +1,7 @@
 jobs:
   - job: packlanguagefiles
+    pool:
+      vmImage: 'ubuntu-20.04'
     displayName: 'Pack and publish translations'
     steps:
     - task: PublishBuildArtifacts@1
