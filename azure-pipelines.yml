@@ -1,4 +1,13 @@
 jobs:
+  - job: packlanguagefiles
+    displayName: 'Pack and publish translations'
+    steps:
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: 'lang'
+        artifactName: 'languagepack'
+      displayName: 'Publish translations'
+
   - job: validateshaders
     pool:
       vmImage: 'ubuntu-20.04'
