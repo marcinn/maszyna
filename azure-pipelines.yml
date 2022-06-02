@@ -7,7 +7,7 @@ jobs:
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: 'lang'
-        artifactName: 'languagepack'
+        artifactName: 'lang'
       displayName: 'Publish translations'
 
   - job: validateshaders
