@@ -1,0 +1,18 @@
+.wy-nav-side, .wy-side-nav-search, .wy-menu-vertical {
+    width: 400px;
+}
+.wy-nav-content-wrap {
+    margin-left: 400px;
+}
+
+.wy-side-scroll {
+    width: 420px;
+}
+
+.wy-side-nav-search, .wy-nav-top {
+    background: #8c9398;
+}
+
+.wy-side-nav-search input[type="text"] {
+    border-color: #fff;
+}
