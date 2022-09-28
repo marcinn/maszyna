@@ -657,6 +657,8 @@ class TSecuritySystem
 
 	bool cabsignal_active = false;
 	bool alerter_active = false;
+    bool allow_disable = false;
+
 	bool pressed = false;
 	bool enabled = false;
 	bool is_sifa = false; // Sifa-like pedal device, with inverted input for convenient keyboard usage
@@ -678,9 +680,11 @@ class TSecuritySystem
 
 public:
 	void set_enabled(bool e);
+    bool is_enabled();
 	void acknowledge_press();
 	void acknowledge_release();
 	void cabsignal_reset();
+    bool can_be_disabled();
 	void update(double dt, double Vel, bool pwr);
 	void set_cabsignal();
 	void set_cabsignal_lock(bool);
@@ -1050,6 +1054,8 @@ private:
 		int MultiTractionCoupler{ 127 }; //Conf: Coupling flag necessary for transmitting the command
 
 	};
+
+    bool SecuritySystemEnabled = true;
 
 public:
 
@@ -1941,6 +1947,8 @@ public:
 	bool LoadFIZ(std::string chkpath);                                                               //Q 20160717    bool LoadChkFile(std::string chkpath);
     bool CheckLocomotiveParameters( bool ReadyFlag, int Dir );
     std::string EngineDescription( int what ) const;
+    void setSecuritySystemEnabled(bool enabled);
+    bool isSecuritySystemEnabled();
 private:
     void LoadFIZ_Param( std::string const &line );
     void LoadFIZ_Load( std::string const &line );

@@ -85,6 +85,10 @@ void TSecuritySystem::set_enabled(bool e) {
 		enabled = e;
 }
 
+bool TSecuritySystem::is_enabled() {
+    return enabled;
+}
+
 void TSecuritySystem::acknowledge_press() {
 	pressed = true;
 
@@ -243,6 +247,8 @@ void TSecuritySystem::load(std::string const &line, double Vmax) {
 		is_sifa = true;
 	if( awaresystem.find( "SeparateAcknowledge" ) != std::string::npos )
 		separate_acknowledge = true;
+	if( awaresystem.find( "AllowDisable" ) != std::string::npos )
+		allow_disable = true;
 
 	extract_value( AwareDelay, "AwareDelay", line, "" );
 	AwareMinSpeed = 0.1 * Vmax; //domyślnie 10% Vmax
@@ -2868,7 +2874,9 @@ bool TMoverParameters::CabActivisation( bool const Enforce )
         CabActive = CabOccupied; // sterowanie jest z kabiny z obsadą
         DirAbsolute = DirActive * CabActive;
 		CabMaster = true;
-        SecuritySystem.set_enabled(true); // activate the alerter TODO: make it part of control based cab selection
+        if(SecuritySystemEnabled) {
+            SecuritySystem.set_enabled(true); // activate the alerter TODO: make it part of control based cab selection
+        }
         SendCtrlToNext("CabActivisation", 1, CabActive);
 		SendCtrlToNext("Direction", DirAbsolute, CabActive);
 		if (InactiveCabFlag & activation::springbrakeoff)
@@ -2919,7 +2927,9 @@ bool TMoverParameters::CabDeactivisation( bool const Enforce )
         DirAbsolute = DirActive * CabActive;
 		CabMaster = false;
         DepartureSignal = false; // nie buczeć z nieaktywnej kabiny
-        SecuritySystem.set_enabled(false); // deactivate alerter TODO: make it part of control based cab selection
+        if(SecuritySystemEnabled) {
+            SecuritySystem.set_enabled(false); // deactivate alerter TODO: make it part of control based cab selection
+        }
 
         SendCtrlToNext("CabActivisation", 0, CabOccupied); // CabActive==0!
     }
@@ -12320,6 +12330,17 @@ double TMoverParameters::ShowCurrentP(int AmpN) const
                     current = static_cast<int>(Couplers[b].Connected->ShowCurrent(AmpN));
         return current;
     }
+}
+
+void TMoverParameters::setSecuritySystemEnabled(bool enabled) {
+    if(SecuritySystem.can_be_disabled()) {
+        SecuritySystemEnabled = enabled;
+        SecuritySystem.set_enabled(enabled);
+    }
+}
+
+bool TMoverParameters::isSecuritySystemEnabled() {
+    return SecuritySystemEnabled;
 }
 
 namespace simulation {

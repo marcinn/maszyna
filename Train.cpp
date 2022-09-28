@@ -269,6 +269,8 @@ TTrain::commandhandler_map const TTrain::m_commandhandlers = {
     { user_command::reverserneutral, &TTrain::OnCommand_reverserneutral },
     { user_command::reverserbackward, &TTrain::OnCommand_reverserbackward },
     { user_command::alerteracknowledge, &TTrain::OnCommand_alerteracknowledge },
+    { user_command::alerterenable, &TTrain::OnCommand_alerterenable },
+    { user_command::alerterdisable, &TTrain::OnCommand_alerterdisable },
     { user_command::cabsignalacknowledge, &TTrain::OnCommand_cabsignalacknowledge },
     { user_command::batterytoggle, &TTrain::OnCommand_batterytoggle },
     { user_command::batteryenable, &TTrain::OnCommand_batteryenable },
@@ -2306,6 +2308,22 @@ void TTrain::OnCommand_alerteracknowledge( TTrain *Train, command_data const &Co
 
         if (Train->mvOccupied->TrainType == dt_EZT || Train->mvOccupied->DirActive != 0)
 			Train->mvOccupied->SecuritySystem.acknowledge_release();
+    }
+}
+
+void TTrain::OnCommand_alerterenable( TTrain *Train, command_data const &Command ) {
+	if( Command.action == GLFW_PRESS ) {
+        if(!Train->mvOccupied->isSecuritySystemEnabled()) {
+            Train->mvOccupied->setSecuritySystemEnabled(true);
+        }
+    }
+}
+
+void TTrain::OnCommand_alerterdisable( TTrain *Train, command_data const &Command ) {
+	if( Command.action == GLFW_PRESS ) {
+        if(Train->mvOccupied->isSecuritySystemEnabled()) {
+            Train->mvOccupied->setSecuritySystemEnabled(false);
+        }
     }
 }
 

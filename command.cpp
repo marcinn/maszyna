@@ -129,6 +129,8 @@ commanddescription_sequence Commands_descriptions = {
 	{ "brakeloadcompensationdecrease", command_target::vehicle, command_mode::oneoff },
 	{ "mubrakingindicatortoggle", command_target::vehicle, command_mode::oneoff },
 	{ "alerteracknowledge", command_target::vehicle, command_mode::oneoff },
+	{ "alerterenable", command_target::vehicle, command_mode::oneoff },
+	{ "alerterdisable", command_target::vehicle, command_mode::oneoff },
 	{ "cabsignalacknowledge", command_target::vehicle, command_mode::oneoff },
 	{ "hornlowactivate", command_target::vehicle, command_mode::oneoff },
 	{ "hornhighactivate", command_target::vehicle, command_mode::oneoff },
