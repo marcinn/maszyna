@@ -25,7 +25,10 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories("."
 "Console"
 "McZapkie"
-"gl"
+"simengine/gl"
+"simengine/renderer"
+"simengine/entities"
+"simengine"
 "ref/glad/include"
 "ref/dds-ktx/include"
 "${CMAKE_BINARY_DIR}/geninc")
@@ -33,9 +36,12 @@ include_directories("."
 file(GLOB HEADERS "*.h"
 "Console/*.h"
 "McZapkie/*.h"
-"gl/*.h"
+"simengine/gl/*.h"
+"simengine/renderer/.h"
+"simengine/entities/.h"
+"simengine/vr/*.h"
+"simengine/*.h"
 "network/*.h"
-"vr/*.h"
 "network/backend/*.h"
 "widgets/*.h"
 "launcher/*.h"
@@ -56,18 +62,59 @@ option(WITH_CRASHPAD "Compile with crashpad" OFF)
 option(USE_LTO "Use link-time optimization" OFF)
 
 set(SOURCES
-"Texture.cpp"
+"simengine/entities/Track.cpp"
+"simengine/entities/Traction.cpp"
+"simengine/entities/TractionPower.cpp"
+"simengine/entities/Train.cpp"
+"simengine/entities/TrkFoll.cpp"
+"simengine/entities/AirCoupler.cpp"
+"simengine/entities/AnimModel.cpp"
+"simengine/entities/Button.cpp"
+"simengine/entities/Gauge.cpp"
+"simengine/entities/Camera.cpp"
+"simengine/entities/Driver.cpp"
+"simengine/entities/Spring.cpp"
+"simengine/entities/Segment.cpp"
+"simengine/entities/Model3d.cpp"
+
+"simengine/renderer/Texture.cpp"
+"simengine/renderer/Float3d.cpp"
+"simengine/renderer/frustum.cpp"
+"simengine/renderer/moon.cpp"
+"simengine/renderer/sky.cpp"
+"simengine/renderer/sun.cpp"
+"simengine/renderer/stars.cpp"
+"simengine/renderer/lightarray.cpp"
+"simengine/renderer/skydome.cpp"
+"simengine/renderer/vertex.cpp"
+"simengine/renderer/openglcamera.cpp"
+"simengine/renderer/material.cpp"
+"simengine/renderer/particles.cpp"
+"simengine/renderer/openglmatrixstack.cpp"
+
+"simengine/geometrybank.cpp"
+"simengine/scene.cpp"
+"simengine/scenenode.cpp"
+"simengine/scenenodegroups.cpp"
+"simengine/audio.cpp"
+"simengine/audiorenderer.cpp"
+"simengine/renderer.cpp"
+"simengine/sound.cpp"
+
+"simengine/gl/shader.cpp"
+"simengine/gl/vao.cpp"
+"simengine/gl/ubo.cpp"
+"simengine/gl/framebuffer.cpp"
+"simengine/gl/renderbuffer.cpp"
+"simengine/gl/postfx.cpp"
+"simengine/gl/cubemap.cpp"
+"simengine/gl/glsl_common.cpp"
+"simengine/gl/buffer.cpp"
+"simengine/gl/fence.cpp"
+"simengine/gl/pbo.cpp"
+"simengine/gl/query.cpp"
+
 "Timer.cpp"
-"Track.cpp"
-"Traction.cpp"
-"TractionPower.cpp"
-"Train.cpp"
-"TrkFoll.cpp"
-"AirCoupler.cpp"
-"AnimModel.cpp"
-"Button.cpp"
-"Camera.cpp"
-"Driver.cpp"
 "driverhints.cpp"
 "dumb3d.cpp"
 "DynObj.cpp"
@@ -75,8 +122,6 @@ set(SOURCES
 "export_e3d_standalone.cpp"
 "Event.cpp"
 "EvLaunch.cpp"
-"Float3d.cpp"
-"Gauge.cpp"
 "Globals.cpp"
 "Logs.cpp"
 "McZapkie/friction.cpp"
@@ -85,39 +130,20 @@ set(SOURCES
 "McZapkie/Oerlikon_ESt.cpp"
 "MdlMngr.cpp"
 "MemCell.cpp"
-"Model3d.cpp"
 "mtable.cpp"
 "parser.cpp"
 "nullrenderer.cpp"
-"renderer.cpp"
 "ResourceManager.cpp"
 "sn_utils.cpp"
-"Segment.cpp"
-"sky.cpp"
-"sun.cpp"
-"stars.cpp"
-"lightarray.cpp"
-"skydome.cpp"
-"sound.cpp"
-"Spring.cpp"
-"frustum.cpp"
 "uilayer.cpp"
-"openglmatrixstack.cpp"
-"moon.cpp"
 "command.cpp"
 "keyboardinput.cpp"
 "gamepadinput.cpp"
 "drivermouseinput.cpp"
 "translation.cpp"
-"material.cpp"
 "stdafx.cpp"
 "messaging.cpp"
-"scene.cpp"
-"scenenode.cpp"
 "simulation.cpp"
-"vertex.cpp"
-"audio.cpp"
-"audiorenderer.cpp"
 "motiontelemetry.cpp"
 "utilities.cpp"
 "uitranscripts.cpp"
@@ -136,20 +162,16 @@ set(SOURCES
 "editoruilayer.cpp"
 "editoruipanels.cpp"
 "scenarioloadermode.cpp"
-"scenenodegroups.cpp"
 "simulationenvironment.cpp"
 "simulationstateserializer.cpp"
 "precipitation.cpp"
 "pythonscreenviewer.cpp"
 "dictionary.cpp"
-"particles.cpp"
 "headtrack.cpp"
 "headtrack.h"
 "ladderlogic.cpp"
-"geometrybank.cpp"
-"openglcolor.cpp"
+"simengine/renderer/openglcolor.cpp"
 "simulationsounds.cpp"
-"openglcamera.cpp"
 
 "network/network.cpp"
 "network/message.cpp"
@@ -168,19 +190,6 @@ set(SOURCES
 "ref/glad/src/glad.c"
 "ref/dds-ktx/src/dds-ktx.c"
 
-"gl/shader.cpp"
-"gl/vao.cpp"
-"gl/ubo.cpp"
-"gl/framebuffer.cpp"
-"gl/renderbuffer.cpp"
-"gl/postfx.cpp"
-"gl/cubemap.cpp"
-"gl/glsl_common.cpp"
-"gl/buffer.cpp"
-"gl/fence.cpp"
-"gl/pbo.cpp"
-"gl/query.cpp"
-
 "imgui/imgui.cpp"
 "imgui/imgui_demo.cpp"
 "imgui/imgui_draw.cpp"
@@ -197,7 +206,7 @@ set(SOURCES
 "launcher/textures_scanner.cpp"
 "launcher/scenery_scanner.cpp"
 
-"vr/vr_interface.cpp"
+"simengine/vr/vr_interface.cpp"
 )
 
 set(SOURCES ${SOURCES} "imgui/imgui_impl_opengl3.cpp")
@@ -234,7 +243,7 @@ endif()
 
 if (WITH_OPENVR)
         add_definitions(-DWITH_OPENVR)
-        set(SOURCES ${SOURCES} "vr/openvr_imp.cpp")
+        set(SOURCES ${SOURCES} "simengine/vr/openvr_imp.cpp")
 endif()
 
 if (WITH_LUA)
@@ -244,23 +253,23 @@ endif()
 
 if (WITH_OPENGL_MODERN)
         set(SOURCES ${SOURCES}
-            "opengl33geometrybank.cpp"
-            "opengl33light.cpp"
-            "opengl33skydome.cpp"
-            "opengl33precipitation.cpp"
-            "opengl33particles.cpp"
-            "opengl33renderer.cpp")
+            "simengine/renderer/opengl33geometrybank.cpp"
+            "simengine/renderer/opengl33light.cpp"
+            "simengine/renderer/opengl33skydome.cpp"
+            "simengine/renderer/opengl33precipitation.cpp"
+            "simengine/renderer/opengl33particles.cpp"
+            "simengine/renderer/opengl33renderer.cpp")
         add_definitions(-DWITH_OPENGL_MODERN)
 endif()
 
 if (WITH_OPENGL_LEGACY)
         set(SOURCES ${SOURCES}
-            "openglgeometrybank.cpp"
-            "opengllight.cpp"
-            "openglskydome.cpp"
-            "openglprecipitation.cpp"
-            "openglparticles.cpp"
-            "openglrenderer.cpp")
+            "simengine/renderer/openglgeometrybank.cpp"
+            "simengine/renderer/opengllight.cpp"
+            "simengine/renderer/openglskydome.cpp"
+            "simengine/renderer/openglprecipitation.cpp"
+            "simengine/renderer/openglparticles.cpp"
+            "simengine/renderer/openglrenderer.cpp")
         add_definitions(-DWITH_OPENGL_LEGACY)
 endif()
 
@@ -316,7 +325,7 @@ if (WIN32)
 	set(PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR} "${DEPS_DIR}/python/include")
 	set(libserialport_INCLUDE_DIR ${LIBSERIALPORT_INCLUDE_DIR} "${DEPS_DIR}/libserialport/include")
 	set(OPENVR_INCLUDE_DIR "${DEPS_DIR}/openvr/include")
-	
+
 	if(${CMAKE_EXE_LINKER_FLAGS} STREQUAL "/machine:x64")
 		set (ARCH "x64")
 	else()
