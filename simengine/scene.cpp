@@ -7,6 +7,7 @@ obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
+#include <future>
 #include "stdafx.h"
 #include "scene.h"
 
@@ -21,6 +22,7 @@ http://mozilla.org/MPL/2.0/.
 #include "sn_utils.h"
 #include "renderer.h"
 #include "widgets/map_objects.h"
+#include "ThreadPool/ThreadPool.h"
 
 namespace scene {
 
@@ -52,7 +54,7 @@ basic_cell::update_traction( TDynamicObject *Vehicle, int const Pantographindex 
 
     auto pantograph = Vehicle->pants[ Pantographindex ].fParamPants;
     auto const pantographposition = position + ( vLeft * pantograph->vPos.z ) + ( vUp * pantograph->vPos.y ) + ( vFront * pantograph->vPos.x );
-    
+
     for( auto *traction : m_directories.traction ) {
 
         // współczynniki równania parametrycznego
@@ -779,6 +781,7 @@ basic_section::serialize( std::ostream &Output ) const {
 // restores content of the class from provided stream
 void
 basic_section::deserialize( std::istream &Input ) {
+    std::lock_guard<std::mutex> guard(_mutex);
 
     // region file version 0, section data
     // bounding area
@@ -1177,6 +1180,10 @@ basic_region::deserialize( std::string const &Scenariofile ) {
     // TBD, TODO: build table of sections and file offsets, if we postpone section loading until they're within range
     // section count
     auto sectioncount { sn_utils::ld_uint32( input ) };
+
+    ThreadPool pool(std::thread::hardware_concurrency());
+    std::vector< std::future<unsigned int> > results;
+
     while( sectioncount-- ) {
         // section index, followed by section data size, followed by section data
         auto const sectionindex { sn_utils::ld_uint32( input ) };
@@ -1184,8 +1191,38 @@ basic_region::deserialize( std::string const &Scenariofile ) {
         if( m_sections[ sectionindex ] == nullptr ) {
             m_sections[ sectionindex ] = new basic_section();
         }
-        m_sections[ sectionindex ]->deserialize( input );
+        std::istream section_stream(input.rdbuf());
+        section_stream.seekg(input.tellg());
+
+        //auto section_deserializer = &m_sections[ sectionindex ]->deserialize;
+        //section->deserialize( section_stream );
+
+        WriteLog("Enqueuing section deserialization " + std::to_string(sectionindex) + " in thread");
+        std::thread t([&] {
+            WriteLog("Deserializing section " + std::to_string(sectionindex));
+            m_sections[sectionindex]->deserialize(section_stream);
+            WriteLog("Section " + std::to_string(sectionindex) + " deserialized.");
+        });
+        t.join();
+        /*
+        results.emplace_back(
+            pool.enqueue([this, &section_stream, sectionindex] {
+                WriteLog("Deserializing section " + std::to_string(sectionindex));
+                m_sections[sectionindex]->deserialize(section_stream);
+                WriteLog("Section " + std::to_string(sectionindex) + " deserialized.");
+                return sectionindex;
+            })
+        );*/
+
     }
+
+    /*
+    WriteLog("Fetching results from threads...");
+    for(auto && result: results) {
+        WriteLog("Section deserialized: " + std::to_string(result.get()));
+    }
+    */
+
 
     return true;
 }

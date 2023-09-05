@@ -301,6 +301,7 @@ public:
 	glm::vec3 find_nearest_track_point(const glm::dvec3 &point);
 
 private:
+    mutable std::mutex _mutex;
 // types
     using cell_array = std::array<basic_cell, (EU07_SECTIONSIZE / EU07_CELLSIZE) * (EU07_SECTIONSIZE / EU07_CELLSIZE)>;
     using shapenode_sequence = std::vector<shape_node>;

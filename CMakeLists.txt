@@ -45,7 +45,8 @@ file(GLOB HEADERS "*.h"
 "network/backend/*.h"
 "widgets/*.h"
 "launcher/*.h"
-"extras/*.h")
+"extras/*.h"
+"ThreadPool/*.h")
 
 if (APPLE)
 	set (CMAKE_FIND_FRAMEWORK LAST)
