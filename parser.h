@@ -120,7 +120,6 @@ class cParser //: public std::stringstream
     std::shared_ptr<cParser> mIncludeParser; // child class to handle include directives.
     std::vector<std::string> parameters; // parameter list for included file.
     std::deque<std::string> tokens;
-	bool allowRandomIncludes = false;
 };
 
 
