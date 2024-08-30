@@ -1027,8 +1027,10 @@ global_settings::ConfigParse(cParser &Parser) {
     if (iPause)
         iTextMode = GLFW_KEY_F1; // jak pauza, to pokazać zegar
 
-#ifndef WITH_PYTHON
+#ifndef WITH_PYTHON2
+#ifndef WITH_PYTHON3
 	python_enabled = false;
+#endif
 #endif
 
 #ifdef _WIN32

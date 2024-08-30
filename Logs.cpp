@@ -103,7 +103,7 @@ void WriteLog( const char *str, logtype const Type ) {
     }
 }
 
-void ErrorLog( const char *str, logtype const Type ) {
+void ErrorLog( const char *str, logtype const Type, const bool newline ) {
 
     if( str == nullptr ) { return; }
     if( true == TestFlag( Global.DisabledLogTypes, static_cast<unsigned int>( Type ) ) ) { return; }
@@ -121,7 +121,10 @@ void ErrorLog( const char *str, logtype const Type ) {
         errors << "EU07.EXE " + Global.asVersion << "\n";
     }
 
-    errors << str << "\n";
+    errors << str;
+    if(newline) {
+        errors << "\n";
+    }
     errors.flush();
 };
 
@@ -140,9 +143,9 @@ void Error(const char *&asMessage, bool box)
     WriteLog(asMessage);
 }
 
-void ErrorLog(const std::string &str, logtype const Type )
+void ErrorLog( const std::string &str, logtype const Type, const bool newline )
 {
-    ErrorLog( str.c_str(), Type );
+    ErrorLog(str.c_str(), Type, newline );
     WriteLog( str.c_str(), Type );
 }
 
@@ -172,5 +175,15 @@ void CommLog(const std::string &str)
 { // Ra: wersja z AnsiString jest zamienna z Error()
     WriteLog(str);
 };
+
+void PythonErrorLog(const char *str, const bool newline) {
+    ErrorLog("python: ", logtype::generic, false);
+    ErrorLog(str);
+}
+
+void PythonErrorLog(const std::string & str, const bool newline) {
+    ErrorLog("python: ", logtype::generic, false);
+    ErrorLog(str);
+}
 
 //---------------------------------------------------------------------------

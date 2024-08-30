@@ -21,14 +21,26 @@ project("eu07")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=undefined -Wformat")
 #set(CMAKE_LD_FLAGS "${CMAKE_LD_FLAGS} -fsanitize=address -fsanitize=undefined")
 
-set(CMAKE_CXX_STANDARD 17)
+add_library(godot_module
+    "McZapkie/friction.cpp"
+    "McZapkie/hamulce.cpp"
+    "McZapkie/Mover.cpp"
+    "McZapkie/Oerlikon_ESt.cpp"
+)
+
+target_include_directories(
+    godot_module PUBLIC
+    "McZapkie"
+)
+
 include_directories("."
 "Console"
 "McZapkie"
 "gl"
 "ref/glad/include"
 "ref/dds-ktx/include"
-"${CMAKE_BINARY_DIR}/geninc")
+"${CMAKE_BINARY_DIR}/geninc"
+)
 
 file(GLOB HEADERS "*.h"
 "Console/*.h"
@@ -39,7 +51,8 @@ file(GLOB HEADERS "*.h"
 "network/backend/*.h"
 "widgets/*.h"
 "launcher/*.h"
-"extras/*.h")
+"extras/*.h"
+)
 
 if (APPLE)
 	set (CMAKE_FIND_FRAMEWORK LAST)

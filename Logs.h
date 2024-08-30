@@ -27,9 +27,12 @@ enum class logtype : unsigned int {
 void WriteLog( const char *str, logtype const Type = logtype::generic );
 void Error( const std::string &asMessage, bool box = false );
 void Error( const char* &asMessage, bool box = false );
-void ErrorLog( const std::string &str, logtype const Type = logtype::generic );
+void ErrorLog( const char *str, logtype const Type = logtype::generic, const bool newline = true);
+void ErrorLog( const std::string &str, logtype const Type = logtype::generic, const bool newline = true);
 void WriteLog( const std::string &str, logtype const Type = logtype::generic );
 void CommLog( const char *str );
 void CommLog( const std::string &str );
+void PythonErrorLog( const char* str, const bool newline = true);
+void PythonErrorLog( const std::string &str, const bool newline = true);
 
 extern std::deque<std::string> log_scrollback;

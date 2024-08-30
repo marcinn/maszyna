@@ -27,7 +27,7 @@ http://mozilla.org/MPL/2.0/.
 #pragma GCC diagnostic ignored "-Wregister"
 #endif
 
-#ifdef WITH_PYTHON
+#ifdef WITH_PYTHON2
 #ifdef _DEBUG
 #undef _DEBUG // bez tego macra Py_DECREF powoduja problemy przy linkowaniu
 #include "Python.h"

@@ -51,9 +51,9 @@ http://mozilla.org/MPL/2.0/.
 #include "utilities.h"
 
 #define PyGetFloat(param) PyFloat_FromDouble(param)
-#define PyGetInt(param) PyInt_FromLong(param)
+#define PyGetInt(param) PyLong_FromLong(param)
 #define PyGetBool(param) param ? Py_True : Py_False
-#define PyGetString(param) PyString_FromString(param)
+#define PyGetString(param) PyUnicode_FromString(param)
 
 // python rendertarget
 struct python_rt {
@@ -134,6 +134,7 @@ private:
     auto fetch_renderer( std::string const Renderer ) -> PyObject *;
 	void run(GLFWwindow *Context, rendertask_sequence &Tasks, uploadtask_sequence &Upload_Tasks, threading::condition_variable &Condition, std::atomic<bool> &Exit );
     void error();
+    void error(const std::string &str);
 // members
     PyObject *m_main { nullptr };
     PyObject *m_stderr { nullptr };

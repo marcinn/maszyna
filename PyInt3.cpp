@@ -19,6 +19,7 @@ http://mozilla.org/MPL/2.0/.
 #pragma GCC diagnostic ignored "-Wwrite-strings"
 #endif
 
+
 void render_task::run() {
 
     // convert provided input to a python dictionary
@@ -62,11 +63,11 @@ void render_task::run() {
         if( ( outputwidth != nullptr )
          && ( outputheight != nullptr )
 		 && m_target) {
-			int width = PyInt_AsLong( outputwidth );
-			int height = PyInt_AsLong( outputheight );
+			long width = PyLong_AsLong( outputwidth );
+			long height = PyLong_AsLong( outputheight );
 			int components, format;
 
-            const unsigned char *image = reinterpret_cast<const unsigned char *>( PyString_AsString( output ) );
+            const unsigned char *image = reinterpret_cast<const unsigned char *>( PyUnicode_AsUTF8( output ) );
 
 			std::lock_guard<std::mutex> guard(m_target->mutex);
 			if (m_target->image)
@@ -74,7 +75,7 @@ void render_task::run() {
 
 			if (!Global.gfx_usegles)
 			{
-				int size = width * height * 3;
+				long size = width * height * 3;
 				format = GL_SRGB8;
 				components = GL_RGB;
 				m_target->image = new unsigned char[size];
@@ -86,10 +87,10 @@ void render_task::run() {
 				components = GL_RGBA;
 				m_target->image = new unsigned char[width * height * 4];
 
-				int w = width;
-				int h = height;
-				for (int y = 0; y < h; y++)
-					for (int x = 0; x < w; x++)
+				long w = width;
+				long h = height;
+				for (long y = 0; y < h; y++)
+					for (long x = 0; x < w; x++)
 					{
 						m_target->image[(y * w + x) * 4 + 0] = image[(y * w + x) * 3 + 0];
 						m_target->image[(y * w + x) * 4 + 1] = image[(y * w + x) * 3 + 1];
@@ -148,52 +149,61 @@ void render_task::cancel() {
 auto python_taskqueue::init() -> bool {
 
 	crashreport_add_info("python.threadedupload", Global.python_threadedupload ? "yes" : "no");
-	crashreport_add_info("python.uploadmain", Global.python_uploadmain ? "yes" : "no");
+    PythonErrorLog("python_taskqueue::init()");
 
 #ifdef _WIN32
 	if (sizeof(void*) == 8)
-		Py_SetPythonHome("python64");
+		Py_SetPythonHome(L"python64");
 	else
-		Py_SetPythonHome("python");
+		Py_SetPythonHome(L"python");
 #elif __linux__
+    /*
 	if (sizeof(void*) == 8)
-		Py_SetPythonHome("linuxpython64");
+		Py_SetPythonHome(L"linuxpython64");
 	else
-		Py_SetPythonHome("linuxpython");
+		Py_SetPythonHome(L"linuxpython");
+    */
 #elif __APPLE__
 	if (sizeof(void*) == 8)
-		Py_SetPythonHome("macpython64");
+		Py_SetPythonHome(L"macpython64");
 	else
-		Py_SetPythonHome("macpython");
+		Py_SetPythonHome(L"macpython");
 #endif
     Py_InitializeEx(0);
-
     PyEval_InitThreads();
 
-	PyObject *stringiomodule { nullptr };
-	PyObject *stringioclassname { nullptr };
-	PyObject *stringioobject { nullptr };
 
-    // do the setup work while we hold the lock
-    m_main = PyImport_ImportModule("__main__");
-    if (m_main == nullptr) {
-        ErrorLog( "Python Interpreter: __main__ module is missing" );
+    PyObject *io_module, *sys_module, *stringio;
+
+
+    io_module = PyImport_ImportModule("io");
+    if(!io_module) {
+        PythonErrorLog( "io module not found" );
+        goto release_and_exit;
+    }
+    stringio = PyObject_GetAttrString(io_module, "StringIO");
+    if(!stringio) {
+        PythonErrorLog( "StringIO not found in `io` module" );
         goto release_and_exit;
     }
 
-    stringiomodule = PyImport_ImportModule( "cStringIO" );
-    stringioclassname = (
-        stringiomodule != nullptr ?
-            PyObject_GetAttrString( stringiomodule, "StringIO" ) :
-            nullptr );
-    stringioobject = (
-        stringioclassname != nullptr ?
-            PyObject_CallObject( stringioclassname, nullptr ) :
-            nullptr );
-    m_stderr = { (
-        stringioobject == nullptr ? nullptr :
-        PySys_SetObject( "stderr", stringioobject ) != 0 ? nullptr :
-        stringioobject ) };
+    sys_module = PyImport_ImportModule("sys");
+    if(!sys_module) {
+        PythonErrorLog( "sys module not found" );
+        goto release_and_exit;
+    }
+
+    m_stderr = PyObject_GetAttrString(sys_module, "stderr");
+    if(!m_stderr) {
+        PythonErrorLog( "stderr not found in `sys` module" );
+        goto release_and_exit;
+    }
+
+    m_main = PyImport_ImportModule("__main__");
+    if (m_main == nullptr) {
+        PythonErrorLog( "Python Interpreter: __main__ module is missing" );
+        goto release_and_exit;
+    }
 
     if( false == run_file( "abstractscreenrenderer" ) ) { goto release_and_exit; }
 
@@ -287,6 +297,8 @@ auto python_taskqueue::insert( task_request const &Task ) -> bool {
 // executes python script stored in specified file. returns true on success
 auto python_taskqueue::run_file( std::string const &File, std::string const &Path ) -> bool {
 
+    std::cout << "python: run_file ";
+    std::cout << File;
     auto const lookup { FileExists( { Path + File, "python/local/" + File }, { ".py" } ) };
     if( lookup.first.empty() ) { return false; }
 
@@ -295,7 +307,7 @@ auto python_taskqueue::run_file( std::string const &File, std::string const &Pat
     input.assign( std::istreambuf_iterator<char>( inputfile ), std::istreambuf_iterator<char>() );
 
     if( PyRun_SimpleString( input.c_str() ) != 0 ) {
-        error();
+        error("Error running script: " + File);
         return false;
     }
 
@@ -329,7 +341,7 @@ auto python_taskqueue::fetch_renderer( std::string const Renderer ) ->PyObject *
     acquire_lock();
     {
         if( m_main == nullptr ) {
-            ErrorLog( "Python Renderer: __main__ module is missing" );
+            PythonErrorLog( "Python Renderer: __main__ module is missing" );
             goto cache_and_return;
         }
 
@@ -338,18 +350,19 @@ auto python_taskqueue::fetch_renderer( std::string const Renderer ) ->PyObject *
         }
         renderername = PyObject_GetAttrString( m_main, file.c_str() );
         if( renderername == nullptr ) {
-            ErrorLog( "Python Renderer: class \"" + file + "\" not defined" );
+            PythonErrorLog( "Python Renderer: class \"" + file + "\" not defined" );
             goto cache_and_return;
         }
         rendererarguments = Py_BuildValue( "(s)", path.c_str() );
         if( rendererarguments == nullptr ) {
-            ErrorLog( "Python Renderer: failed to create initialization arguments" );
+            PythonErrorLog( "Python Renderer: failed to create initialization arguments" );
             goto cache_and_return;
         }
         renderer = PyObject_CallObject( renderername, rendererarguments );
 
         if( PyErr_Occurred() != nullptr ) {
-            error();
+            const std::string _err = "Error running python renderer: ";
+            error(_err + PyUnicode_AsUTF8(renderername));
             renderer = nullptr;
         }
 
@@ -371,9 +384,11 @@ void python_taskqueue::run( GLFWwindow *Context, rendertask_sequence &Tasks, upl
 		glfwMakeContextCurrent( Context );
 
     // create a state object for this thread
+    PyGILState_STATE gstate = PyGILState_Ensure();
     PyEval_AcquireLock();
     auto *threadstate { PyThreadState_New( m_mainthread->interp ) };
     PyEval_ReleaseLock();
+    //PyGILState_Release(gstate);
 
     render_task *task { nullptr };
 
@@ -406,7 +421,7 @@ void python_taskqueue::run( GLFWwindow *Context, rendertask_sequence &Tasks, upl
 						Upload_Tasks.data.push_back(task);
 					}
 					if( PyErr_Occurred() != nullptr )
-						error();
+						error("Error while uploading python task");
                 }
                 // clear the thread state
                 PyEval_SaveThread();
@@ -418,11 +433,13 @@ void python_taskqueue::run( GLFWwindow *Context, rendertask_sequence &Tasks, upl
         Condition.wait_for( std::chrono::seconds( 5 ) );
     }
     // clean up thread state data
+    //PyGILState_STATE gstate2 = PyGILState_Ensure();
     PyEval_AcquireLock();
     PyThreadState_Swap( nullptr );
     PyThreadState_Clear( threadstate );
     PyThreadState_Delete( threadstate );
     PyEval_ReleaseLock();
+    PyGILState_Release(gstate);
 }
 
 void python_taskqueue::update()
@@ -435,43 +452,30 @@ void python_taskqueue::update()
 	m_uploadtasks.data.clear();
 }
 
-void
-python_taskqueue::error() {
+void python_taskqueue::error() {
+    error("");
+};
 
-    if( m_stderr != nullptr ) {
-        // std err pythona jest buforowane
-        PyErr_Print();
-        auto *errortext { PyObject_CallMethod( m_stderr, "getvalue", nullptr ) };
-        ErrorLog( PyString_AsString( errortext ) );
-        // czyscimy bufor na kolejne bledy
-        PyObject_CallMethod( m_stderr, "truncate", "i", 0 );
-    }
-    else {
+void python_taskqueue::error(const std::string &str) {
+
+        std::cout << "\npython error:\n";
+        std::cout << "***" << str << " *** \n";
+
         // nie dziala buffor pythona
+        PyObject *exc = PyErr_GetRaisedException();
+        PyErr_DisplayException(exc);
+        PyErr_Clear();
+
+        /*
         PyObject *type, *value, *traceback;
-        PyErr_Fetch( &type, &value, &traceback );
-        if( type == nullptr ) {
-            ErrorLog( "Python Interpreter: don't know how to handle null exception" );
-        }
-        PyErr_NormalizeException( &type, &value, &traceback );
-        if( type == nullptr ) {
-            ErrorLog( "Python Interpreter: don't know how to handle null exception" );
-        }
-        auto *typetext { PyObject_Str( type ) };
-        if( typetext != nullptr ) {
-            ErrorLog( PyString_AsString( typetext ) );
-        }
-        if( value != nullptr ) {
-            ErrorLog( PyString_AsString( value ) );
-        }
-        auto *tracebacktext { PyObject_Str( traceback ) };
-        if( tracebacktext != nullptr ) {
-            ErrorLog( PyString_AsString( tracebacktext ) );
-        }
-        else {
-            WriteLog( "Python Interpreter: failed to retrieve the stack traceback" );
-        }
-    }
+        std::cout << "python error; traceback";
+        traceback = PyException_GetTraceback(exc);
+        std::cout << "python error; logging exc";
+        PythonErrorLog(PyUnicode_AsUTF8(exc));
+        std::cout << "python error; logging traceback";
+        PythonErrorLog(PyUnicode_AsUTF8(traceback));
+        std::cout << "python error; finished";
+        */
 }
 
 #ifdef __GNUC__
